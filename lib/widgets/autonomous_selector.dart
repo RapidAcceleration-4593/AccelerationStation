@@ -59,8 +59,8 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               fontFamily: DashboardTheme.font,
               shadows: [
                 Shadow(
-                  blurRadius: 10.0,
-                  color: Color.fromARGB(150, 0, 200, 200),
+                  blurRadius: 20.0,
+                  color: Color.fromARGB(255, 0, 160, 200),
                   offset: Offset(0.0, 0.0)
                 )
               ]
@@ -70,7 +70,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 2),
+              border: Border.all(color: Colors.white, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
@@ -81,7 +81,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedStartPosition = newValue;
-                  widget.dashboardState.setAutoPos(selectedStartPosition!);
+                  widget.dashboardState.setAutoStartPos(selectedStartPosition!);
                 });
               },
               items: startPositions.map<DropdownMenuItem<String>>((String value) {
@@ -104,6 +104,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,
+                      color: Colors.grey
                     ),
                   );
                 }).toList();
@@ -114,7 +115,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 2),
+              border: Border.all(color: Colors.white, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
@@ -125,7 +126,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedScorePosition = newValue;
-                  widget.dashboardState.setAutoPos(selectedScorePosition!);
+                  widget.dashboardState.setAutoScorePos(selectedScorePosition!);
                 });
               },
               items: scorePositions.map<DropdownMenuItem<String>>((String value) {
@@ -148,6 +149,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,
+                      color: Colors.grey
                     ),
                   );
                 }).toList();
@@ -158,7 +160,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 2),
+              border: Border.all(color: Colors.white, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
@@ -169,7 +171,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedFuelPickup = newValue;
-                  widget.dashboardState.setAutoPos(selectedFuelPickup!);
+                  widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
                 });
               },
               items: fuelPickup.map<DropdownMenuItem<String>>((String value) {
@@ -192,6 +194,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,
+                      color: Colors.grey
                     ),
                   );
                 }).toList();
@@ -202,7 +205,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 2),
+              border: Border.all(color: Colors.white, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
@@ -213,7 +216,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               onChanged: (String? newValue) {
                 setState(() {
                   selectedClimbPosition = newValue;
-                  widget.dashboardState.setAutoPos(selectedClimbPosition!);
+                  widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
                 });
               },
               items: climbPositions.map<DropdownMenuItem<String>>((String value) {
@@ -236,6 +239,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,
+                      color: Colors.grey
                     ),
                   );
                 }).toList();

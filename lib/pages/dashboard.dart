@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/widgets/autonomous_selector.dart';
+import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';
 import 'package:accelerationstation/widgets/shift_timer.dart';
@@ -54,16 +55,20 @@ class Dashboard extends StatelessWidget {
                     child: Stack(
                       children: [
                         Align(
+                          alignment: Alignment.center,
+                          child: HubWidget(dashboardState: dashboardState)
+                        ),
+                        Align(
                           alignment: Alignment.topCenter,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 24),
+                            padding: const EdgeInsets.only(top: 20),
                             child: ShiftTimer(dashboardState: dashboardState),
                           ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 24),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: MatchTimer(dashboardState: dashboardState),
                           ),
                         ),

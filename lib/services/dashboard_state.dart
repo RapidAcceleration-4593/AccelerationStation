@@ -37,6 +37,10 @@ class DashboardState {
     }
   }
 
+  Stream<bool> hubEnabled() async* {
+    yield true;
+  }
+
   Stream<bool> isRedAlliance() async* {
     await for (final value in _redAllianceSub.stream()) {
       if (value is bool) yield value;
@@ -55,15 +59,27 @@ class DashboardState {
     }
   }
 
-  void setAutonomous(String autonName) {
-    client.addSample(_autonPub, autonName);
-  }
+  // void setAutonomous(String autonName) {
+  //   client.addSample(_autonPub, autonName);
+  // }
 
-  void setAutoPos(String pos) {
+  void setAutoStartPos(String pos) {
     // things
   }
 
-  void setPoseId(int poseId) {
-    client.addSample(_poseIdPub, poseId);
+  void setAutoScorePos(String pos) {
+
   }
+
+  void setAutoFuelPickup(String option) {
+
+  }
+
+  void setAutoClimbPos(String pos) {
+
+  }
+
+  // void setPoseId(int poseId) {
+  //   client.addSample(_poseIdPub, poseId);
+  // }
 }
