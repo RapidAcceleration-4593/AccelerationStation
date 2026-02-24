@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardTheme {
-  static const font = "Cascadia Code";
+  static const font = "JetBrainsMono";
 
   static const footerText = TextStyle(
     fontFamily: font,

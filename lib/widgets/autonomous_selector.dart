@@ -17,12 +17,13 @@ class AutonomousSelector extends StatefulWidget {
 }
 
 class _AutonomousSelectorState extends State<AutonomousSelector> {
-  final List<String> autonomousOptions = [
-    'Do Nothing',
-    'Example',
+  final List<String> autonomousPositions = [
+    'Left',
+    'Center',
+    'Right',
   ];
 
-  String? selectedAuton = 'Do Nothing';
+  String? selectedPos = 'Left';
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +31,22 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
       padding: const EdgeInsets.only(left: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "Select Autonomous",
+            "- Select Autonomous -",
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              fontWeight: FontWeight.normal,
               fontFamily: DashboardTheme.font,
+              shadows: [
+                Shadow(
+                  blurRadius: 10.0,
+                  color: Color.fromARGB(150, 0, 200, 200),
+                  offset: Offset(0.0, 0.0)
+                )
+              ]
             ),
           ),
           const SizedBox(height: 8),
@@ -48,17 +57,19 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
-              value: selectedAuton,
+              alignment: AlignmentGeometry.center,
+              value: selectedPos,
               isExpanded: true,
               underline: Container(),
               onChanged: (String? newValue) {
                 setState(() {
-                  selectedAuton = newValue;
-                  widget.dashboardState.setAutonomous(selectedAuton!);
+                  selectedPos = newValue;
+                  widget.dashboardState.setAutoPos(selectedPos!);
                 });
               },
-              items: autonomousOptions.map<DropdownMenuItem<String>>((String value) {
+              items: autonomousPositions.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
+                  alignment: AlignmentGeometry.center,
                   value: value,
                   child: Text(
                     value,
@@ -69,6 +80,17 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                   ),
                 );
               }).toList(),
+              selectedItemBuilder: (BuildContext context) {
+                return autonomousPositions.map<Widget>((String value) {
+                  return Text(
+                    "Auto Position: $value",
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  );
+                }).toList();
+              },
             ),
           ),
         ],

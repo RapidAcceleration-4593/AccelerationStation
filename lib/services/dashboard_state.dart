@@ -59,6 +59,10 @@ class DashboardState {
     client.addSample(_autonPub, autonName);
   }
 
+  void setAutoPos(String pos) {
+    // things
+  }
+
   void setPoseId(int poseId) {
     client.addSample(_poseIdPub, poseId);
   }

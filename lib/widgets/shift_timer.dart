@@ -2,10 +2,10 @@ import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:flutter/material.dart';
 
-class MatchTimer extends StatelessWidget {
+class ShiftTimer extends StatelessWidget {
   final DashboardState dashboardState;
 
-  const MatchTimer({
+  const ShiftTimer({
     super.key,
     required this.dashboardState,
   });
@@ -35,19 +35,11 @@ class MatchTimer extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '- Match Timer -',
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 20,
-                    color: Colors.grey
-                  ),
-                ),
-                Text(
                   timeString,
                   style: const TextStyle(
                     fontFamily: DashboardTheme.font,
                     letterSpacing: -8,
-                    fontSize: 180,
+                    fontSize: 130,
                     height: 1.0,
                     shadows: [
                       Shadow(
@@ -57,7 +49,15 @@ class MatchTimer extends StatelessWidget {
                       )
                     ]
                   ),
-                )
+                ),
+                Text(
+                  '- Shift Timer -',
+                  style: const TextStyle(
+                    fontFamily: DashboardTheme.font,
+                    fontSize: 15,
+                    color: Colors.grey
+                  ),
+                ),
               ]
             ),
           ),
