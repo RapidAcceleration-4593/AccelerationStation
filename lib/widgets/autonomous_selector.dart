@@ -17,18 +17,35 @@ class AutonomousSelector extends StatefulWidget {
 }
 
 class _AutonomousSelectorState extends State<AutonomousSelector> {
-  final List<String> autonomousPositions = [
+  final List<String> startPositions = [
+    'Left',
+    'Center',
+    'Right',
+  ];
+  final List<String> scorePositions = [
+    'Left',
+    'Center',
+    'Right',
+  ];
+  final List<String> fuelPickup = [
+    "This",
+    "That"
+  ];
+  final List<String> climbPositions = [
     'Left',
     'Center',
     'Right',
   ];
 
-  String? selectedPos = 'Left';
+  String? selectedStartPosition = 'Left';
+  String? selectedScorePosition = 'Left';
+  String? selectedFuelPickup = 'This';
+  String? selectedClimbPosition = 'Left';
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0),
+      padding: const EdgeInsets.only(left: 0.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,21 +70,21 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.grey, width: 2),
               borderRadius: BorderRadius.circular(10),
             ),
             child: DropdownButton<String>(
               alignment: AlignmentGeometry.center,
-              value: selectedPos,
+              value: selectedStartPosition,
               isExpanded: true,
               underline: Container(),
               onChanged: (String? newValue) {
                 setState(() {
-                  selectedPos = newValue;
-                  widget.dashboardState.setAutoPos(selectedPos!);
+                  selectedStartPosition = newValue;
+                  widget.dashboardState.setAutoPos(selectedStartPosition!);
                 });
               },
-              items: autonomousPositions.map<DropdownMenuItem<String>>((String value) {
+              items: startPositions.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   alignment: AlignmentGeometry.center,
                   value: value,
@@ -81,9 +98,141 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                 );
               }).toList(),
               selectedItemBuilder: (BuildContext context) {
-                return autonomousPositions.map<Widget>((String value) {
+                return startPositions.map<Widget>((String value) {
                   return Text(
-                    "Auto Position: $value",
+                    "Start Position: $value",
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DropdownButton<String>(
+              alignment: AlignmentGeometry.center,
+              value: selectedScorePosition,
+              isExpanded: true,
+              underline: Container(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedScorePosition = newValue;
+                  widget.dashboardState.setAutoPos(selectedScorePosition!);
+                });
+              },
+              items: scorePositions.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  alignment: AlignmentGeometry.center,
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  ),
+                );
+              }).toList(),
+              selectedItemBuilder: (BuildContext context) {
+                return scorePositions.map<Widget>((String value) {
+                  return Text(
+                    "Score Position: $value",
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DropdownButton<String>(
+              alignment: AlignmentGeometry.center,
+              value: selectedFuelPickup,
+              isExpanded: true,
+              underline: Container(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedFuelPickup = newValue;
+                  widget.dashboardState.setAutoPos(selectedFuelPickup!);
+                });
+              },
+              items: fuelPickup.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  alignment: AlignmentGeometry.center,
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  ),
+                );
+              }).toList(),
+              selectedItemBuilder: (BuildContext context) {
+                return fuelPickup.map<Widget>((String value) {
+                  return Text(
+                    "Fuel Pickup: $value",
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: DropdownButton<String>(
+              alignment: AlignmentGeometry.center,
+              value: selectedClimbPosition,
+              isExpanded: true,
+              underline: Container(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedClimbPosition = newValue;
+                  widget.dashboardState.setAutoPos(selectedClimbPosition!);
+                });
+              },
+              items: climbPositions.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  alignment: AlignmentGeometry.center,
+                  value: value,
+                  child: Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontFamily: DashboardTheme.font,
+                    ),
+                  ),
+                );
+              }).toList(),
+              selectedItemBuilder: (BuildContext context) {
+                return climbPositions.map<Widget>((String value) {
+                  return Text(
+                    "Climb Position: $value",
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,
