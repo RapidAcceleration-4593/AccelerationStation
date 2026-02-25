@@ -16,7 +16,7 @@ class AutonomousSelector extends StatefulWidget {
   State<AutonomousSelector> createState() => _AutonomousSelectorState();
 }
 
-class _AutonomousSelectorState extends State<AutonomousSelector> {
+class _AutonomousSelectorState extends State<AutonomousSelector> {  
   final List<String> startPositions = [
     'Left',
     'Center',
@@ -37,10 +37,26 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Right',
   ];
 
-  String? selectedStartPosition = 'Left';
-  String? selectedScorePosition = 'Left';
-  String? selectedFuelPickup = 'This';
-  String? selectedClimbPosition = 'Left';
+  String? selectedStartPosition;
+  String? selectedScorePosition;
+  String? selectedFuelPickup;
+  String? selectedClimbPosition;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedStartPosition = startPositions.first;
+    selectedScorePosition = scorePositions.first;
+    selectedFuelPickup = fuelPickup.first;
+    selectedClimbPosition = climbPositions.first;
+
+    // Optional: push defaults to dashboard state immediately
+    widget.dashboardState.setAutoStartPos(selectedStartPosition!);
+    widget.dashboardState.setAutoScorePos(selectedScorePosition!);
+    widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
+    widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
+  }
 
   @override
   Widget build(BuildContext context) {
