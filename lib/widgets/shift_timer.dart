@@ -62,43 +62,75 @@ class ShiftTimer extends StatelessWidget {
           timeString = '$mins:${secs.toString().padLeft(2, '0')}';
         }
 
-        return Container(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(132, 0, 0, 0),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitHeight,
-            child: Column(
-              children: [
-                Text(
-                  timeString,
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    letterSpacing: -8,
-                    fontSize: 130,
-                    height: 1.0,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 20.0,
-                        color: Color.fromARGB(150, 0, 140, 200),
-                        offset: Offset(0.0, 0.0)
-                      )
-                    ]
-                  ),
+        Color leftColor = const Color.fromARGB(80, 33, 149, 243);
+        Color rightColor = const Color.fromARGB(80, 244, 67, 54);
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                padding: EdgeInsets.only(bottom: 100),
+                decoration: BoxDecoration(
+                  color: leftColor
                 ),
-                Text(
-                  hintText,
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 15,
-                    color: Colors.grey
-                  ),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
                 ),
-              ]
+              ),
             ),
-          ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(132, 0, 0, 0),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Column(
+                  children: [
+                    Text(
+                      timeString,
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        letterSpacing: -8,
+                        fontSize: 130,
+                        height: 1.0,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 20.0,
+                            color: Color.fromARGB(150, 0, 140, 200),
+                            offset: Offset(0.0, 0.0)
+                          )
+                        ]
+                      ),
+                    ),
+                    Text(
+                      hintText,
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        fontSize: 15,
+                        color: Colors.grey
+                      ),
+                    ),
+                  ]
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                padding: EdgeInsets.only(bottom: 100),
+                decoration: BoxDecoration(
+                  color: rightColor
+                ),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
