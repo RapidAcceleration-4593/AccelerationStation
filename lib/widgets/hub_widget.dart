@@ -13,7 +13,7 @@ class HubWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: dashboardState.hubEnabled(),
+      stream: dashboardState.isHubEnabled(),
       builder: (context, snapshot) {
         final enabled = snapshot.data ?? false;
 

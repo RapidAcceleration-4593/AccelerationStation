@@ -14,6 +14,7 @@ class DashboardState {
 
   // Subscibers
   late final NT4Subscription _redAllianceSub;
+  late final NT4Subscription _autoEnabledSub;
   late final NT4Subscription _matchTimeSub;
   late final NT4Subscription _dsSub;
   late final NT4Subscription _fmsSub;
@@ -27,6 +28,7 @@ class DashboardState {
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _redAllianceSub = client.subscribePeriodic('/FMSInfo/IsRedAlliance', 1.0);
+    _autoEnabledSub = client.subscribePeriodic('/AdvantageKit/DriverStation/Autonomous', 1.0);
     _matchTimeSub = client.subscribePeriodic('/AdvantageKit/DriverStation/MatchTime', 1.0);
     _dsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/DSAttached', 1.0);
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
@@ -62,16 +64,17 @@ class DashboardState {
     }
   }
 
-  Stream<bool> hubEnabled() async* {
+  Stream<bool> isHubEnabled() async* {
     await for (final _ in _matchTimeSub.stream()) {
 
       final gsm = _gsm;
       if (gsm.isEmpty) continue;
 
       if (_gameTime <= 30.0 || _gameTime > 130.0) {
-        yield false;
+        yield true;
         continue;
       }
+
       if ((_gameTime > 30.0 && _gameTime <= 55.0) || (_gameTime > 80.0 && _gameTime <= 105.0)) {
         switch (gsm) {
           case 'B':
@@ -94,6 +97,12 @@ class DashboardState {
     }
   }
 
+  Stream<bool> isAutoEnabled() async* {
+    await for (final value in _autoEnabledSub.stream()) {
+      if (value is bool) yield value;
+    }
+  }
+
   Stream<bool> isRedAlliance() async* {
     await for (final value in _redAllianceSub.stream()) {
       if (value is bool) yield value;
@@ -112,27 +121,19 @@ class DashboardState {
     }
   }
 
-  // void setAutonomous(String autonName) {
-  //   client.addSample(_autonPub, autonName);
-  // }
-
   void setAutoStartPos(String pos) {
-    // things
+    client.addSample(_autonStartPub, pos);
   }
 
   void setAutoScorePos(String pos) {
-
+    client.addSample(_autonScorePub, pos);
   }
 
   void setAutoFuelPickup(String option) {
-
+    client.addSample(_autonFuelPub, option);
   }
 
   void setAutoClimbPos(String pos) {
-
+    client.addSample(_autonClimbPub, pos);
   }
-
-  // void setPoseId(int poseId) {
-  //   client.addSample(_poseIdPub, poseId);
-  // }
 }

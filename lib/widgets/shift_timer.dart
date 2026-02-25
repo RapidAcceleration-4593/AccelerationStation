@@ -1,6 +1,7 @@
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ShiftTimer extends StatelessWidget {
   final DashboardState dashboardState;
@@ -12,14 +13,51 @@ class ShiftTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: dashboardState.matchTime(),
-      builder: (context, snapshot) {
-        String timeString = '0:00';
+    final combinedStream = Rx.combineLatest2<double, bool, Map<String, dynamic>>(
+      dashboardState.matchTime(),
+      dashboardState.isAutoEnabled(),
+      (matchTime, autoEnabled) => {
+        'time': matchTime,
+        'autoEnabled': autoEnabled,
+      },
+    );
 
-        if (snapshot.hasData && snapshot.data != -1) {
-          int mins = (snapshot.data! / 60).floor();
-          int secs = (snapshot.data! % 60).floor();
+    return StreamBuilder<Map<String, dynamic>>(
+      stream: combinedStream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return const SizedBox();
+
+        double time = snapshot.data!['time'] as double;
+        final bool autoEnabled = snapshot.data!['autoEnabled'] as bool;
+
+        String hintText = '- Shift Timer -';
+        if (time > 0.0 && time <= 30.0) hintText = '- ENDGAME -';
+        if (time > 30.0 && time <= 55.0) {
+          hintText = '- Shift 4 -';
+          time -= 30.0;
+        }
+        if (time > 55.0 && time <= 80.0) {
+          hintText = '- Shift 3 -';
+          time -= 55.0;
+        }
+        if (time > 80.0 && time <= 105.0) {
+          hintText = '- Shift 2 -';
+          time -= 80.0;
+        }
+        if (time > 105.0 && time <= 130.0) {
+          hintText = '- Shift 1 -';
+          time -= 105.0;
+        }
+        if (time > 130.0 && time <= 140.0) {
+          hintText = '- Transition Shift -';
+          time -= 130.0;
+        }
+        if (autoEnabled) hintText = '- Autonomous -';
+
+        String timeString = '0:00';
+        if (time != -1) {
+          int mins = (time / 60).floor();
+          int secs = (time % 60).floor();
 
           timeString = '$mins:${secs.toString().padLeft(2, '0')}';
         }
@@ -51,7 +89,7 @@ class ShiftTimer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '- Shift Timer -',
+                  hintText,
                   style: const TextStyle(
                     fontFamily: DashboardTheme.font,
                     fontSize: 15,
