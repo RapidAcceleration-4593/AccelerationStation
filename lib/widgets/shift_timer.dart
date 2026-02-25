@@ -27,7 +27,7 @@ class ShiftTimer extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: const Color.fromARGB(132, 0, 0, 0),
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: FittedBox(

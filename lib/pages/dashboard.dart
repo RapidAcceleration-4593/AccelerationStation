@@ -28,7 +28,7 @@ class Dashboard extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Container(
                       color: Colors.black,
                       child: Stack(
@@ -56,19 +56,22 @@ class Dashboard extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.center,
-                          child: HubWidget(dashboardState: dashboardState)
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 38),
+                            child: HubWidget(dashboardState: dashboardState)
+                          )
                         ),
                         Align(
                           alignment: Alignment.topCenter,
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
+                            padding: const EdgeInsets.only(top: 10),
                             child: ShiftTimer(dashboardState: dashboardState),
-                          ),
+                          )
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: MatchTimer(dashboardState: dashboardState),
                           ),
                         ),

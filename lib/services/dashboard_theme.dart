@@ -5,7 +5,7 @@ class DashboardTheme {
 
   static const footerText = TextStyle(
     fontFamily: font,
-    fontSize: 16,
+    fontSize: 14,
     color: Colors.grey
   );
 
