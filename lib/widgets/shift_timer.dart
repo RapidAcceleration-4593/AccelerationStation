@@ -13,57 +13,89 @@ class ShiftTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final combinedStream = Rx.combineLatest2<double, bool, Map<String, dynamic>>(
+    final combinedStream = Rx.combineLatest4<double, bool, bool, bool, Map<String, dynamic>>(
       dashboardState.matchTime(),
       dashboardState.isAutoEnabled(),
-      (matchTime, autoEnabled) => {
+      dashboardState.isRedAlliance(),
+      dashboardState.isHubEnabled(),
+      (matchTime, autoEnabled, redAlliance, hubEnabled) => {
         'time': matchTime,
         'autoEnabled': autoEnabled,
+        'redAlliance': redAlliance,
+        'hubEnabled': hubEnabled
       },
     );
 
     return StreamBuilder<Map<String, dynamic>>(
       stream: combinedStream,
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return const SizedBox();
-
-        double time = snapshot.data!['time'] as double;
-        final bool autoEnabled = snapshot.data!['autoEnabled'] as bool;
-
         String hintText = '- Shift Timer -';
-        if (time > 0.0 && time <= 30.0) hintText = '- ENDGAME -';
-        if (time > 30.0 && time <= 55.0) {
-          hintText = '- Shift 4 -';
-          time -= 30.0;
-        }
-        if (time > 55.0 && time <= 80.0) {
-          hintText = '- Shift 3 -';
-          time -= 55.0;
-        }
-        if (time > 80.0 && time <= 105.0) {
-          hintText = '- Shift 2 -';
-          time -= 80.0;
-        }
-        if (time > 105.0 && time <= 130.0) {
-          hintText = '- Shift 1 -';
-          time -= 105.0;
-        }
-        if (time > 130.0 && time <= 140.0) {
-          hintText = '- Transition Shift -';
-          time -= 130.0;
-        }
-        if (autoEnabled) hintText = '- Autonomous -';
 
         String timeString = '0:00';
-        if (time != -1) {
-          int mins = (time / 60).floor();
-          int secs = (time % 60).floor();
 
-          timeString = '$mins:${secs.toString().padLeft(2, '0')}';
+        Color leftColor = const Color.fromARGB(50, 33, 149, 243);
+        Color rightColor = const Color.fromARGB(50, 244, 67, 54);
+
+        if (snapshot.hasData) {
+          final double matchTime = snapshot.data!['time'] as double;
+          final bool autoEnabled = snapshot.data!['autoEnabled'] as bool;
+          final bool redAlliance = snapshot.data!['redAlliance'] as bool;
+          final bool hubEnabled = snapshot.data!['hubEnabled'] as bool;
+
+          if (matchTime != -1.0) {
+            double time = matchTime;
+
+            if (time > 0.0 && time <= 30.0) {
+              hintText = '- ENDGAME -';
+              leftColor = Colors.blue;
+              rightColor = Colors.red;
+            }
+            if (time > 30.0 && time <= 55.0) {
+              hintText = '- Shift 4 -';
+              time -= 30.0;
+            }
+            if (time > 55.0 && time <= 80.0) {
+              hintText = '- Shift 3 -';
+              time -= 55.0;
+            }
+            if (time > 80.0 && time <= 105.0) {
+              hintText = '- Shift 2 -';
+              time -= 80.0;
+            }
+            if (time > 105.0 && time <= 130.0) {
+              hintText = '- Shift 1 -';
+              time -= 105.0;
+            }
+            if (time > 130.0 && time <= 140.0) {
+              hintText = '- Transition Shift -';
+              time -= 130.0;
+              leftColor = Colors.blue;
+              rightColor = Colors.red;
+            }
+            if (autoEnabled) hintText = '- Autonomous -';
+
+            if (time != -1) {
+              int mins = (time / 60).floor();
+              int secs = (time % 60).floor();
+
+              timeString = '$mins:${secs.toString().padLeft(2, '0')}';
+            }
+
+            if (redAlliance == hubEnabled) {
+              if (redAlliance) {
+                rightColor = Colors.red;
+              } else {
+                leftColor = Colors.blue;
+              }
+            } else {
+              if (redAlliance) {
+                leftColor = Colors.blue;
+              } else {
+                rightColor = Colors.red;
+              }
+            }
+          }
         }
-
-        Color leftColor = const Color.fromARGB(80, 33, 149, 243);
-        Color rightColor = const Color.fromARGB(80, 244, 67, 54);
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
