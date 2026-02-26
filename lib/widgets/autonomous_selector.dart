@@ -22,7 +22,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Center',
     'Right',
   ];
-  final List<String> fuelPickup = [
+  final List<String> fuelPickupOptions = [
     'Center',
     'Depot',
     'Outpost',
@@ -36,20 +36,20 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
   String? selectedStartPosition;
   String? selectedFuelPickup;
-  String? selectedClimbPosition;
+  String? selectedClimbOption;
 
   @override
   void initState() {
     super.initState();
 
     selectedStartPosition = startPositions.first;
-    selectedFuelPickup = fuelPickup.first;
-    selectedClimbPosition = climbOptions.first;
+    selectedFuelPickup = fuelPickupOptions.first;
+    selectedClimbOption = climbOptions.first;
 
-    // Optional: push defaults to dashboard state immediately
+    // Push defaults to dashboard state.
     widget.dashboardState.setAutoStartPos(selectedStartPosition!);
     widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
-    widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
+    widget.dashboardState.setAutoClimbPos(selectedClimbOption!);
   }
 
   @override
@@ -77,139 +77,34 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             ),
           ),
           const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<String>(
-              alignment: AlignmentGeometry.center,
-              value: selectedStartPosition,
-              isExpanded: true,
-              underline: Container(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedStartPosition = newValue;
-                  widget.dashboardState.setAutoStartPos(selectedStartPosition!);
-                });
-              },
-              items: startPositions.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  alignment: AlignmentGeometry.center,
-                  value: value,
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                    ),
-                  ),
-                );
-              }).toList(),
-              selectedItemBuilder: (BuildContext context) {
-                return startPositions.map<Widget>((String value) {
-                  return Text(
-                    "Start Position: $value",
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                      color: Colors.grey
-                    ),
-                  );
-                }).toList();
-              },
-            ),
+          _buildDropdown(
+            label: 'Start Position: ',
+            options: startPositions,
+            selectedValue: selectedStartPosition,
+            onChanged: (value) {
+              selectedStartPosition = value;
+              widget.dashboardState.setAutoStartPos(selectedStartPosition!);
+            },
           ),
           const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<String>(
-              alignment: AlignmentGeometry.center,
-              value: selectedFuelPickup,
-              isExpanded: true,
-              underline: Container(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedFuelPickup = newValue;
-                  widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
-                });
-              },
-              items: fuelPickup.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  alignment: AlignmentGeometry.center,
-                  value: value,
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                    ),
-                  ),
-                );
-              }).toList(),
-              selectedItemBuilder: (BuildContext context) {
-                return fuelPickup.map<Widget>((String value) {
-                  return Text(
-                    "Fuel Pickup: $value",
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                      color: Colors.grey
-                    ),
-                  );
-                }).toList();
-              },
-            ),
+          _buildDropdown(
+            label: 'Fuel Pickup: ',
+            options: fuelPickupOptions,
+            selectedValue: selectedFuelPickup,
+            onChanged: (value) {
+              selectedFuelPickup = value;
+              widget.dashboardState.setAutoFuelPickup(selectedClimbOption!);
+            },
           ),
           const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<String>(
-              alignment: AlignmentGeometry.center,
-              value: selectedClimbPosition,
-              isExpanded: true,
-              underline: Container(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedClimbPosition = newValue;
-                  widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
-                });
-              },
-              items: climbOptions.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  alignment: AlignmentGeometry.center,
-                  value: value,
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                    ),
-                  ),
-                );
-              }).toList(),
-              selectedItemBuilder: (BuildContext context) {
-                return climbOptions.map<Widget>((String value) {
-                  return Text(
-                    "Climb Position: $value",
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                      color: Colors.grey
-                    ),
-                  );
-                }).toList();
-              },
-            ),
+          _buildDropdown(
+            label: 'Climb Position: ',
+            options: climbOptions,
+            selectedValue: selectedClimbOption,
+            onChanged: (value) {
+              selectedClimbOption = value;
+              widget.dashboardState.setAutoClimbPos(selectedClimbOption!);
+            },
           ),
           const SizedBox(height: 24),
           Container(
@@ -230,9 +125,60 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
       ),
     );
   }
-}
 
-String getAutoRoutine(String startPos, String fuelPickup, String climb) {
-  final String auto = startPos + fuelPickup + climb;
-  return '';
+  Widget _buildDropdown({
+    required String label,
+    required List<String> options,
+    required String? selectedValue,
+    required ValueChanged<String> onChanged,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: DropdownButton<String>(
+        alignment: AlignmentGeometry.center,
+        value: selectedValue,
+        isExpanded: true,
+        underline: Container(),
+        onChanged: (value) {
+          if (value != null) {
+            setState(() => onChanged(value));
+          }
+        },
+        items: options.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            alignment: AlignmentGeometry.center,
+            value: value,
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 28,
+                fontFamily: DashboardTheme.font,
+              ),
+            ),
+          );
+        }).toList(),
+        selectedItemBuilder: (BuildContext context) {
+          return options.map<Widget>((String value) {
+            return Text(
+              "$label$value",
+              style: const TextStyle(
+                fontSize: 28,
+                fontFamily: DashboardTheme.font,
+                color: Colors.grey
+              ),
+            );
+          }).toList();
+        },
+      ),
+    );
+  }
+
+  String getAutoRoutine(String startPos, String fuelPickup, String climb) {
+    final String auto = startPos + fuelPickup + climb;
+    return '';
+  }
 }

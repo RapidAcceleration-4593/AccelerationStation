@@ -22,7 +22,7 @@ class ConsoleWidget extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 29, 27, 36),
+            color: const Color.fromARGB(255, 18, 20, 24),
           ),
           margin: EdgeInsets.fromLTRB(10, 390, 10, 20),
           padding: EdgeInsets.all(5),
@@ -38,7 +38,7 @@ class ConsoleWidget extends StatelessWidget {
                 fontSize: 18,
                 shadows: [
                   Shadow(
-                    color: const Color.fromARGB(255, 0, 255, 21),
+                    color: const Color.fromARGB(158, 0, 255, 21),
                     blurRadius: 5
                   )
                 ]

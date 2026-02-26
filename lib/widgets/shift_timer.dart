@@ -43,52 +43,43 @@ class ShiftTimer extends StatelessWidget {
             double time = matchTime;
             final int shift = dashboardState.getCurrentShift();
 
-            if (shift == 5) {
-              hintText = '- ENDGAME -';
-              leftColor = Colors.blue;
-              rightColor = Colors.red;
+            switch (shift) {
+              case 5:
+                hintText = '- ENDGAME -';
+                leftColor = Colors.blue;
+                rightColor = Colors.red;
+              case 4:
+                hintText = '- Shift 4 -';
+                time -= 30.0;
+              case 3:
+                hintText = '- Shift 3 -';
+                time -= 55.0;
+              case 2:
+                hintText = '- Shift 2 -';
+                time -= 80.0;
+              case 1:
+                hintText = '- Shift 1 -';
+                time -= 105.0;
+              case 0:
+                hintText = '- Transition Shift -';
+                time -= 130.0;
+                leftColor = Colors.blue;
+                rightColor = Colors.red;
+              case -1:
+                hintText = '- Autonomous -';
+                leftColor = Colors.blue;
+                rightColor = Colors.red;
             }
-            if (shift == 4) {
-              hintText = '- Shift 4 -';
-              time -= 30.0;
-            }
-            if (shift == 3) {
-              hintText = '- Shift 3 -';
-              time -= 55.0;
-            }
-            if (shift ==2 ) {
-              hintText = '- Shift 2 -';
-              time -= 80.0;
-            }
-            if (shift == 1) {
-              hintText = '- Shift 1 -';
-              time -= 105.0;
-            }
-            if (shift == 0) {
-              hintText = '- Transition Shift -';
-              time -= 130.0;
-              leftColor = Colors.blue;
-              rightColor = Colors.red;
-            }
-            if (shift == -1) hintText = '- Autonomous -';
 
             int mins = (time / 60).floor();
             int secs = (time % 60).floor();
             timeString = '$mins:${secs.toString().padLeft(2, '0')}';
 
-            if (redAlliance == hubEnabled) {
-              if (redAlliance) {
-                rightColor = Colors.red;
-              } else {
-                leftColor = Colors.blue;
-              }
-            } else {
-              if (redAlliance) {
-                leftColor = Colors.blue;
-              } else {
-                rightColor = Colors.red;
-              }
-            }
+            final bool same = redAlliance == hubEnabled;
+            if (redAlliance && same) rightColor = Colors.red;
+            if (redAlliance && !same) leftColor = Colors.blue;
+            if (!redAlliance && same) leftColor = Colors.blue;
+            if (!redAlliance && !same) rightColor = Colors.red;
           }
         }
 

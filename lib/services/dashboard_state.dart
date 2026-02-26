@@ -69,7 +69,7 @@ class DashboardState {
     }
   }
 
-  // Takes the GameSpecificMessage and compares it to the match time to determine if the hub is enabled or not.
+  // Takes the GameSpecificMessage and compares it to the current shift to determine if the hub is enabled or not.
   Stream<bool> isHubEnabled() async* {
     await for (final _ in _matchTimeSub.stream()) {
 
@@ -85,10 +85,8 @@ class DashboardState {
       
       if (shift == 2 || shift == 4) {
         yield (gsm == 'R') == _isRedAlliance;
-        continue;
       } else {
         yield (gsm == 'B') == _isRedAlliance;
-        continue;
       }
     }
   }
