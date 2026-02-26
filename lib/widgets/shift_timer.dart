@@ -13,14 +13,12 @@ class ShiftTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final combinedStream = Rx.combineLatest4<double, bool, bool, bool, Map<String, dynamic>>(
+    final combinedStream = Rx.combineLatest3<double, bool, bool, Map<String, dynamic>>(
       dashboardState.matchTime(),
-      dashboardState.isAutoEnabled(),
       dashboardState.isRedAlliance(),
       dashboardState.isHubEnabled(),
-      (matchTime, autoEnabled, redAlliance, hubEnabled) => {
+      (matchTime, redAlliance, hubEnabled) => {
         'time': matchTime,
-        'autoEnabled': autoEnabled,
         'redAlliance': redAlliance,
         'hubEnabled': hubEnabled
       },
@@ -38,48 +36,45 @@ class ShiftTimer extends StatelessWidget {
 
         if (snapshot.hasData) {
           final double matchTime = snapshot.data!['time'] as double;
-          final bool autoEnabled = snapshot.data!['autoEnabled'] as bool;
           final bool redAlliance = snapshot.data!['redAlliance'] as bool;
           final bool hubEnabled = snapshot.data!['hubEnabled'] as bool;
 
           if (matchTime != -1.0) {
             double time = matchTime;
+            final int shift = dashboardState.getCurrentShift();
 
-            if (time > 0.0 && time <= 30.0) {
+            if (shift == 5) {
               hintText = '- ENDGAME -';
               leftColor = Colors.blue;
               rightColor = Colors.red;
             }
-            if (time > 30.0 && time <= 55.0) {
+            if (shift == 4) {
               hintText = '- Shift 4 -';
               time -= 30.0;
             }
-            if (time > 55.0 && time <= 80.0) {
+            if (shift == 3) {
               hintText = '- Shift 3 -';
               time -= 55.0;
             }
-            if (time > 80.0 && time <= 105.0) {
+            if (shift ==2 ) {
               hintText = '- Shift 2 -';
               time -= 80.0;
             }
-            if (time > 105.0 && time <= 130.0) {
+            if (shift == 1) {
               hintText = '- Shift 1 -';
               time -= 105.0;
             }
-            if (time > 130.0 && time <= 140.0) {
+            if (shift == 0) {
               hintText = '- Transition Shift -';
               time -= 130.0;
               leftColor = Colors.blue;
               rightColor = Colors.red;
             }
-            if (autoEnabled) hintText = '- Autonomous -';
+            if (shift == -1) hintText = '- Autonomous -';
 
-            if (time != -1) {
-              int mins = (time / 60).floor();
-              int secs = (time % 60).floor();
-
-              timeString = '$mins:${secs.toString().padLeft(2, '0')}';
-            }
+            int mins = (time / 60).floor();
+            int secs = (time % 60).floor();
+            timeString = '$mins:${secs.toString().padLeft(2, '0')}';
 
             if (redAlliance == hubEnabled) {
               if (redAlliance) {

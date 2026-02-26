@@ -27,10 +27,11 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Depot',
     'Outpost',
   ];
-  final List<String> climbPositions = [
+  final List<String> climbOptions = [
     'Left',
     'Center',
     'Right',
+    'No Climb',
   ];
 
   String? selectedStartPosition;
@@ -43,7 +44,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickup.first;
-    selectedClimbPosition = climbPositions.first;
+    selectedClimbPosition = climbOptions.first;
 
     // Optional: push defaults to dashboard state immediately
     widget.dashboardState.setAutoStartPos(selectedStartPosition!);
@@ -183,7 +184,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                   widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
                 });
               },
-              items: climbPositions.map<DropdownMenuItem<String>>((String value) {
+              items: climbOptions.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   alignment: AlignmentGeometry.center,
                   value: value,
@@ -197,7 +198,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                 );
               }).toList(),
               selectedItemBuilder: (BuildContext context) {
-                return climbPositions.map<Widget>((String value) {
+                return climbOptions.map<Widget>((String value) {
                   return Text(
                     "Climb Position: $value",
                     style: const TextStyle(
@@ -210,8 +211,28 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               },
             ),
           ),
+          const SizedBox(height: 24),
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 20, 20, 20),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Text(
+              'Selected Autonomous: ',
+              style: TextStyle(
+                fontFamily: DashboardTheme.font,
+                fontSize: 20
+              ),
+            ),
+          )
         ],
       ),
     );
   }
+}
+
+String getAutoRoutine(String startPos, String fuelPickup, String climb) {
+  final String auto = startPos + fuelPickup + climb;
+  return '';
 }

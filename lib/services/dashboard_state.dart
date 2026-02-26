@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:nt4/nt4.dart';
 
 class DashboardState {
@@ -9,6 +8,7 @@ class DashboardState {
   final NT4Client client;
 
   bool _isRedAlliance = false;
+  bool _isAutoEnabled = false;
   double _gameTime = 0.0;
   String _gsm = '';
 
@@ -49,6 +49,9 @@ class DashboardState {
     _redAllianceSub.stream().listen((value) {
       if (value is bool) _isRedAlliance = value;
     });
+    _autoEnabledSub.stream().listen((value) {
+      if (value is bool) _isAutoEnabled = value;
+    });
     _matchTimeSub.stream().listen((value) {
       if (value is double) _gameTime = value;
     });
@@ -66,35 +69,26 @@ class DashboardState {
     }
   }
 
+  // Takes the GameSpecificMessage and compares it to the match time to determine if the hub is enabled or not.
   Stream<bool> isHubEnabled() async* {
     await for (final _ in _matchTimeSub.stream()) {
 
       final gsm = _gsm;
+      final int shift = getCurrentShift();
       if (gsm.isEmpty) continue;
 
-      if (_gameTime <= 30.0 || _gameTime > 130.0) {
+      // Endgame, autonomous and transition check.
+      if (shift == -1 || shift == 0 || shift == 5) {
         yield true;
         continue;
       }
-
-      if ((_gameTime > 30.0 && _gameTime <= 55.0) || (_gameTime > 80.0 && _gameTime <= 105.0)) {
-        switch (gsm) {
-          case 'B':
-            yield !_isRedAlliance;
-            break;
-          case 'R':
-            yield _isRedAlliance;
-            break;
-        }
+      
+      if (shift == 2 || shift == 4) {
+        yield (gsm == 'R') == _isRedAlliance;
         continue;
-      }
-      switch (gsm) {
-        case 'B':
-          yield _isRedAlliance;
-          break;
-        case 'R':
-          yield !_isRedAlliance;
-          break;
+      } else {
+        yield (gsm == 'B') == _isRedAlliance;
+        continue;
       }
     }
   }
@@ -143,5 +137,17 @@ class DashboardState {
 
   void setAutoClimbPos(String pos) {
     client.addSample(_autonClimbPub, pos);
+  }
+
+  // Auto or null = -1, transition = 0, shift 1-4 = 1-4, endgame = 5.
+  int getCurrentShift() {
+    if (_isAutoEnabled) return -1;
+    if (_gameTime > 130.0 && _gameTime <= 140.0) return 0;
+    if (_gameTime > 105.0 && _gameTime <= 130.0) return 1;
+    if (_gameTime > 80.0 && _gameTime <= 105.0) return 2;
+    if (_gameTime > 55.0 && _gameTime <= 80.0) return 3;
+    if (_gameTime > 30.0 && _gameTime <= 55.0) return 4;
+    if (_gameTime <= 30.0) return 5;
+    return -1;
   }
 }

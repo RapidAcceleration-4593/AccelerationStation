@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,7 @@ class ConsoleWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 29, 27, 36),
           ),
-          margin: EdgeInsets.fromLTRB(10, 400, 10, 20),
+          margin: EdgeInsets.fromLTRB(10, 390, 10, 20),
           padding: EdgeInsets.all(5),
           height: double.infinity,
           width: double.infinity,
