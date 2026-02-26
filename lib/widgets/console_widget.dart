@@ -30,7 +30,7 @@ class ConsoleWidget extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Text(
-              console + '\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne\ne]e\e\ne\ne\ne\ne\ne\ne\ne\ne\n]',
+              console,
               style: TextStyle(
                 color: const Color.fromARGB(255, 0, 255, 21),
                 fontFamily: DashboardTheme.font,
