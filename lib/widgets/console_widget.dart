@@ -17,13 +17,16 @@ class ConsoleWidget extends StatelessWidget {
     return StreamBuilder(
       stream: dashboardState.consoleLog(),
       builder: (context, snapshot) {
-        String console = snapshot.data!;
+        String console = '';
+        if (snapshot.hasData) {
+          console = snapshot.data!;
+        }
 
         return Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 29, 27, 36),
           ),
-          margin: EdgeInsets.fromLTRB(10, 380, 10, 20),
+          margin: EdgeInsets.fromLTRB(10, 400, 10, 20),
           padding: EdgeInsets.all(5),
           height: double.infinity,
           width: double.infinity,
