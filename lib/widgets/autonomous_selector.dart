@@ -22,14 +22,10 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Center',
     'Right',
   ];
-  final List<String> scorePositions = [
-    'Left',
-    'Center',
-    'Right',
-  ];
   final List<String> fuelPickup = [
-    "This",
-    "That"
+    'Center',
+    'Depot',
+    'Outpost',
   ];
   final List<String> climbPositions = [
     'Left',
@@ -38,7 +34,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   ];
 
   String? selectedStartPosition;
-  String? selectedScorePosition;
   String? selectedFuelPickup;
   String? selectedClimbPosition;
 
@@ -47,13 +42,11 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     super.initState();
 
     selectedStartPosition = startPositions.first;
-    selectedScorePosition = scorePositions.first;
     selectedFuelPickup = fuelPickup.first;
     selectedClimbPosition = climbPositions.first;
 
     // Optional: push defaults to dashboard state immediately
     widget.dashboardState.setAutoStartPos(selectedStartPosition!);
-    widget.dashboardState.setAutoScorePos(selectedScorePosition!);
     widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
     widget.dashboardState.setAutoClimbPos(selectedClimbPosition!);
   }
@@ -117,51 +110,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                 return startPositions.map<Widget>((String value) {
                   return Text(
                     "Start Position: $value",
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                      color: Colors.grey
-                    ),
-                  );
-                }).toList();
-              },
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white, width: 2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: DropdownButton<String>(
-              alignment: AlignmentGeometry.center,
-              value: selectedScorePosition,
-              isExpanded: true,
-              underline: Container(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedScorePosition = newValue;
-                  widget.dashboardState.setAutoScorePos(selectedScorePosition!);
-                });
-              },
-              items: scorePositions.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  alignment: AlignmentGeometry.center,
-                  value: value,
-                  child: Text(
-                    value,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontFamily: DashboardTheme.font,
-                    ),
-                  ),
-                );
-              }).toList(),
-              selectedItemBuilder: (BuildContext context) {
-                return scorePositions.map<Widget>((String value) {
-                  return Text(
-                    "Score Position: $value",
                     style: const TextStyle(
                       fontSize: 28,
                       fontFamily: DashboardTheme.font,

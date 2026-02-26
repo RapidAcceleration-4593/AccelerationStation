@@ -19,6 +19,7 @@ class DashboardState {
   late final NT4Subscription _dsSub;
   late final NT4Subscription _fmsSub;
   late final NT4Subscription _gsmSub;
+  late final NT4Subscription _consoleSub;
 
   // Publishers
   late final NT4Topic _autonStartPub;
@@ -33,11 +34,12 @@ class DashboardState {
     _dsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/DSAttached', 1.0);
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
+    _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
 
     _autonStartPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousStartPosition', NT4TypeStr.typeStr);
-    _autonScorePub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousScorePosition', NT4TypeStr.typeInt);
-    _autonFuelPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousFuelPickup', NT4TypeStr.typeInt);
-    _autonClimbPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousClimbPosition', NT4TypeStr.typeInt);
+    _autonScorePub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousScorePosition', NT4TypeStr.typeStr);
+    _autonFuelPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousFuelPickup', NT4TypeStr.typeStr);
+    _autonClimbPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousClimbPosition', NT4TypeStr.typeStr);
 
     client.setProperties(_autonStartPub, false, true);
     client.setProperties(_autonScorePub, false, true);
@@ -118,6 +120,12 @@ class DashboardState {
   Stream<bool> fmsConnected() async* {
     await for (final value in _fmsSub.stream()) {
       if (value is bool) yield value;
+    }
+  }
+
+  Stream<String> consoleLog() async* {
+    await for (final value in _consoleSub.stream()) {
+      if (value is String) yield value;
     }
   }
 

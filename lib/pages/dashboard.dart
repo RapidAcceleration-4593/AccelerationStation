@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/widgets/autonomous_selector.dart';
+import 'package:accelerationstation/widgets/console_widget.dart';
 import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';
@@ -42,6 +43,18 @@ class Dashboard extends StatelessWidget {
                                 child: AutonomousSelector(
                                   dashboardState: dashboardState,
                                   redAlliance: isRed
+                                )
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: FractionallySizedBox(
+                                widthFactor: 1.0,
+                                child: ConsoleWidget(
+                                  dashboardState: dashboardState,
                                 )
                               ),
                             ),

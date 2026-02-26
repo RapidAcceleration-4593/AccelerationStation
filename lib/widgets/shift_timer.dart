@@ -103,9 +103,16 @@ class ShiftTimer extends StatelessWidget {
             Expanded(
               child: Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                padding: EdgeInsets.only(bottom: 100),
+                padding: EdgeInsets.only(bottom: 110),
                 decoration: BoxDecoration(
-                  color: leftColor
+                  color: leftColor,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: leftColor,
+                      blurRadius: 20
+                    )
+                  ]
                 ),
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
@@ -153,9 +160,16 @@ class ShiftTimer extends StatelessWidget {
             Expanded(
               child: Container(
                 margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                padding: EdgeInsets.only(bottom: 100),
+                padding: EdgeInsets.only(bottom: 110),
                 decoration: BoxDecoration(
-                  color: rightColor
+                  color: rightColor,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: rightColor,
+                      blurRadius: 20
+                    )
+                  ]
                 ),
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
