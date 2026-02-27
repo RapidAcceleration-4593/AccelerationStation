@@ -24,7 +24,7 @@ class ConsoleWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 18, 20, 24),
           ),
-          margin: EdgeInsets.fromLTRB(10, 390, 10, 20),
+          margin: EdgeInsets.fromLTRB(10, 470, 10, 20),
           padding: EdgeInsets.all(5),
           height: double.infinity,
           width: double.infinity,

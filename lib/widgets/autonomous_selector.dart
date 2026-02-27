@@ -34,6 +34,11 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Right',
     'NoClimb',
   ];
+  final List<String> otherAutos = [
+    '',
+    'DoNothing',
+    'ShootOnly',
+  ];
   final List<String> autoRoutines = [
     'LeftDepotLeft',
     'leftDepotCenter',
@@ -59,11 +64,15 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'RightNoPickupRight',
     'RightNoPickupCenter',
     'RightNoPickupNoClimb',
+
+    'DoNothing',
+    'ShootOnly',
   ];
 
   late String selectedStartPosition;
   late String selectedFuelPickup;
   late String selectedClimbOption;
+  late String selectedOtherAuto;
   late String selectedAutoRoutine;
 
   @override
@@ -73,6 +82,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickupOptions.first;
     selectedClimbOption = climbOptions.first;
+    selectedOtherAuto = otherAutos.first;
     selectedAutoRoutine = getAutoRoutine();
 
     // Push defaults to dashboard state.
@@ -88,6 +98,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
+        spacing: 20.0,
         children: [
           Text(
             "- Select Autonomous -",
@@ -105,7 +116,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               ]
             ),
           ),
-          const SizedBox(height: 8),
           _buildDropdown(
             label: 'Start Position: ',
             options: startPositions,
@@ -115,7 +125,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoStartPos(selectedStartPosition);
             },
           ),
-          const SizedBox(height: 24),
           _buildDropdown(
             label: 'Fuel Pickup: ',
             options: fuelPickupOptions,
@@ -125,7 +134,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoFuelPickup(selectedFuelPickup);
             },
           ),
-          const SizedBox(height: 24),
           _buildDropdown(
             label: 'Climb Position: ',
             options: climbOptions,
@@ -135,7 +143,14 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoClimbPos(selectedClimbOption);
             },
           ),
-          const SizedBox(height: 24),
+          _buildDropdown(
+            label: 'Other Autos: ',
+            options: otherAutos,
+            selectedValue: selectedOtherAuto,
+            onChanged: (value) {
+              selectedOtherAuto = value;
+            },
+          ),
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -209,6 +224,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
   String getAutoRoutine() {
     final String auto = selectedStartPosition + selectedFuelPickup + selectedClimbOption;
+    if (autoRoutines.contains(selectedOtherAuto)) return selectedOtherAuto;
     if (autoRoutines.contains(auto)) return auto;
     return 'Invalid';
   }
