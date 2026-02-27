@@ -26,17 +26,45 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Center',
     'Depot',
     'Outpost',
+    'NoPickup',
   ];
   final List<String> climbOptions = [
     'Left',
     'Center',
     'Right',
-    'No Climb',
+    'NoClimb',
+  ];
+  final List<String> autoRoutines = [
+    'LeftDepotLeft',
+    'leftDepotCenter',
+    'LeftDepotNoClimb',
+    'LeftCenterLeft',
+    'LeftCenterCenter',
+    'LeftCenterNoClimb',
+    'LeftNoPickupLeft',
+    'LeftNoPickupCenter',
+    'LeftNoPickupNoClimb',
+
+    'CenterDepotCenter',
+    'CenterDepotNoClimb',
+    'CenterNoPickupCenter',
+    'CenterNoPickupNoClimb',
+
+    'RightOutpostRight',
+    'RightOutpostCenter',
+    'RightOutpostNoClimb',
+    'RightCenterRight',
+    'RightCenterCenter',
+    'RightCenterNoClimb',
+    'RightNoPickupRight',
+    'RightNoPickupCenter',
+    'RightNoPickupNoClimb',
   ];
 
-  String? selectedStartPosition;
-  String? selectedFuelPickup;
-  String? selectedClimbOption;
+  late String selectedStartPosition;
+  late String selectedFuelPickup;
+  late String selectedClimbOption;
+  late String selectedAutoRoutine;
 
   @override
   void initState() {
@@ -45,11 +73,12 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickupOptions.first;
     selectedClimbOption = climbOptions.first;
+    selectedAutoRoutine = getAutoRoutine();
 
     // Push defaults to dashboard state.
-    widget.dashboardState.setAutoStartPos(selectedStartPosition!);
-    widget.dashboardState.setAutoFuelPickup(selectedFuelPickup!);
-    widget.dashboardState.setAutoClimbPos(selectedClimbOption!);
+    widget.dashboardState.setAutoStartPos(selectedStartPosition);
+    widget.dashboardState.setAutoFuelPickup(selectedFuelPickup);
+    widget.dashboardState.setAutoClimbPos(selectedClimbOption);
   }
 
   @override
@@ -83,7 +112,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             selectedValue: selectedStartPosition,
             onChanged: (value) {
               selectedStartPosition = value;
-              widget.dashboardState.setAutoStartPos(selectedStartPosition!);
+              if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoStartPos(selectedStartPosition);
             },
           ),
           const SizedBox(height: 24),
@@ -93,7 +122,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             selectedValue: selectedFuelPickup,
             onChanged: (value) {
               selectedFuelPickup = value;
-              widget.dashboardState.setAutoFuelPickup(selectedClimbOption!);
+              if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoFuelPickup(selectedFuelPickup);
             },
           ),
           const SizedBox(height: 24),
@@ -103,7 +132,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             selectedValue: selectedClimbOption,
             onChanged: (value) {
               selectedClimbOption = value;
-              widget.dashboardState.setAutoClimbPos(selectedClimbOption!);
+              if (getAutoRoutine() != 'Invalid') widget.dashboardState.setAutoClimbPos(selectedClimbOption);
             },
           ),
           const SizedBox(height: 24),
@@ -114,7 +143,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               borderRadius: BorderRadius.circular(10)
             ),
             child: Text(
-              'Selected Autonomous: ',
+              'Selected Autonomous: ' + getAutoRoutine(),
               style: TextStyle(
                 fontFamily: DashboardTheme.font,
                 fontSize: 20
@@ -146,6 +175,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
         onChanged: (value) {
           if (value != null) {
             setState(() => onChanged(value));
+
           }
         },
         items: options.map<DropdownMenuItem<String>>((String value) {
@@ -177,8 +207,9 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     );
   }
 
-  String getAutoRoutine(String startPos, String fuelPickup, String climb) {
-    final String auto = startPos + fuelPickup + climb;
-    return '';
+  String getAutoRoutine() {
+    final String auto = selectedStartPosition + selectedFuelPickup + selectedClimbOption;
+    if (autoRoutines.contains(auto)) return auto;
+    return 'Invalid';
   }
 }
