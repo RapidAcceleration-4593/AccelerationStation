@@ -36,11 +36,11 @@ class ShiftTimer extends StatelessWidget {
 
         if (snapshot.hasData) {
           final double matchTime = snapshot.data!['time'] as double;
+          final double shiftTime = dashboardState.getShiftTime();
           final bool redAlliance = snapshot.data!['redAlliance'] as bool;
           final bool hubEnabled = snapshot.data!['hubEnabled'] as bool;
 
           if (matchTime != -1.0) {
-            double time = matchTime;
             final int shift = dashboardState.getCurrentShift();
 
             switch (shift) {
@@ -50,19 +50,14 @@ class ShiftTimer extends StatelessWidget {
                 rightColor = Colors.red;
               case 4:
                 hintText = '- Shift 4 -';
-                time -= 30.0;
               case 3:
                 hintText = '- Shift 3 -';
-                time -= 55.0;
               case 2:
                 hintText = '- Shift 2 -';
-                time -= 80.0;
               case 1:
                 hintText = '- Shift 1 -';
-                time -= 105.0;
               case 0:
                 hintText = '- Transition Shift -';
-                time -= 130.0;
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
               case -1:
@@ -71,15 +66,15 @@ class ShiftTimer extends StatelessWidget {
                 rightColor = Colors.red;
             }
 
-            int mins = (time / 60).floor();
-            int secs = (time % 60).floor();
+            int mins = (shiftTime / 60).floor();
+            int secs = (shiftTime % 60).floor();
             timeString = '$mins:${secs.toString().padLeft(2, '0')}';
 
             final bool same = redAlliance == hubEnabled;
             if (redAlliance && same) rightColor = Colors.red;
             if (redAlliance && !same) leftColor = Colors.blue;
-            if (!redAlliance && same) leftColor = Colors.blue;
-            if (!redAlliance && !same) rightColor = Colors.red;
+            if (!redAlliance && same) rightColor = Colors.red;
+            if (!redAlliance && !same) leftColor = Colors.blue;
           }
         }
 
