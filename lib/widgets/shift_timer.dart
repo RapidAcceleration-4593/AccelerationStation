@@ -80,24 +80,73 @@ class ShiftTimer extends StatelessWidget {
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                padding: EdgeInsets.only(bottom: 110),
-                decoration: BoxDecoration(
-                  color: leftColor,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 110,
+                    margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                    decoration: BoxDecoration(
                       color: leftColor,
-                      blurRadius: 20
-                    )
-                  ]
-                ),
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: leftColor,
+                          blurRadius: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  Container(
+                    height: 30,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 39, 39, 39)
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
@@ -139,24 +188,72 @@ class ShiftTimer extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                padding: EdgeInsets.only(bottom: 110),
-                decoration: BoxDecoration(
-                  color: rightColor,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 110,
+                    margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                    decoration: BoxDecoration(
                       color: rightColor,
-                      blurRadius: 20
-                    )
-                  ]
-                ),
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                ),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: rightColor,
+                          blurRadius: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  Container(
+                    height: 30,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 39, 39, 39)
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         );
       },
