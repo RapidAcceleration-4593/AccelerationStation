@@ -64,7 +64,7 @@ class Dashboard extends StatelessWidget {
                     )
                   ),
                   Expanded(
-                    flex: 7,
+                    flex: 8,
                     child: Stack(
                       children: [
                         Align(

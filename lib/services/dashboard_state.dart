@@ -22,29 +22,20 @@ class DashboardState {
   late final NT4Subscription _consoleSub;
 
   // Publishers
-  late final NT4Topic _autonStartPub;
-  late final NT4Topic _autonScorePub;
-  late final NT4Topic _autonFuelPub;
-  late final NT4Topic _autonClimbPub;
+  late final NT4Topic _selectedAutoPub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _redAllianceSub = client.subscribePeriodic('/FMSInfo/IsRedAlliance', 1.0);
     _autoEnabledSub = client.subscribePeriodic('/AdvantageKit/DriverStation/Autonomous', 1.0);
-    _matchTimeSub = client.subscribePeriodic('/AdvantageKit/DriverStation/MatchTime', 1.0);
+    _matchTimeSub = client.subscribePeriodic('/AdvantageKit/DriverStation/MatchTime', 0.1);
     _dsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/DSAttached', 1.0);
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
-    _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
+    _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 1.0);
 
-    _autonStartPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousStartPosition', NT4TypeStr.typeStr);
-    _autonScorePub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousScorePosition', NT4TypeStr.typeStr);
-    _autonFuelPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousFuelPickup', NT4TypeStr.typeStr);
-    _autonClimbPub = client.publishNewTopic('/AccelerationStation/SelectedAutonomousClimbPosition', NT4TypeStr.typeStr);
+    _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
 
-    client.setProperties(_autonStartPub, false, true);
-    client.setProperties(_autonScorePub, false, true);
-    client.setProperties(_autonFuelPub, false, true);
-    client.setProperties(_autonClimbPub, false, true);
+    client.setProperties(_selectedAutoPub, false, true);
 
     _redAllianceSub.stream().listen((value) {
       if (value is bool) _isRedAlliance = value;
@@ -121,20 +112,8 @@ class DashboardState {
     }
   }
 
-  void setAutoStartPos(String pos) {
-    client.addSample(_autonStartPub, pos);
-  }
-
-  void setAutoScorePos(String pos) {
-    client.addSample(_autonScorePub, pos);
-  }
-
-  void setAutoFuelPickup(String option) {
-    client.addSample(_autonFuelPub, option);
-  }
-
-  void setAutoClimbPos(String pos) {
-    client.addSample(_autonClimbPub, pos);
+  void setSelectedAuto(String auto) {
+    client.addSample(_selectedAutoPub, auto);
   }
 
   // Auto or null = -1, transition = 0, shift 1-4 = 1-4, endgame = 5.
@@ -147,5 +126,21 @@ class DashboardState {
     if (_gameTime > 30.0 && _gameTime <= 55.0) return 4;
     if (_gameTime <= 30.0) return 5;
     return -1;
+  }
+
+  double getMatchTime() {
+    return _gameTime;
+  }
+
+  double getShiftTime() {
+    double time = _gameTime;
+    switch (getCurrentShift()) {
+      case 4: time -= 30.0;
+      case 3: time -= 55.0;
+      case 2: time -= 80.0;
+      case 1: time -= 105.0;
+      case 0: time -= 130.0;
+    }
+    return time;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HubWidget extends StatelessWidget {
   final DashboardState dashboardState;
@@ -12,13 +13,25 @@ class HubWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: dashboardState.isHubEnabled(),
-      builder: (context, snapshot) {
-        final enabled = snapshot.data ?? false;
+    final combinedStream = Rx.combineLatest2<bool, double, Map<String, dynamic>>(
+      dashboardState.isHubEnabled(),
+      dashboardState.matchTime(),
+      (hubEnabled, matchTime) => {
+        'hubEnabled' : hubEnabled,
+        'matchTime' : matchTime
+      }
+    );
 
-        final asset = enabled ? 'images/hub_enabled.png' : 'images/hub_disabled.png';
-        final text = enabled ? '- ENABLED -' : '- DISABLED -';
+    return StreamBuilder<Map<String, dynamic>>(
+      stream: combinedStream,
+      builder: (context, snapshot) {
+        final bool enabled = snapshot.hasData ? snapshot.data!['hubEnabled'] as bool : false;
+        final double shiftTime = dashboardState.getShiftTime();
+        final double matchTime = dashboardState.getMatchTime();
+
+
+        final asset = shiftTime < 5.0 && shiftTime > 0.0 && ((shiftTime * 2).floor() % 2 == 0) && enabled ? 'images/hub_warning.png' : (enabled && matchTime >= 0.0 ? 'images/hub_enabled.png' : 'images/hub_disabled.png');
+        final text = enabled && matchTime >= 0.0 ? '- ENABLED -' : '- DISABLED -';
 
         return Stack(
           alignment: Alignment.center,
