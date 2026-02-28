@@ -103,49 +103,7 @@ class ShiftTimer extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  Container(
-                    height: 30,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 39, 39, 39)
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        spacing: 8,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  _buildWiimoteUI()
                 ],
               ),
             ),
@@ -208,55 +166,83 @@ class ShiftTimer extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  Container(
-                    height: 30,
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 39, 39, 39)
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        spacing: 8,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  _buildWiimoteUI()
                 ],
               ),
             )
           ],
         );
       },
+    );
+  }
+
+  Widget _buildWiimoteUI() {
+    return Container(
+      height: 30,
+      width: 120,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 43, 43, 43)
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Row(
+          spacing: 8,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(200, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue,
+                      blurRadius: 5
+                    )
+                  ]
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(200, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue,
+                      blurRadius: 5
+                    )
+                  ]
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(200, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue,
+                      blurRadius: 5
+                    )
+                  ]
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(200, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlue,
+                      blurRadius: 5
+                    )
+                  ]
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
