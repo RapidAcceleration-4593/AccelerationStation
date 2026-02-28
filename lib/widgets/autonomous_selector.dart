@@ -64,8 +64,12 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'RightNoPickupCenter',
     'RightNoPickupNoClimb',
 
-    'DoNothing',
-    'ShootOnly',
+    'RightDoNothing',
+    'CenterDoNothing',
+    'LeftDoNothing',
+    'RightShootOnly',
+    'CenterShootOnly',
+    'LeftShootOnly',
   ];
 
   late String selectedStartPosition;
@@ -89,90 +93,97 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 0.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 20.0,
-        children: [
-          Text(
-            "- Select Autonomous -",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.normal,
-              fontFamily: DashboardTheme.font,
-              shadows: [
-                Shadow(
-                  blurRadius: 20.0,
-                  color: Color.fromARGB(255, 0, 160, 200),
-                  offset: Offset(0.0, 0.0)
-                )
-              ]
-            ),
-          ),
-          _buildDropdown(
-            label: 'Start Position: ',
-            options: startPositions,
-            selectedValue: selectedStartPosition,
-            onChanged: (value) {
-              selectedStartPosition = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Fuel Pickup: ',
-            options: fuelPickupOptions,
-            selectedValue: selectedFuelPickup,
-            onChanged: (value) {
-              selectedFuelPickup = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Climb Position: ',
-            options: climbOptions,
-            selectedValue: selectedClimbOption,
-            onChanged: (value) {
-              selectedClimbOption = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Other Autos: ',
-            options: otherAutos,
-            selectedValue: selectedOtherAuto,
-            onChanged: (value) {
-              selectedOtherAuto = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: true
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: getAutoRoutine() != 'Invalid' ? const Color.fromARGB(255, 20, 20, 20) : const Color.fromARGB(127, 244, 67, 54),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: getAutoRoutine() != 'Invalid' ? Colors.transparent : Colors.red, width: 2.0)
-            ),
-            child: Text(
-              getAutoRoutine() != 'Invalid' ? 'Selected Autonomous: ${getAutoRoutine()}' : '! Selected Autonomous: ${getAutoRoutine()} !',
-              style: TextStyle(
-                fontFamily: DashboardTheme.font,
-                fontSize: 20
+    return StreamBuilder(
+      stream: widget.dashboardState.realSelectedAuto(),
+      builder: (context, snapshot) {
+        final String realSelectedAuto = snapshot.hasData ? snapshot.data! : 'FailedToFetch';
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 0.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: 20.0,
+            children: [
+              Text(
+                "- Select Autonomous -",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: DashboardTheme.font,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 20.0,
+                      color: Color.fromARGB(255, 0, 160, 200),
+                      offset: Offset(0.0, 0.0)
+                    )
+                  ]
+                ),
               ),
-            ),
+              _buildDropdown(
+                label: 'Start Position: ',
+                options: startPositions,
+                selectedValue: selectedStartPosition,
+                onChanged: (value) {
+                  selectedStartPosition = value;
+                  final String auto = getAutoRoutine();
+                  if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                },
+                enabled: true
+              ),
+              _buildDropdown(
+                label: 'Fuel Pickup: ',
+                options: fuelPickupOptions,
+                selectedValue: selectedFuelPickup,
+                onChanged: (value) {
+                  selectedFuelPickup = value;
+                  final String auto = getAutoRoutine();
+                  if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                },
+                enabled: selectedOtherAuto == ''
+              ),
+              _buildDropdown(
+                label: 'Climb Position: ',
+                options: climbOptions,
+                selectedValue: selectedClimbOption,
+                onChanged: (value) {
+                  selectedClimbOption = value;
+                  final String auto = getAutoRoutine();
+                  if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                },
+                enabled: selectedOtherAuto == ''
+              ),
+              _buildDropdown(
+                label: 'Other Autos: ',
+                options: otherAutos,
+                selectedValue: selectedOtherAuto,
+                onChanged: (value) {
+                  selectedOtherAuto = value;
+                  final String auto = getAutoRoutine();
+                  if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                },
+                enabled: true
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: getAutoRoutine() != 'Invalid' ? const Color.fromARGB(255, 20, 20, 20) : const Color.fromARGB(127, 244, 67, 54),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: getAutoRoutine() != 'Invalid' ? Colors.transparent : Colors.red, width: 2.0)
+                ),
+                child: Text(
+                  getAutoRoutine() != 'Invalid' ? 'Selected Autonomous: ${getAutoRoutine()}' : '! Selected Autonomous: ${getAutoRoutine()} !',
+                  style: TextStyle(
+                    fontFamily: DashboardTheme.font,
+                    fontSize: 20
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -186,7 +197,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       decoration: BoxDecoration(
-        border: enabled ? Border.all(color: Colors.white, width: 2) : Border.all(color: Colors.blueGrey, width: 2),
+        border: enabled ? Border.all(color: Colors.white, width: 2) : Border.all(color: const Color.fromARGB(255, 77, 77, 77), width: 2),
         borderRadius: BorderRadius.circular(10),
       ),
       child: DropdownButton<String>(
@@ -232,7 +243,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
   String getAutoRoutine() {
     final String auto = selectedStartPosition + selectedFuelPickup + selectedClimbOption;
-    if (autoRoutines.contains(selectedOtherAuto)) return selectedOtherAuto;
+    if (autoRoutines.contains(selectedStartPosition + selectedOtherAuto)) return selectedStartPosition + selectedOtherAuto;
     if (autoRoutines.contains(auto)) return auto;
     return 'Invalid';
   }

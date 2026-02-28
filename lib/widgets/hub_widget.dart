@@ -29,34 +29,55 @@ class HubWidget extends StatelessWidget {
         final double shiftTime = dashboardState.getShiftTime();
         final double matchTime = dashboardState.getMatchTime();
 
-
-        final asset = shiftTime < 5.0 && shiftTime > 0.0 && ((shiftTime * 2).floor() % 2 == 0) && enabled ? 'images/hub_warning.png' : (enabled && matchTime >= 0.0 ? 'images/hub_enabled.png' : 'images/hub_disabled.png');
-        final text = enabled && matchTime >= 0.0 ? '- ENABLED -' : '- DISABLED -';
+        final bool isGreen = shiftTime > 0.0 && enabled;
+        final String asset = isGreen && shiftTime < 5.0 && ((shiftTime * 2).floor() % 2 == 0) ? 'images/hub_warning.png' : (enabled && matchTime >= 0.0 ? 'images/hub_enabled.png' : 'images/hub_disabled.png');
+        final String text = enabled && matchTime >= 0.0 ? '- ENABLED -' : '- DISABLED -';
 
         return Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset(
-              asset,
-            ),
             Container(
-              padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+              width: 800,
+              height: 800,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(0, 0, 0, 0),
-                borderRadius: BorderRadius.circular(10)
+                borderRadius: BorderRadius.circular(400),
+                boxShadow: [
+                  BoxShadow(
+                    color: isGreen ? Color.fromARGB(99, 11, 204, 98) : Colors.transparent,
+                    blurRadius: 700
+                  )
+                ]
               ),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: 38.0),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Image.asset(
+                    asset,
                   ),
-                ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(0, 0, 0, 0),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.fitHeight,
+                      child: Text(
+                        text,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  )
+                ]
               ),
             )
           ]

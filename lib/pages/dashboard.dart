@@ -69,10 +69,7 @@ class Dashboard extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 38),
-                            child: HubWidget(dashboardState: dashboardState)
-                          )
+                          child: HubWidget(dashboardState: dashboardState)
                         ),
                         Align(
                           alignment: Alignment.topCenter,
