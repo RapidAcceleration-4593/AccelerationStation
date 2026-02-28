@@ -229,10 +229,10 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
           return options.map<Widget>((String value) {
             return Text(
               "$label$value",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 28,
                 fontFamily: DashboardTheme.font,
-                color: Colors.grey
+                color: enabled ? Colors.white : Colors.grey
               ),
             );
           }).toList();
