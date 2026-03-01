@@ -12,12 +12,18 @@ class ConsoleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String prevConsole = '';
     return StreamBuilder(
       stream: dashboardState.consoleLog(),
       builder: (context, snapshot) {
         String console = '';
+        String current = '';
         if (snapshot.hasData) {
-          console = snapshot.data!;
+          current = snapshot.data!;
+        }
+        if (current != prevConsole) {
+          prevConsole = current;
+          console += '\n$current';
         }
 
         return Container(
