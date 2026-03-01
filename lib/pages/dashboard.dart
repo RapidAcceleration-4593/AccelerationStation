@@ -5,6 +5,7 @@ import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';
 import 'package:accelerationstation/widgets/shift_timer.dart';
+import 'package:accelerationstation/widgets/turret_warning.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
@@ -71,6 +72,7 @@ class Dashboard extends StatelessWidget {
                           alignment: Alignment.center,
                           child: HubWidget(dashboardState: dashboardState)
                         ),
+                        TurretWarning(dashboardState: dashboardState),
                         Align(
                           alignment: Alignment.topCenter,
                           child: Padding(

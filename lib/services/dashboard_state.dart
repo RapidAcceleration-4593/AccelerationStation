@@ -25,6 +25,7 @@ class DashboardState {
   late final NT4Subscription _fmsSub;
   late final NT4Subscription _gsmSub;
   late final NT4Subscription _consoleSub;
+  late final NT4Subscription _turretAngleSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
@@ -36,6 +37,7 @@ class DashboardState {
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 1.0);
+    _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
 
@@ -116,6 +118,12 @@ class DashboardState {
   Stream<String> consoleLog() async* {
     await for (final value in _consoleSub.stream()) {
       if (value is String) yield value;
+    }
+  }
+
+  Stream<double> turretAngle() async* {
+    await for (final value in _turretAngleSub.stream()) {
+      if (value is double) yield value;
     }
   }
 
