@@ -202,7 +202,7 @@ class ShiftTimer extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: enabled ? const Color.fromARGB(200, 255, 255, 255) : Colors.transparent,
+          color: enabled ? const Color.fromARGB(200, 220, 220, 255) : Colors.transparent,
           boxShadow: [
             BoxShadow(
               color: enabled ? Colors.lightBlue : Colors.transparent,
