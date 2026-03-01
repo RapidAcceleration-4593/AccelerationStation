@@ -25,7 +25,6 @@ class DashboardState {
   late final NT4Subscription _fmsSub;
   late final NT4Subscription _gsmSub;
   late final NT4Subscription _consoleSub;
-  late final NT4Subscription _selectedAutoSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
@@ -37,7 +36,6 @@ class DashboardState {
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 1.0);
-    _selectedAutoSub = client.subscribePeriodic('/AccelerationStation/SelectedAuto', 1.0);
 
     client.setProperties(_selectedAutoPub, false, true);
 
@@ -117,12 +115,6 @@ class DashboardState {
 
   Stream<String> consoleLog() async* {
     await for (final value in _consoleSub.stream()) {
-      if (value is String) yield value;
-    }
-  }
-
-  Stream<String> realSelectedAuto() async* {
-    await for (final value in _selectedAutoSub.stream()) {
       if (value is String) yield value;
     }
   }
