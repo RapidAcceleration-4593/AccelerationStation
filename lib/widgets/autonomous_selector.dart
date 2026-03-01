@@ -24,52 +24,32 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   ];
   final List<String> fuelPickupOptions = [
     'Center',
-    'Depot',
     'Outpost',
     'NoPickup',
   ];
   final List<String> climbOptions = [
     'Left',
-    'Center',
     'Right',
     'NoClimb',
   ];
   final List<String> otherAutos = [
     '',
-    'DoNothing',
-    'ShootOnly',
   ];
   final List<String> autoRoutines = [
-    'LeftDepotLeft',
-    'leftDepotCenter',
-    'LeftDepotNoClimb',
     'LeftCenterLeft',
-    'LeftCenterCenter',
     'LeftCenterNoClimb',
     'LeftNoPickupLeft',
-    'LeftNoPickupCenter',
     'LeftNoPickupNoClimb',
 
-    'CenterDepotNoClimb',
     'CenterNoPickupCenter',
     'CenterNoPickupNoClimb',
 
     'RightOutpostRight',
-    'RightOutpostCenter',
     'RightOutpostNoClimb',
     'RightCenterRight',
-    'RightCenterCenter',
     'RightCenterNoClimb',
     'RightNoPickupRight',
-    'RightNoPickupCenter',
     'RightNoPickupNoClimb',
-
-    'RightDoNothing',
-    'CenterDoNothing',
-    'LeftDoNothing',
-    'RightShootOnly',
-    'CenterShootOnly',
-    'LeftShootOnly',
   ];
 
   late String selectedStartPosition;
@@ -130,7 +110,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
                   final String auto = getAutoRoutine();
                   if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
                 },
-                enabled: true
+                enabled: selectedOtherAuto == ''
               ),
               _buildDropdown(
                 label: 'Fuel Pickup: ',
@@ -243,7 +223,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
   String getAutoRoutine() {
     final String auto = selectedStartPosition + selectedFuelPickup + selectedClimbOption;
-    if (autoRoutines.contains(selectedStartPosition + selectedOtherAuto)) return selectedStartPosition + selectedOtherAuto;
+    if (autoRoutines.contains(selectedOtherAuto)) return selectedOtherAuto;
     if (autoRoutines.contains(auto)) return auto;
     return 'Invalid';
   }
