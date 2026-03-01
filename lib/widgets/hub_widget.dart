@@ -43,7 +43,7 @@ class HubWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(400),
                 boxShadow: [
                   BoxShadow(
-                    color: isGreen ? Color.fromARGB(99, 11, 204, 98) : Colors.transparent,
+                    color: isGreen ? Color.fromARGB(120, 0, 255, 98) : Colors.transparent,
                     blurRadius: 700
                   )
                 ]

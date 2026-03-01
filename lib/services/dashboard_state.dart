@@ -9,7 +9,7 @@ class DashboardState {
 
   bool _isRedAlliance = false;
   bool _isAutoEnabled = false;
-  double _gameTime = 0.0;
+  double _matchTime = 0.0;
   String _gsm = '';
 
   String selectedAuto = 'LeftCenterLeft';
@@ -46,7 +46,7 @@ class DashboardState {
       if (value is bool) _isAutoEnabled = value;
     });
     _matchTimeSub.stream().listen((value) {
-      if (value is double) _gameTime = value;
+      if (value is double) _matchTime = value;
     });
     _gsmSub.stream().listen((value) {
       if (value is String) _gsm = value;
@@ -124,24 +124,24 @@ class DashboardState {
     client.addSample(_selectedAutoPub, auto);
   }
 
-  // Auto or null = -1, transition = 0, shift 1-4 = 1-4, endgame = 5.
+  // Null = -2, auto = -1, transition = 0, shift 1-4 = 1-4, endgame = 5.
   int getCurrentShift() {
-    if (_isAutoEnabled) return -1;
-    if (_gameTime > 130.0 && _gameTime <= 140.0) return 0;
-    if (_gameTime > 105.0 && _gameTime <= 130.0) return 1;
-    if (_gameTime > 80.0 && _gameTime <= 105.0) return 2;
-    if (_gameTime > 55.0 && _gameTime <= 80.0) return 3;
-    if (_gameTime > 30.0 && _gameTime <= 55.0) return 4;
-    if (_gameTime <= 30.0) return 5;
-    return -1;
+    if (_isAutoEnabled && _matchTime > 0.0) return -1;
+    if (_matchTime > 130.0 && _matchTime <= 140.0) return 0;
+    if (_matchTime > 105.0 && _matchTime <= 130.0) return 1;
+    if (_matchTime > 80.0 && _matchTime <= 105.0) return 2;
+    if (_matchTime > 55.0 && _matchTime <= 80.0) return 3;
+    if (_matchTime > 30.0 && _matchTime <= 55.0) return 4;
+    if (_matchTime > 0.0 && _matchTime <= 30.0) return 5;
+    return -2;
   }
 
   double getMatchTime() {
-    return _gameTime;
+    return _matchTime;
   }
 
   double getShiftTime() {
-    double time = _gameTime;
+    double time = _matchTime;
     switch (getCurrentShift()) {
       case 4: time -= 30.0;
       case 3: time -= 55.0;
@@ -150,5 +150,19 @@ class DashboardState {
       case 0: time -= 130.0;
     }
     return time;
+  }
+
+  int getAllianceRemainingShifts({required bool redAlliance}) {
+    final int shift = getCurrentShift();
+    final bool gsmRed = _gsm == 'R';
+    switch (shift) {
+      case 0: return 3;
+      case 1: return redAlliance == !gsmRed ? 2 : 3;
+      case 2: return redAlliance == !gsmRed ? 2 : 2;
+      case 3: return redAlliance == !gsmRed ? 1 : 2;
+      case 4: return redAlliance == !gsmRed ? 1 : 1;
+      case 5: return 0;
+    }
+    return 4;
   }
 }

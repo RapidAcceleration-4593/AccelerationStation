@@ -13,12 +13,10 @@ class ShiftTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final combinedStream = Rx.combineLatest3<double, bool, bool, Map<String, dynamic>>(
-      dashboardState.matchTime(),
+    final combinedStream = Rx.combineLatest2<bool, bool, Map<String, dynamic>>(
       dashboardState.isRedAlliance(),
       dashboardState.isHubEnabled(),
-      (matchTime, redAlliance, hubEnabled) => {
-        'time': matchTime,
+      (redAlliance, hubEnabled) => {
         'redAlliance': redAlliance,
         'hubEnabled': hubEnabled
       },
@@ -35,14 +33,12 @@ class ShiftTimer extends StatelessWidget {
         Color rightColor = const Color.fromARGB(50, 244, 67, 54);
 
         if (snapshot.hasData) {
-          final double matchTime = snapshot.data!['time'] as double;
           final double shiftTime = dashboardState.getShiftTime();
           final bool redAlliance = snapshot.data!['redAlliance'] as bool;
           final bool hubEnabled = snapshot.data!['hubEnabled'] as bool;
+          final int shift = dashboardState.getCurrentShift();
 
-          if (matchTime != -1.0) {
-            final int shift = dashboardState.getCurrentShift();
-
+          if (shift != -2) {
             switch (shift) {
               case 5:
                 hintText = '- ENDGAME -';
@@ -103,7 +99,7 @@ class ShiftTimer extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  _buildWiimoteUI()
+                  _buildWiimoteUI(redAlliance: false)
                 ],
               ),
             ),
@@ -166,7 +162,7 @@ class ShiftTimer extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  _buildWiimoteUI()
+                  _buildWiimoteUI(redAlliance: true)
                 ],
               ),
             )
@@ -176,10 +172,12 @@ class ShiftTimer extends StatelessWidget {
     );
   }
 
-  Widget _buildWiimoteUI() {
+  Widget _buildWiimoteUI({
+    required bool redAlliance
+  }) {
     return Container(
       height: 30,
-      width: 120,
+      width: 100,
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 43, 43, 43)
       ),
@@ -188,59 +186,29 @@ class ShiftTimer extends StatelessWidget {
         child: Row(
           spacing: 8,
           children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(200, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.lightBlue,
-                      blurRadius: 5
-                    )
-                  ]
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(200, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.lightBlue,
-                      blurRadius: 5
-                    )
-                  ]
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(200, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.lightBlue,
-                      blurRadius: 5
-                    )
-                  ]
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(200, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.lightBlue,
-                      blurRadius: 5
-                    )
-                  ]
-                ),
-              ),
-            )
+            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 1),
+            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 2),
+            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 3),
+            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 4)
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWiimoteLight({
+    required bool enabled,
+  }) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: enabled ? const Color.fromARGB(200, 255, 255, 255) : Colors.transparent,
+          boxShadow: [
+            BoxShadow(
+              color: enabled ? Colors.lightBlue : Colors.transparent,
+              blurRadius: 5
+            )
+          ]
         ),
       ),
     );
