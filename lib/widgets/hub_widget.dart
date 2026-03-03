@@ -25,13 +25,14 @@ class HubWidget extends StatelessWidget {
     return StreamBuilder<Map<String, dynamic>>(
       stream: combinedStream,
       builder: (context, snapshot) {
-        final bool enabled = snapshot.hasData ? snapshot.data!['hubEnabled'] as bool : false;
         final double shiftTime = dashboardState.getShiftTime();
-        final double matchTime = dashboardState.getMatchTime();
+        final double matchTime = snapshot.hasData ? snapshot.data!['matchTime'] as double : -1.0;
 
-        final bool isGreen = shiftTime > 0.0 && enabled;
-        final String asset = isGreen && shiftTime < 5.0 && ((shiftTime * 2).floor() % 2 == 0) ? 'images/hub_warning.png' : (enabled && matchTime >= 0.0 ? 'images/hub_enabled.png' : 'images/hub_disabled.png');
-        final String text = enabled && matchTime >= 0.0 ? '- ENABLED -' : '- DISABLED -';
+        final bool isHubEnabled = (snapshot.hasData ? snapshot.data!['hubEnabled'] as bool : false) && matchTime > 0.0;
+        final bool isFlashing = isHubEnabled && shiftTime < 5.0 && ((shiftTime * 2).floor() % 2 == 0);
+
+        final String imageAsset = isHubEnabled ? (isFlashing ? 'images/hub_warning.png' : 'images/hub_enabled.png') : 'images/hub_disabled.png';
+        final String hintText = isHubEnabled ? '- ENABLED -' : '- DISABLED -';
 
         return Stack(
           alignment: Alignment.center,
@@ -43,7 +44,7 @@ class HubWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(400),
                 boxShadow: [
                   BoxShadow(
-                    color: isGreen ? Color.fromARGB(120, 0, 255, 98) : Colors.transparent,
+                    color: isHubEnabled ? Color.fromARGB(120, 0, 255, 98) : Colors.transparent,
                     blurRadius: 700
                   )
                 ]
@@ -55,7 +56,7 @@ class HubWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Image.asset(
-                    asset,
+                    imageAsset,
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
@@ -66,7 +67,7 @@ class HubWidget extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Text(
-                        text,
+                        hintText,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,

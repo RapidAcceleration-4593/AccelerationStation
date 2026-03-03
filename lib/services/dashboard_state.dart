@@ -9,7 +9,7 @@ class DashboardState {
 
   bool _isRedAlliance = false;
   bool _isAutoEnabled = false;
-  double _matchTime = 0.0;
+  double _matchTime = -1.0;
   String _gsm = '';
 
   String selectedAuto = 'LeftCenterLeft';
