@@ -22,92 +22,62 @@ class TurretWarning extends StatelessWidget {
             Align(
               alignment: AlignmentGeometry.centerLeft,
               child: Padding(
-                padding: EdgeInsetsGeometry.only(left: 100),
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: angle > -75.0 ? Colors.transparent : const Color.fromARGB(127, 244, 67, 54),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: angle > -75.0 ? Colors.transparent : Colors.red, width: 2.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: angle > -75.0 ? Colors.transparent : const Color.fromARGB(179, 244, 67, 54),
-                        blurRadius: 40
-                      )
-                    ]
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '!WARNING!',
-                        style: TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: angle > -75.0 ? Colors.transparent : Colors.white
-                        ),
-                      ),
-                      Text(
-                        'Turret Angle\nMinimum Reached',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 12,
-                          color: angle > -75.0 ? Colors.transparent : Colors.white
-                        ),
-                      ),
-                    ],
-                  )
-                ),
+                padding: EdgeInsetsGeometry.only(left: 80),
+                child: _buildWarning(warningText: 'Target Angle\nMinimum Reached', condition: angle < -75.0)
               ),
             ),
             Align(
               alignment: AlignmentGeometry.centerRight,
               child: Padding(
-                padding: EdgeInsetsGeometry.only(right: 100),
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: angle < 75.0 ? Colors.transparent : const Color.fromARGB(127, 244, 67, 54),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: angle < 75.0 ? Colors.transparent : Colors.red, width: 2.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: angle < 75.0 ? Colors.transparent : const Color.fromARGB(179, 244, 67, 54),
-                        blurRadius: 40
-                      )
-                    ]
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '!WARNING!',
-                        style: TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          color: angle < 75.0 ? Colors.transparent : Colors.white
-                        ),
-                      ),
-                      Text(
-                        'Turret Angle\nMaximum Reached',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 12,
-                          color: angle < 75.0 ? Colors.transparent : Colors.white
-                        ),
-                      ),
-                    ],
-                  )
-                ),
+                padding: EdgeInsetsGeometry.only(right: 80),
+                child: _buildWarning(warningText: 'Turret Angle\nMaximum Reached', condition: angle > 75.0)
               ),
             )
           ],
         );
       },
+    );
+  }
+
+  Widget _buildWarning({
+    required String warningText,
+    required bool condition
+  }) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: !condition ? Colors.transparent : const Color.fromARGB(188, 233, 54, 41),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: !condition ? Colors.transparent : const Color.fromARGB(0, 255, 255, 255), width: 6.0),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: !condition ? Colors.transparent : const Color.fromARGB(100, 244, 67, 54),
+        //     blurRadius: 0
+        //   )
+        // ]
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '!WARNING!',
+            style: TextStyle(
+              fontFamily: DashboardTheme.font,
+              fontSize: 26,
+              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 255, 255)
+            ),
+          ),
+          Text(
+            warningText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: DashboardTheme.font,
+              fontSize: 12,
+              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 255, 255)
+            ),
+          ),
+        ],
+      )
     );
   }
 }

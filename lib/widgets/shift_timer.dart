@@ -87,11 +87,11 @@ class ShiftTimer extends StatelessWidget {
                     margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                     decoration: BoxDecoration(
                       color: leftColor,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          color: leftColor,
-                          blurRadius: 20,
+                          color: leftColor.a < 0.5 ? Colors.transparent : leftColor.withAlpha(150),
+                          blurRadius: 18,
                         ),
                       ],
                     ),
@@ -122,8 +122,8 @@ class ShiftTimer extends StatelessWidget {
                         height: 1.0,
                         shadows: [
                           Shadow(
-                            blurRadius: 20.0,
-                            color: Color.fromARGB(150, 0, 140, 200),
+                            blurRadius: 15.0,
+                            color: Color.fromARGB(100, 0, 140, 200),
                             offset: Offset(0.0, 0.0)
                           )
                         ]
@@ -150,11 +150,11 @@ class ShiftTimer extends StatelessWidget {
                     margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                     decoration: BoxDecoration(
                       color: rightColor,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
-                          color: rightColor,
-                          blurRadius: 20,
+                          color: rightColor.a < 0.5 ? Colors.transparent : rightColor.withAlpha(150),
+                          blurRadius: 18,
                         ),
                       ],
                     ),
@@ -179,12 +179,14 @@ class ShiftTimer extends StatelessWidget {
       height: 30,
       width: 100,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 43, 43, 43)
+        color: const Color.fromARGB(255, 32, 34, 39),
+        borderRadius: BorderRadius.circular(4)
+        // border: Border.all(color: Colors.black, width: 6.0, strokeAlign: BorderSide.strokeAlignOutside)
       ),
       child: Padding(
         padding: EdgeInsets.all(8),
         child: Row(
-          spacing: 8,
+          spacing: 9,
           children: [
             _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 1),
             _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 2),
@@ -202,11 +204,11 @@ class ShiftTimer extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: enabled ? const Color.fromARGB(200, 220, 220, 255) : Colors.transparent,
+          color: enabled ? const Color.fromARGB(200, 220, 220, 255) : const Color.fromARGB(97, 0, 0, 0),
           boxShadow: [
             BoxShadow(
-              color: enabled ? Colors.lightBlue : Colors.transparent,
-              blurRadius: 5
+              color: enabled ? const Color.fromARGB(120, 3, 168, 244) : Colors.transparent,
+              blurRadius: 3
             )
           ]
         ),

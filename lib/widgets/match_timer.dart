@@ -52,7 +52,7 @@ class MatchTimer extends StatelessWidget {
                     shadows: [
                       Shadow(
                         blurRadius: 20.0,
-                        color: Color.fromARGB(150, 0, 140, 200),
+                        color: Color.fromARGB(100, 0, 140, 200),
                         offset: Offset(0.0, 0.0)
                       )
                     ]
