@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class ConsoleWidget extends StatelessWidget {
   final DashboardState dashboardState;
+  String console = '';
 
-  const ConsoleWidget({
+  ConsoleWidget({
     super.key,
     required this.dashboardState
   });
@@ -16,14 +17,13 @@ class ConsoleWidget extends StatelessWidget {
     return StreamBuilder(
       stream: dashboardState.consoleLog(),
       builder: (context, snapshot) {
-        String console = '';
         String current = '';
         if (snapshot.hasData) {
           current = snapshot.data!;
         }
         if (current != prevConsole) {
           prevConsole = current;
-          console += '\n$current';
+          console += '$current\n';
         }
 
         return Container(

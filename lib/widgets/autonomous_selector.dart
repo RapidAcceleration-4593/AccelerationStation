@@ -35,6 +35,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   final List<String> otherAutos = [
     '',
     'RightCenterOutpost',
+    'Left2xCenterNoClimb',
   ];
   final List<String> autoRoutines = [
     'LeftCenterLeft',
@@ -53,6 +54,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'RightNoPickupNoClimb',
 
     'RightCenterOutpost',
+    'Left2xCenterNoClimb',
   ];
 
   late String selectedStartPosition;
