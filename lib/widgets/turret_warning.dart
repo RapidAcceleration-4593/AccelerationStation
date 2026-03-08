@@ -44,17 +44,10 @@ class TurretWarning extends StatelessWidget {
     required bool condition
   }) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: !condition ? Colors.transparent : const Color.fromARGB(188, 233, 54, 41),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: !condition ? Colors.transparent : const Color.fromARGB(0, 255, 255, 255), width: 6.0),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: !condition ? Colors.transparent : const Color.fromARGB(100, 244, 67, 54),
-        //     blurRadius: 0
-        //   )
-        // ]
+        color: !condition ? Colors.transparent : const Color.fromARGB(255, 165, 34, 34),
+        border: Border.all(color: !condition ? Colors.transparent : Colors.red, width: 2.0),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -64,7 +57,7 @@ class TurretWarning extends StatelessWidget {
             style: TextStyle(
               fontFamily: DashboardTheme.font,
               fontSize: 26,
-              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 255, 255)
+              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 117, 75)
             ),
           ),
           Text(
@@ -73,7 +66,7 @@ class TurretWarning extends StatelessWidget {
             style: TextStyle(
               fontFamily: DashboardTheme.font,
               fontSize: 12,
-              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 255, 255)
+              color: !condition ? Colors.transparent : const Color.fromARGB(255, 255, 117, 75)
             ),
           ),
         ],

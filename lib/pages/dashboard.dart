@@ -43,7 +43,6 @@ class Dashboard extends StatelessWidget {
                                 widthFactor: 1.0,
                                 child: AutonomousSelector(
                                   dashboardState: dashboardState,
-                                  redAlliance: isRed
                                 )
                               ),
                             ),
