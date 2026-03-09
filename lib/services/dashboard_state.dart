@@ -4,7 +4,6 @@ import 'package:nt4/nt4.dart';
 
 class DashboardState {
   static const String robotAddress = kDebugMode ? '127.0.0.1' : '10.45.93.2';
-
   late final NT4Client client;
 
   bool _isRedAlliance = false;
@@ -12,6 +11,7 @@ class DashboardState {
   double _matchTime = -1.0;
   String _gsm = '';
 
+  // Default selected autonomous routine
   String selectedAuto = 'LeftCenterLeft';
 
   // Publishers
@@ -53,21 +53,28 @@ class DashboardState {
     _gsmSub.stream().listen((value) {
       if (value is String) _gsm = value;
     });
-    client.connectionStatusStream().listen((connected) {
+    connected().listen((connected) {
       if (connected) {
         setSelectedAuto(selectedAuto);
       }
     });
   }
 
-  Stream<bool> connected() =>
-      client.connectionStatusStream().asBroadcastStream();
+  Stream<bool> connected() => client.connectionStatusStream();
 
-  Stream<double> matchTime() async* {
-    await for (final value in _matchTimeSub.stream()) {
-      if (value is double) yield value;
+  Stream<T> _typedStream<T>(NT4Subscription sub) async* {
+    await for (final value in sub.stream()) {
+      if (value is T) yield value;
     }
   }
+
+  Stream<double> turretAngle() => _typedStream<double>(_turretAngleSub);
+  Stream<double> matchTime() => _typedStream<double>(_matchTimeSub);
+  Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
+  Stream<bool> driverStationConnected() => _typedStream<bool>(_dsSub);
+  Stream<bool> isAutoEnabled() => _typedStream<bool>(_autoEnabledSub);
+  Stream<bool> fmsConnected() => _typedStream<bool>(_fmsSub);
+  Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
 
   // Takes the GameSpecificMessage and compares it to the current shift to determine if the hub is enabled or not.
   Stream<bool> isHubEnabled() async* {
@@ -88,42 +95,6 @@ class DashboardState {
       } else {
         yield (gsm == 'B') == _isRedAlliance;
       }
-    }
-  }
-
-  Stream<bool> isAutoEnabled() async* {
-    await for (final value in _autoEnabledSub.stream()) {
-      if (value is bool) yield value;
-    }
-  }
-
-  Stream<bool> isRedAlliance() async* {
-    await for (final value in _redAllianceSub.stream()) {
-      if (value is bool) yield value;
-    }
-  }
-
-  Stream<bool> driverStationConnected() async* {
-    await for (final value in _dsSub.stream()) {
-      if (value is bool) yield value;
-    }
-  }
-
-  Stream<bool> fmsConnected() async* {
-    await for (final value in _fmsSub.stream()) {
-      if (value is bool) yield value;
-    }
-  }
-
-  Stream<String> consoleLog() async* {
-    await for (final value in _consoleSub.stream()) {
-      if (value is String) yield value;
-    }
-  }
-
-  Stream<double> turretAngle() async* {
-    await for (final value in _turretAngleSub.stream()) {
-      if (value is double) yield value;
     }
   }
 
