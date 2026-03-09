@@ -36,7 +36,7 @@ class DashboardState {
     _dsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/DSAttached', 1.0);
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
-    _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 1.0);
+    _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
     _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
@@ -144,20 +144,16 @@ class DashboardState {
     return -2;
   }
 
-  double getMatchTime() {
-    return _matchTime;
-  }
-
   double getShiftTime() {
-    double time = _matchTime;
-    switch (getCurrentShift()) {
-      case 4: time -= 30.0;
-      case 3: time -= 55.0;
-      case 2: time -= 80.0;
-      case 1: time -= 105.0;
-      case 0: time -= 130.0;
+    final int shift = getCurrentShift();
+    switch (shift) {
+      case 4: return _matchTime - 30.0;
+      case 3: return _matchTime - 55.0;
+      case 2: return _matchTime - 80.0;
+      case 1: return _matchTime - 105.0;
+      case 0: return _matchTime - 130.0;
+      default: return _matchTime;
     }
-    return time;
   }
 
   int getAllianceRemainingShifts({required bool redAlliance}) {
@@ -170,7 +166,7 @@ class DashboardState {
       case 3: return redAlliance == !gsmRed ? 1 : 2;
       case 4: return redAlliance == !gsmRed ? 1 : 1;
       case 5: return 0;
+      default: return 4;
     }
-    return 4;
   }
 }

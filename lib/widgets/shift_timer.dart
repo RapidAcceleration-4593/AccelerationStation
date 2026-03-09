@@ -62,8 +62,9 @@ class ShiftTimer extends StatelessWidget {
                 rightColor = Colors.red;
             }
 
-            int mins = (shiftTime / 60).floor();
-            int secs = (shiftTime % 60).floor();
+            int totalSeconds = shiftTime.ceil();
+            int mins = totalSeconds ~/ 60;
+            int secs = totalSeconds % 60;
             timeString = '$mins:${secs.toString().padLeft(2, '0')}';
 
             final bool same = redAlliance == hubEnabled;

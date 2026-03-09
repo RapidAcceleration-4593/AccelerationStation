@@ -18,8 +18,10 @@ class MatchTimer extends StatelessWidget {
         String timeString = '0:00';
 
         if (snapshot.hasData && snapshot.data != -1) {
-          int mins = (snapshot.data! / 60).floor();
-          int secs = (snapshot.data! % 60).floor();
+          double matchTime = snapshot.data as double;
+          int totalSeconds = matchTime.ceil();
+          int mins = totalSeconds ~/ 60;
+          int secs = totalSeconds % 60;
 
           timeString = '$mins:${secs.toString().padLeft(2, '0')}';
         }

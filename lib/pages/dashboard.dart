@@ -19,84 +19,76 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<bool>(
-        stream: dashboardState.isRedAlliance(),
-        initialData: false,
-        builder: (context, snapshot) {
-          final isRed = snapshot.data ?? false;
-
-          return Stack(
+      body: Stack(
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      color: Colors.black,
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: FractionallySizedBox(
-                                widthFactor: 1.0,
-                                child: AutonomousSelector(
-                                  dashboardState: dashboardState,
-                                )
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: FractionallySizedBox(
-                                widthFactor: 1.0,
-                                child: ConsoleWidget(
-                                  dashboardState: dashboardState,
-                                )
-                              ),
-                            ),
-                          ),
-                        ]
-                      )
-                    )
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: HubWidget(dashboardState: dashboardState)
-                        ),
-                        TurretWarning(dashboardState: dashboardState),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: ShiftTimer(dashboardState: dashboardState),
-                          )
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: MatchTimer(dashboardState: dashboardState),
+              Expanded(
+                flex: 4,
+                child: Container(
+                  color: Colors.black,
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: FractionallySizedBox(
+                            widthFactor: 1.0,
+                            child: AutonomousSelector(
+                              dashboardState: dashboardState,
+                            )
                           ),
                         ),
-                      ]
-                    )
-                  ),
-                ],
+                      ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: FractionallySizedBox(
+                            widthFactor: 1.0,
+                            child: ConsoleWidget(
+                              dashboardState: dashboardState,
+                            )
+                          ),
+                        ),
+                      ),
+                    ]
+                  )
+                )
               ),
-              FooterLeft(),
-              FooterRight(dashboardState),
+              Expanded(
+                flex: 8,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: HubWidget(dashboardState: dashboardState)
+                    ),
+                    TurretWarning(dashboardState: dashboardState),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: ShiftTimer(dashboardState: dashboardState),
+                      )
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: MatchTimer(dashboardState: dashboardState),
+                      ),
+                    ),
+                  ]
+                )
+              ),
             ],
-          );
-        },
-      ),
+          ),
+          FooterLeft(),
+          FooterRight(dashboardState),
+        ],
+      )
     );
   }
 }
