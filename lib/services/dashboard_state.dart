@@ -26,6 +26,7 @@ class DashboardState {
   late final NT4Subscription _gsmSub;
   late final NT4Subscription _consoleSub;
   late final NT4Subscription _turretAngleSub;
+  late final NT4Subscription _shotCountSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
@@ -38,6 +39,7 @@ class DashboardState {
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
     _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
+    _shotCountSub = client.subscribe('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotCount', NT4SubscriptionOptions());
 
     client.setProperties(_selectedAutoPub, false, true);
 
@@ -68,6 +70,7 @@ class DashboardState {
     }
   }
 
+  Stream<int> shotCount() => _typedStream<int>(_shotCountSub);
   Stream<double> turretAngle() => _typedStream<double>(_turretAngleSub);
   Stream<double> matchTime() => _typedStream<double>(_matchTimeSub);
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
@@ -79,7 +82,6 @@ class DashboardState {
   // Takes the GameSpecificMessage and compares it to the current shift to determine if the hub is enabled or not.
   Stream<bool> isHubEnabled() async* {
     await for (final _ in _matchTimeSub.stream()) {
-
       final gsm = _gsm;
       final int shift = getCurrentShift();
       if (gsm.isEmpty) continue;

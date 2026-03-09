@@ -5,6 +5,7 @@ import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';
 import 'package:accelerationstation/widgets/shift_timer.dart';
+import 'package:accelerationstation/widgets/shot_count.dart';
 import 'package:accelerationstation/widgets/turret_warning.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +54,7 @@ class Dashboard extends StatelessWidget {
                           ),
                         ),
                       ),
+                      FooterLeft(),
                     ]
                   )
                 )
@@ -77,15 +79,24 @@ class Dashboard extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: MatchTimer(dashboardState: dashboardState),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            MatchTimer(dashboardState: dashboardState),
+                            Positioned(
+                              right: 408,
+                              child: ShotCount(dashboardState: dashboardState),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    )
                   ]
                 )
               ),
             ],
           ),
-          FooterLeft(),
           FooterRight(dashboardState),
         ],
       )

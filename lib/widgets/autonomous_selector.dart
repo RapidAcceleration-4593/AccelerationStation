@@ -152,7 +152,9 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               border: Border.all(color: getAutoRoutine() != 'Invalid' ? Colors.transparent : Colors.red, width: 2.0)
             ),
             child: Text(
-              getAutoRoutine() != 'Invalid' ? 'Selected Autonomous: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
+              overflow: TextOverflow.clip,
+              softWrap: false,
+              getAutoRoutine() != 'Invalid' ? 'Selected Routine: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
               style: TextStyle(
                 fontFamily: DashboardTheme.font,
                 fontSize: 20
@@ -205,6 +207,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
         selectedItemBuilder: (BuildContext context) {
           return options.map<Widget>((String value) {
             return Text(
+              softWrap: false,
               "$label$value",
               style: TextStyle(
                 fontSize: 28,
