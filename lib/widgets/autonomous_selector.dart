@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 
 class AutonomousSelector extends StatefulWidget {
   final DashboardState dashboardState;
-  final bool redAlliance;
 
   const AutonomousSelector({
     super.key,
     required this.dashboardState,
-    required this.redAlliance,
   });
 
   @override
@@ -36,6 +34,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     '',
     'RightCenterOutpost',
     'Left2xCenterNoClimb',
+    'Right2xCenterNoClimb',
   ];
   final List<String> autoRoutines = [
     'LeftCenterLeft',
@@ -55,6 +54,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
     'RightCenterOutpost',
     'Left2xCenterNoClimb',
+    'Right2xCenterNoClimb',
   ];
 
   late String selectedStartPosition;
@@ -71,7 +71,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     selectedClimbOption = climbOptions.first;
     selectedOtherAuto = otherAutos.first;
 
-    // Push defaults to dashboard state.
     String selectedAutoRoutine = getAutoRoutine();
     if (selectedAutoRoutine != 'Invalid') widget.dashboardState.setSelectedAuto(selectedAutoRoutine);
   }
@@ -146,14 +145,18 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             enabled: true
           ),
           Container(
+            width: double.infinity,
             padding: EdgeInsets.all(8),
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               color: getAutoRoutine() != 'Invalid' ? const Color.fromARGB(255, 20, 20, 20) : const Color.fromARGB(127, 244, 67, 54),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(6),
               border: Border.all(color: getAutoRoutine() != 'Invalid' ? Colors.transparent : Colors.red, width: 2.0)
             ),
             child: Text(
-              getAutoRoutine() != 'Invalid' ? 'Selected Autonomous: ${getAutoRoutine()}' : '! Selected Autonomous: ${getAutoRoutine()} !',
+              overflow: TextOverflow.clip,
+              softWrap: false,
+              getAutoRoutine() != 'Invalid' ? 'Selected Routine: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
               style: TextStyle(
                 fontFamily: DashboardTheme.font,
                 fontSize: 20
@@ -176,7 +179,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       decoration: BoxDecoration(
         border: enabled ? Border.all(color: Colors.white, width: 2) : Border.all(color: const Color.fromARGB(255, 77, 77, 77), width: 2),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: DropdownButton<String>(
         alignment: AlignmentGeometry.center,
@@ -206,6 +209,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
         selectedItemBuilder: (BuildContext context) {
           return options.map<Widget>((String value) {
             return Text(
+              softWrap: false,
               "$label$value",
               style: TextStyle(
                 fontSize: 28,

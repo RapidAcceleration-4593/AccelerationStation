@@ -2,10 +2,10 @@ import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:flutter/material.dart';
 
-class MatchTimer extends StatelessWidget {
+class ShotCount extends StatelessWidget {
   final DashboardState dashboardState;
 
-  const MatchTimer({
+  const ShotCount({
     super.key,
     required this.dashboardState,
   });
@@ -13,17 +13,12 @@ class MatchTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: dashboardState.matchTime(),
+      stream: dashboardState.shotCount(),
       builder: (context, snapshot) {
-        String timeString = '0:00';
+        String countString = '00';
 
         if (snapshot.hasData && snapshot.data != -1) {
-          double matchTime = snapshot.data as double;
-          int totalSeconds = matchTime.ceil();
-          int mins = totalSeconds ~/ 60;
-          int secs = totalSeconds % 60;
-
-          timeString = '$mins:${secs.toString().padLeft(2, '0')}';
+          countString = snapshot.data.toString().padLeft(2, '0');
         }
 
         return Container(
@@ -34,28 +29,28 @@ class MatchTimer extends StatelessWidget {
           ),
           child: FittedBox(
             fit: BoxFit.fitHeight,
+            alignment: Alignment.centerLeft,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '- Match Timer -',
+                  '- Shot Count -',
                   style: const TextStyle(
                     fontFamily: DashboardTheme.font,
-                    fontSize: 20,
+                    fontSize: 12,
                     color: Colors.grey
                   ),
                 ),
                 Text(
-                  timeString,
+                  countString,
                   style: const TextStyle(
                     fontFamily: DashboardTheme.font,
-                    letterSpacing: -8,
-                    fontSize: 160,
+                    fontSize: 80,
                     height: 1.0,
                     shadows: [
                       Shadow(
                         blurRadius: 20.0,
                         color: Color.fromARGB(100, 0, 140, 200),
-                        offset: Offset(0.0, 0.0)
                       )
                     ]
                   ),
