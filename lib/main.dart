@@ -1,5 +1,5 @@
-import 'package:accelerationstation/pages/dashboard.dart';
-import 'package:accelerationstation/services/dashboard_state.dart';
+import 'pages/dashboard.dart';
+import 'services/dashboard_state.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
