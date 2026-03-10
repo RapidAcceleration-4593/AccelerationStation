@@ -44,7 +44,10 @@ class HubWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(400),
                 boxShadow: [
                   BoxShadow(
-                    color: isHubEnabled ? Color.fromARGB(30, 0, 255, 98) : Colors.transparent,
+                    color: isHubEnabled ? (isFlashing 
+                      ? Color.fromARGB(30, 244, 67, 54)
+                      : Color.fromARGB(30, 0, 255, 98))
+                    : Colors.transparent,
                     blurRadius: 700
                   )
                 ]
