@@ -39,7 +39,7 @@ class DashboardState {
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
     _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
-    _shotCountSub = client.subscribe('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotCount', NT4SubscriptionOptions());
+    _shotCountSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotCount', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
 

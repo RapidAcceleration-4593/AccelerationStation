@@ -29,9 +29,9 @@ class ShotCount extends StatelessWidget {
           ),
           child: FittedBox(
             fit: BoxFit.fitHeight,
-            alignment: Alignment.centerRight,
+            alignment: Alignment.centerLeft,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '- Shot Count -',
