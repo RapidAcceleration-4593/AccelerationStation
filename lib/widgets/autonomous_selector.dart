@@ -22,6 +22,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   ];
   final List<String> fuelPickupOptions = [
     'Center',
+    'Depot',
     'Outpost',
     'NoPickup',
   ];
@@ -32,29 +33,26 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   ];
   final List<String> otherAutos = [
     '',
+    'DoNothing',
     'RightCenterOutpost',
     'Left2xCenterNoClimb',
     'Right2xCenterNoClimb',
   ];
   final List<String> autoRoutines = [
-    'LeftCenterLeft',
     'LeftCenterNoClimb',
-    'LeftNoPickupLeft',
     'LeftNoPickupNoClimb',
 
-    'CenterNoPickupCenter',
     'CenterNoPickupNoClimb',
 
-    'RightOutpostRight',
     'RightOutpostNoClimb',
-    'RightCenterRight',
     'RightCenterNoClimb',
     'RightNoPickupRight',
     'RightNoPickupNoClimb',
 
-    'RightCenterOutpost',
+    'DoNothing',
     'Left2xCenterNoClimb',
     'Right2xCenterNoClimb',
+    'RightCenterOutpost',
   ];
 
   late String selectedStartPosition;
