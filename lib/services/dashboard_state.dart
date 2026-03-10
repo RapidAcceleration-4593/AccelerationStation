@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:nt4/nt4.dart';
+import 'package:rxdart/rxdart.dart';
 
 class DashboardState {
   static const String robotAddress = kDebugMode ? '127.0.0.1' : '10.45.93.2';
@@ -12,7 +13,7 @@ class DashboardState {
   String _gsm = '';
 
   // Default selected autonomous routine
-  String selectedAuto = 'LeftCenterLeft';
+  String selectedAuto = 'RightCenterOutpost';
 
   // Publishers
   late NT4Topic _selectedAutoPub;
@@ -80,24 +81,29 @@ class DashboardState {
   Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
 
   // Takes the GameSpecificMessage and compares it to the current shift to determine if the hub is enabled or not.
-  Stream<bool> isHubEnabled() async* {
-    await for (final _ in _matchTimeSub.stream()) {
-      final gsm = _gsm;
-      final int shift = getCurrentShift();
-      if (gsm.isEmpty) continue;
+  Stream<bool> isHubEnabled() {
+    return Rx.combineLatest2<dynamic, String, bool>(
+      _matchTimeSub.stream(),
+      _gsmSub.stream().whereType<String>().startWith(_gsm),
+      (_, gsm) {
+        final int shift = getCurrentShift();
 
-      // Endgame, autonomous and transition check.
-      if (shift == -1 || shift == 0 || shift == 5) {
-        yield true;
-        continue;
-      }
-      
-      if (shift == 2 || shift == 4) {
-        yield (gsm == 'R') == _isRedAlliance;
-      } else {
-        yield (gsm == 'B') == _isRedAlliance;
-      }
-    }
+        if (shift == -1 || shift == 0 || shift == 5) {
+          return true;
+        }
+
+        if (_gsm.isEmpty) {
+          final bool redOwnsShift = shift % 2 == 1;
+          return redOwnsShift == _isRedAlliance;
+        }
+
+        final bool shift1Red = gsm == 'R';
+        final bool redOwnsShift =
+            (shift % 2 == 1) ? shift1Red : !shift1Red;
+
+        return redOwnsShift == _isRedAlliance;
+      },
+    );
   }
 
   void setSelectedAuto(String auto) {

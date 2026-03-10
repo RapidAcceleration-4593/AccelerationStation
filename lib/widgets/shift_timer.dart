@@ -13,12 +13,14 @@ class ShiftTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final combinedStream = Rx.combineLatest2<bool, bool, Map<String, dynamic>>(
+    final combinedStream = Rx.combineLatest3<bool, bool, double, Map<String, dynamic>>(
       dashboardState.isRedAlliance(),
       dashboardState.isHubEnabled(),
-      (redAlliance, hubEnabled) => {
+      dashboardState.matchTime(),
+      (redAlliance, hubEnabled, matchTime) => {
         'redAlliance': redAlliance,
-        'hubEnabled': hubEnabled
+        'hubEnabled': hubEnabled,
+        'matchTime': matchTime
       },
     );
 
@@ -44,22 +46,29 @@ class ShiftTimer extends StatelessWidget {
                 hintText = '- ENDGAME -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
+                break;
               case 4:
                 hintText = '- Shift 4 -';
+                break;
               case 3:
                 hintText = '- Shift 3 -';
+                break;
               case 2:
                 hintText = '- Shift 2 -';
+                break;
               case 1:
                 hintText = '- Shift 1 -';
+                break;
               case 0:
                 hintText = '- Transition Shift -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
+                break;
               case -1:
                 hintText = '- Autonomous -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
+                break;
             }
 
             int totalSeconds = shiftTime.ceil();
