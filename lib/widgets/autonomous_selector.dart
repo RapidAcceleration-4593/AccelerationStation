@@ -67,7 +67,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickupOptions.first;
     selectedClimbOption = climbOptions.first;
-    selectedOtherAuto = otherAutos.first;
+    selectedOtherAuto = otherAutos.elementAt(1);
 
     String selectedAutoRoutine = getAutoRoutine();
     if (selectedAutoRoutine != 'Invalid') widget.dashboardState.setSelectedAuto(selectedAutoRoutine);

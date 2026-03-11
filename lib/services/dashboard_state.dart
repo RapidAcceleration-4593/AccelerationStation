@@ -4,7 +4,7 @@ import 'package:nt4/nt4.dart';
 import 'package:rxdart/rxdart.dart';
 
 class DashboardState {
-  static const String robotAddress = kDebugMode ? '127.0.0.1' : '10.45.93.2';
+  static const String robotAddress = kDebugMode ? '127.0.0.1' : '127.0.0.1'; // TODO: change this back.
   late final NT4Client client;
 
   bool _isRedAlliance = false;
@@ -13,7 +13,7 @@ class DashboardState {
   String _gsm = '';
 
   // Default selected autonomous routine
-  String selectedAuto = 'RightCenterOutpost';
+  String selectedAuto = 'DoNothing';
 
   // Publishers
   late NT4Topic _selectedAutoPub;
@@ -80,7 +80,6 @@ class DashboardState {
   Stream<bool> fmsConnected() => _typedStream<bool>(_fmsSub);
   Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
 
-  // Takes the GameSpecificMessage and compares it to the current shift to determine if the hub is enabled or not.
   Stream<bool> isHubEnabled() {
     return Rx.combineLatest2<dynamic, String, bool>(
       _matchTimeSub.stream(),
@@ -99,7 +98,7 @@ class DashboardState {
 
         final bool shift1Red = gsm == 'R';
         final bool redOwnsShift =
-            (shift % 2 == 1) ? shift1Red : !shift1Red;
+            (shift % 2 == 0) ? shift1Red : !shift1Red;
 
         return redOwnsShift == _isRedAlliance;
       },
