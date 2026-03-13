@@ -39,7 +39,6 @@ class ShotCount extends StatelessWidget {
           spacing: 10,
           children: [
             Container(
-              margin: EdgeInsets.only(left: 8),
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(132, 0, 0, 0),
@@ -78,7 +77,7 @@ class ShotCount extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 380,
+              width: 450,
               height: 0,
             ),
             Container(
