@@ -78,14 +78,14 @@ class Dashboard extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: MatchTimer(dashboardState: dashboardState),
                       )
                     ),
                     Align(
-                      alignment: Alignment.bottomLeft,
+                      alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10, left: 10),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: ShotCount(dashboardState: dashboardState),
                       ),
                     )

@@ -4,7 +4,7 @@ import 'package:nt4/nt4.dart';
 import 'package:rxdart/rxdart.dart';
 
 class DashboardState {
-  static const String robotAddress = kDebugMode ? '127.0.0.1' : '127.0.0.1'; // TODO: change this back.
+  static const String robotAddress = kDebugMode ? '127.0.0.1' : '10.45.93.2';
   late final NT4Client client;
 
   bool _isRedAlliance = false;
@@ -27,7 +27,8 @@ class DashboardState {
   late final NT4Subscription _gsmSub;
   late final NT4Subscription _consoleSub;
   late final NT4Subscription _turretAngleSub;
-  late final NT4Subscription _shotCountSub;
+  late final NT4Subscription _fuelShotHubSub;
+  late final NT4Subscription _fuelShotFeedingSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
@@ -40,7 +41,8 @@ class DashboardState {
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
     _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
-    _shotCountSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotCount', 0.1);
+    _fuelShotHubSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotHub', 0.1);
+    _fuelShotFeedingSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotFeeding', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
 
@@ -71,7 +73,8 @@ class DashboardState {
     }
   }
 
-  Stream<int> shotCount() => _typedStream<int>(_shotCountSub);
+  Stream<int> fuelShotHub() => _typedStream<int>(_fuelShotHubSub);
+  Stream<int> fuelShotFeeding() => _typedStream<int>(_fuelShotFeedingSub);
   Stream<double> turretAngle() => _typedStream<double>(_turretAngleSub);
   Stream<double> matchTime() => _typedStream<double>(_matchTimeSub);
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);

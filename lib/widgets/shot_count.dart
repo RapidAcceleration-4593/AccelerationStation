@@ -1,6 +1,7 @@
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ShotCount extends StatelessWidget {
   final DashboardState dashboardState;
@@ -10,54 +11,115 @@ class ShotCount extends StatelessWidget {
     required this.dashboardState,
   });
 
+
   @override
   Widget build(BuildContext context) {
+    final combinedStream = Rx.combineLatest2<int, int, Map<String, dynamic>>(
+      dashboardState.fuelShotHub(),
+      dashboardState.fuelShotFeeding(),
+      (fuelShotHub, fuelShotFeeding) => {
+        'fuelShotHub' : fuelShotHub,
+        'fuelShotFeeding' : fuelShotFeeding
+      }
+    );
+
     return StreamBuilder(
-      stream: dashboardState.shotCount(),
+      stream: combinedStream,
       builder: (context, snapshot) {
-        String countString = '00';
+        String hubCountString = '00';
+        String feedingCountString = '00';
 
-        if (snapshot.hasData && snapshot.data != -1) {
-          countString = snapshot.data.toString().padLeft(2, '0');
-        }
+        final int fuelShotHub = snapshot.hasData ? snapshot.data!['fuelShotHub'] as int : 0;
+        final int fuelShotFeeding = snapshot.hasData ? snapshot.data!['fuelShotFeeding'] as int : 0;
+        hubCountString = fuelShotHub.toString().padLeft(2, '0');
+        feedingCountString = fuelShotFeeding.toString().padLeft(2, '0');
 
-        return Container(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(132, 0, 0, 0),
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitHeight,
-            alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '- Shot Count -',
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 12,
-                    color: Colors.grey
-                  ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 10,
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(132, 0, 0, 0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                alignment: Alignment.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '- Hub Shots -',
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        fontSize: 12,
+                        color: Colors.grey
+                      ),
+                    ),
+                    Text(
+                      hubCountString,
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        fontSize: 80,
+                        height: 1.0,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 20.0,
+                            color: Color.fromARGB(100, 0, 140, 200),
+                          )
+                        ]
+                      ),
+                    )
+                  ]
                 ),
-                Text(
-                  countString,
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 80,
-                    height: 1.0,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 20.0,
-                        color: Color.fromARGB(100, 0, 140, 200),
-                      )
-                    ]
-                  ),
-                )
-              ]
+              ),
             ),
-          ),
+            SizedBox(
+              width: 380,
+              height: 0,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(132, 0, 0, 0),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                alignment: Alignment.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '- Feed Shots -',
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        fontSize: 12,
+                        color: Colors.grey
+                      ),
+                    ),
+                    Text(
+                      feedingCountString,
+                      style: const TextStyle(
+                        fontFamily: DashboardTheme.font,
+                        fontSize: 80,
+                        height: 1.0,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 20.0,
+                            color: Color.fromARGB(100, 0, 140, 200),
+                          )
+                        ]
+                      ),
+                    )
+                  ]
+                ),
+              ),
+            ),
+          ],
         );
       },
     );

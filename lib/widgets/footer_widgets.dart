@@ -9,7 +9,7 @@ class FooterLeft extends StatelessWidget {
       left: 8,
       bottom: 8,
       child: Text(
-        'Created by Lincoln Tupper, Tyler Mueller, and Matthew Flanegan',
+        'Created by team 4593 Rapid Acceleration',
         style: DashboardTheme.footerText,
       ),
     );
