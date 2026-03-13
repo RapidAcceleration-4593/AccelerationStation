@@ -46,29 +46,22 @@ class ShiftTimer extends StatelessWidget {
                 hintText = '- ENDGAME -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
-                break;
               case 4:
                 hintText = '- Shift 4 -';
-                break;
               case 3:
                 hintText = '- Shift 3 -';
-                break;
               case 2:
                 hintText = '- Shift 2 -';
-                break;
               case 1:
                 hintText = '- Shift 1 -';
-                break;
               case 0:
                 hintText = '- Transition Shift -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
-                break;
               case -1:
                 hintText = '- Autonomous -';
                 leftColor = Colors.blue;
                 rightColor = Colors.red;
-                break;
             }
 
             int totalSeconds = shiftTime.ceil();
