@@ -29,7 +29,9 @@ class HubWidget extends StatelessWidget {
         final double matchTime = snapshot.hasData ? snapshot.data!['matchTime'] as double : -1.0;
 
         final bool isHubEnabled = (snapshot.hasData ? snapshot.data!['hubEnabled'] as bool : false) && matchTime > 0.0;
-        final bool isFlashing = isHubEnabled && shiftTime < 5.0 && ((shiftTime * 2).floor() % 2 == 0);
+        final bool isFlashing = isHubEnabled &&
+          shiftTime < 5.0 &&
+          (matchTime * 2).floor() % 2 == 0;
 
         final String imageAsset = isHubEnabled ? (isFlashing ? 'images/hub_warning.png' : 'images/hub_enabled.png') : 'images/hub_disabled.png';
         final String hintText = isHubEnabled ? '- ENABLED -' : '- DISABLED -';

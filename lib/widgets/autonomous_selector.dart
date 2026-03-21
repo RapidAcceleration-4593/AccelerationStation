@@ -26,40 +26,34 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     'Outpost',
     'NoPickup',
   ];
-  final List<String> climbOptions = [
-    'Left',
-    'Right',
-    'NoClimb',
-  ];
   final List<String> otherAutos = [
     '',
     'DoNothing',
     'RightCenterOutpost',
-    'Left2xCenterNoClimb',
-    'Right2xCenterNoClimb',
+    'Left2xCenter',
+    'Right2xCenter',
     'RightCenterLoop',
   ];
   final List<String> autoRoutines = [
-    'LeftCenterNoClimb',
-    'LeftNoPickupNoClimb',
+    'LeftCenter',
+    'LeftNoPickup',
 
-    'CenterNoPickupNoClimb',
+    'CenterNoPickup',
 
-    'RightOutpostNoClimb',
-    'RightCenterNoClimb',
-    'RightNoPickupRight',
-    'RightNoPickupNoClimb',
+    'RightOutpost',
+    'RightCenter',
+    'RightNoPickup',
+    'RightNoPickup',
 
     'DoNothing',
-    'Left2xCenterNoClimb',
-    'Right2xCenterNoClimb',
+    'Left2xCenter',
+    'Right2xCenter',
     'RightCenterOutpost',
     'RightCenterLoop',
   ];
 
   late String selectedStartPosition;
   late String selectedFuelPickup;
-  late String selectedClimbOption;
   late String selectedOtherAuto;
 
   @override
@@ -68,7 +62,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickupOptions.first;
-    selectedClimbOption = climbOptions.first;
     selectedOtherAuto = otherAutos.elementAt(1);
 
     String selectedAutoRoutine = getAutoRoutine();
@@ -117,17 +110,6 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             selectedValue: selectedFuelPickup,
             onChanged: (value) {
               selectedFuelPickup = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Climb Position: ',
-            options: climbOptions,
-            selectedValue: selectedClimbOption,
-            onChanged: (value) {
-              selectedClimbOption = value;
               final String auto = getAutoRoutine();
               if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
             },
@@ -224,7 +206,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   }
 
   String getAutoRoutine() {
-    final String auto = selectedStartPosition + selectedFuelPickup + selectedClimbOption;
+    final String auto = selectedStartPosition + selectedFuelPickup;
     if (autoRoutines.contains(selectedOtherAuto)) return selectedOtherAuto;
     if (autoRoutines.contains(auto)) return auto;
     return 'Invalid';
