@@ -22,38 +22,38 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   ];
   final List<String> fuelPickupOptions = [
     'Center',
-    'Depot',
-    'Outpost',
     'NoPickup',
+  ];
+  final List<String> transversalOptions = [
+    'NoTraversal',
+    'Trench',
+    'Bump',
   ];
   final List<String> otherAutos = [
     '',
     'DoNothing',
-    'RightCenterOutpost',
-    'Left2xCenter',
-    'Right2xCenter',
-    'RightCenterLoop',
+    'Left2xCenterTrench',
+    'Right2xCenterTrench',
   ];
   final List<String> autoRoutines = [
-    'LeftCenter',
-    'LeftNoPickup',
+    'LeftCenterTrench',
+    'LeftCenterBump',
+    'LeftNoPickupNoTraversal',
 
-    'CenterNoPickup',
+    'CenterNoPickupNoTraversal',
 
-    'RightOutpost',
-    'RightCenter',
-    'RightNoPickup',
-    'RightNoPickup',
+    'RightCenterTrench',
+    'RightCenterBump',
+    'RightNoPickupNoTraversal',
 
     'DoNothing',
-    'Left2xCenter',
-    'Right2xCenter',
-    'RightCenterOutpost',
-    'RightCenterLoop',
+    'Left2xCenterTrench',
+    'Right2xCenterTrench',
   ];
 
   late String selectedStartPosition;
   late String selectedFuelPickup;
+  late String selectedTraversalOption;
   late String selectedOtherAuto;
 
   @override
@@ -62,6 +62,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
 
     selectedStartPosition = startPositions.first;
     selectedFuelPickup = fuelPickupOptions.first;
+    selectedTraversalOption = transversalOptions.first;
     selectedOtherAuto = otherAutos.elementAt(1);
 
     String selectedAutoRoutine = getAutoRoutine();
@@ -110,6 +111,17 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             selectedValue: selectedFuelPickup,
             onChanged: (value) {
               selectedFuelPickup = value;
+              final String auto = getAutoRoutine();
+              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+            },
+            enabled: selectedOtherAuto == ''
+          ),
+          _buildDropdown(
+            label: 'Traversal: ',
+            options: transversalOptions,
+            selectedValue: selectedTraversalOption,
+            onChanged: (value) {
+              selectedTraversalOption = value;
               final String auto = getAutoRoutine();
               if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
             },
@@ -206,7 +218,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
   }
 
   String getAutoRoutine() {
-    final String auto = selectedStartPosition + selectedFuelPickup;
+    final String auto = selectedStartPosition + selectedFuelPickup + selectedTraversalOption;
     if (autoRoutines.contains(selectedOtherAuto)) return selectedOtherAuto;
     if (autoRoutines.contains(auto)) return auto;
     return 'Invalid';

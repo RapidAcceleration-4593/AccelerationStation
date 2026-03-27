@@ -37,7 +37,7 @@ class _ConsoleState extends State<ConsoleWidget> {
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 15, 17, 20),
           ),
-          margin: EdgeInsets.fromLTRB(0, 380, 0, 20),
+          margin: EdgeInsets.fromLTRB(0, 460, 0, 20),
           padding: EdgeInsets.all(5),
           height: double.infinity,
           width: double.infinity,
