@@ -26,7 +26,6 @@ class DashboardState {
   late final NT4Subscription _fmsSub;
   late final NT4Subscription _gsmSub;
   late final NT4Subscription _consoleSub;
-  late final NT4Subscription _turretAngleSub;
   late final NT4Subscription _fuelShotHubSub;
   late final NT4Subscription _fuelShotFeedingSub;
 
@@ -40,7 +39,6 @@ class DashboardState {
     _fmsSub = client.subscribePeriodic('/AdvantageKit/DriverStation/FMSAttached', 1.0);
     _gsmSub = client.subscribePeriodic('/FMSInfo/GameSpecificMessage', 1.0);
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
-    _turretAngleSub = client.subscribePeriodic('/AdvantageKit/Turret/Angle', 0.1);
     _fuelShotHubSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotHub', 0.1);
     _fuelShotFeedingSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotFeeding', 0.1);
 
@@ -75,7 +73,6 @@ class DashboardState {
 
   Stream<int> fuelShotHub() => _typedStream<int>(_fuelShotHubSub);
   Stream<int> fuelShotFeeding() => _typedStream<int>(_fuelShotFeedingSub);
-  Stream<double> turretAngle() => _typedStream<double>(_turretAngleSub);
   Stream<double> matchTime() => _typedStream<double>(_matchTimeSub);
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
   Stream<bool> driverStationConnected() => _typedStream<bool>(_dsSub);
