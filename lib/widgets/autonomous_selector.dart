@@ -165,7 +165,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     required bool enabled,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
       decoration: BoxDecoration(
         border: Border.all(color: enabled ? DashboardTheme.highlightColor : DashboardTheme.outlineColor, width: 1.0),
         borderRadius: BorderRadius.circular(0.0),

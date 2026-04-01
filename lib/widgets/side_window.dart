@@ -57,7 +57,7 @@ class _ConsoleState extends State<ConsoleWidget> with SingleTickerProviderStateM
             color: const Color.fromARGB(255, 0, 0, 0),
             border: Border.all(color: DashboardTheme.outlineColor)
           ),
-          margin: EdgeInsets.fromLTRB(0, 445, 0, 20),
+          margin: EdgeInsets.fromLTRB(0, 438, 0, 20),
           padding: EdgeInsets.all(5),
           width: double.infinity,
           child: Column(
