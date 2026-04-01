@@ -34,87 +34,97 @@ class ShotCount extends StatelessWidget {
         hubCountString = fuelShotHub.toString().padLeft(2, '0');
         feedingCountString = fuelShotFeeding.toString().padLeft(2, '0');
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 10,
+        return Stack(
+          clipBehavior: Clip.none,
+          alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(132, 0, 0, 0),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      '- Hub Shots -',
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        fontSize: 12,
-                        color: Colors.grey
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Transform.translate(
+                offset: Offset(
+                  300, 
+                  0,
+                ),
+                child: Container(
+                  height: 115,
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: DashboardTheme.outlineColor)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '- Hub Shots -',
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 12,
+                          color: Colors.grey
+                        ),
                       ),
-                    ),
-                    Text(
-                      hubCountString,
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        fontSize: 80,
-                        height: 1.0,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 20.0,
-                            color: Color.fromARGB(100, 0, 140, 200),
-                          )
-                        ]
-                      ),
-                    )
-                  ]
+                      Text(
+                        hubCountString,
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 80,
+                          height: 1.0,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 20.0,
+                              color: Color.fromARGB(100, 0, 140, 200),
+                            )
+                          ]
+                        ),
+                      )
+                    ]
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              width: 450,
-              height: 0,
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(132, 0, 0, 0),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      '- Feed Shots -',
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        fontSize: 12,
-                        color: Colors.grey
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Transform.translate(
+                offset: Offset(
+                  -300, 
+                  0,
+                ),
+                child: Container(
+                  height: 115,
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: DashboardTheme.outlineColor)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '- Feed Shots -',
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 12,
+                          color: Colors.grey
+                        ),
                       ),
-                    ),
-                    Text(
-                      feedingCountString,
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        fontSize: 80,
-                        height: 1.0,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 20.0,
-                            color: Color.fromARGB(100, 0, 140, 200),
-                          )
-                        ]
-                      ),
-                    )
-                  ]
+                      Text(
+                        feedingCountString,
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 80,
+                          height: 1.0,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 20.0,
+                              color: Color.fromARGB(100, 0, 140, 200),
+                            )
+                          ]
+                        ),
+                      )
+                    ]
+                  ),
                 ),
               ),
             ),

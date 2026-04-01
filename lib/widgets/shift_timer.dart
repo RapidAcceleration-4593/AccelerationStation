@@ -109,8 +109,9 @@ class ShiftTimer extends StatelessWidget {
             Container(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(132, 0, 0, 0),
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: DashboardTheme.outlineColor)
               ),
               child: FittedBox(
                 fit: BoxFit.fitHeight,
@@ -182,9 +183,9 @@ class ShiftTimer extends StatelessWidget {
       height: 30,
       width: 100,
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 32, 34, 39),
-        borderRadius: BorderRadius.circular(4)
-        // border: Border.all(color: Colors.black, width: 6.0, strokeAlign: BorderSide.strokeAlignOutside)
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(3),
+        border: Border.all(color: DashboardTheme.outlineColor, strokeAlign: BorderSide.strokeAlignOutside)
       ),
       child: Padding(
         padding: EdgeInsets.all(8),
@@ -207,7 +208,7 @@ class ShiftTimer extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: enabled ? const Color.fromARGB(200, 220, 220, 255) : const Color.fromARGB(97, 0, 0, 0),
+          color: enabled ? const Color.fromARGB(255, 175, 196, 255) : const Color.fromARGB(255, 26, 26, 26),
           boxShadow: [
             BoxShadow(
               color: enabled ? const Color.fromARGB(120, 3, 168, 244) : Colors.transparent,

@@ -29,8 +29,9 @@ class MatchTimer extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(132, 0, 0, 0),
+            color: Colors.black,
             borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: DashboardTheme.outlineColor)
           ),
           child: FittedBox(
             fit: BoxFit.fitHeight,

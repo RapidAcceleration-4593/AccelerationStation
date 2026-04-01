@@ -82,16 +82,10 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             "- Select Autonomous -",
             textAlign: TextAlign.center,
             style: TextStyle(
+              color: DashboardTheme.highlightColor,
               fontSize: 28,
               fontWeight: FontWeight.normal,
               fontFamily: DashboardTheme.font,
-              shadows: [
-                Shadow(
-                  blurRadius: 20.0,
-                  color: Color.fromARGB(255, 0, 160, 200),
-                  offset: Offset(0.0, 0.0)
-                )
-              ]
             ),
           ),
           _buildDropdown(
@@ -143,15 +137,16 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             padding: EdgeInsets.all(8),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: getAutoRoutine() != 'Invalid' ? const Color.fromARGB(255, 20, 20, 20) : const Color.fromARGB(127, 244, 67, 54),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: getAutoRoutine() != 'Invalid' ? Colors.transparent : Colors.red, width: 2.0)
+              color: getAutoRoutine() != 'Invalid' ? DashboardTheme.backgroundColor : const Color.fromARGB(127, 244, 67, 54),
+              borderRadius: BorderRadius.circular(0.0),
+              border: Border.all(color: getAutoRoutine() != 'Invalid' ? DashboardTheme.outlineColor : Colors.red, width: 1.0)
             ),
             child: Text(
               overflow: TextOverflow.clip,
               softWrap: false,
               getAutoRoutine() != 'Invalid' ? 'Selected Routine: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
               style: TextStyle(
+                color: DashboardTheme.highlightColor,
                 fontFamily: DashboardTheme.font,
                 fontSize: 20
               ),
@@ -172,8 +167,8 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       decoration: BoxDecoration(
-        border: enabled ? Border.all(color: Colors.white, width: 2) : Border.all(color: const Color.fromARGB(255, 77, 77, 77), width: 2),
-        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: enabled ? DashboardTheme.highlightColor : DashboardTheme.outlineColor, width: 1.0),
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: DropdownButton<String>(
         alignment: AlignmentGeometry.center,
@@ -208,7 +203,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
               style: TextStyle(
                 fontSize: 28,
                 fontFamily: DashboardTheme.font,
-                color: enabled ? Colors.white : Colors.grey
+                color: enabled ? DashboardTheme.highlightColor : DashboardTheme.outlineColor
               ),
             );
           }).toList();

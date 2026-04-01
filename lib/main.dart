@@ -1,3 +1,5 @@
+import 'package:accelerationstation/services/dashboard_theme.dart';
+
 import 'pages/dashboard.dart';
 import 'services/dashboard_state.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +38,8 @@ class DashboardApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        colorSchemeSeed: Colors.indigo
+        colorSchemeSeed: Colors.indigo,
+        scaffoldBackgroundColor: DashboardTheme.backgroundColor,
       ),
       home: Dashboard(dashboardState: DashboardState())
     );

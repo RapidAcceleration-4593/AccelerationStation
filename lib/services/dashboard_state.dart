@@ -63,22 +63,27 @@ class DashboardState {
     });
   }
 
-  Stream<bool> connected() => client.connectionStatusStream();
-
-  Stream<T> _typedStream<T>(NT4Subscription sub) async* {
-    await for (final value in sub.stream()) {
-      if (value is T) yield value;
-    }
+  Stream<T> _typedStream<T>(NT4Subscription sub) {
+    return sub
+        .stream()
+        .where((value) => value is T)
+        .cast<T>()
+        .asBroadcastStream();
   }
 
   Stream<int> fuelShotHub() => _typedStream<int>(_fuelShotHubSub);
   Stream<int> fuelShotFeeding() => _typedStream<int>(_fuelShotFeedingSub);
   Stream<double> matchTime() => _typedStream<double>(_matchTimeSub);
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
-  Stream<bool> driverStationConnected() => _typedStream<bool>(_dsSub);
   Stream<bool> isAutoEnabled() => _typedStream<bool>(_autoEnabledSub);
-  Stream<bool> fmsConnected() => _typedStream<bool>(_fmsSub);
   Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
+
+  Stream<bool> fmsConnected() => _typedStream<bool>(_fmsSub);
+  Stream<bool> driverStationConnected() => _typedStream<bool>(_dsSub);
+  late final Stream<bool> _connectionStream =
+    client.connectionStatusStream().asBroadcastStream();
+
+  Stream<bool> connected() => _connectionStream;
 
   Stream<bool> isHubEnabled() {
     return Rx.combineLatest2<dynamic, String, bool>(

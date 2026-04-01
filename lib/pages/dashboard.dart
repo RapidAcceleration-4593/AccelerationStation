@@ -1,6 +1,7 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
+import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/widgets/autonomous_selector.dart';
-import 'package:accelerationstation/widgets/console_widget.dart';
+import 'package:accelerationstation/widgets/side_window.dart';
 import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';
@@ -26,7 +27,10 @@ class Dashboard extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Container(
-                  color: Colors.black,
+                  decoration: BoxDecoration(
+                    border: BoxBorder.fromLTRB(right: BorderSide(color: DashboardTheme.outlineColor, width: 1.0)),
+                    color: Colors.black,
+                  ),
                   child: Stack(
                     children: [
                       Align(
@@ -92,7 +96,6 @@ class Dashboard extends StatelessWidget {
               ),
             ],
           ),
-          FooterRight(dashboardState),
         ],
       )
     );
