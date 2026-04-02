@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
+import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -36,57 +37,61 @@ class HubWidget extends StatelessWidget {
         final String imageAsset = isHubEnabled ? (isFlashing ? 'images/hub_warning.png' : 'images/hub_enabled.png') : 'images/hub_disabled.png';
         final String hintText = isHubEnabled ? '- ENABLED -' : '- DISABLED -';
 
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: 800,
-              height: 800,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(400),
-                boxShadow: [
-                  BoxShadow(
-                    color: isHubEnabled ? (isFlashing 
-                      ? Color.fromARGB(30, 244, 67, 54)
-                      : Color.fromARGB(30, 0, 255, 98))
-                    : Colors.transparent,
-                    blurRadius: 700
-                  )
-                ]
+        return AnimatedStartupWidget(
+          delay: Duration(milliseconds: 1200),
+          length: Duration(milliseconds: 1000),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 800,
+                height: 800,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(400),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isHubEnabled ? (isFlashing 
+                        ? Color.fromARGB(30, 244, 67, 54)
+                        : Color.fromARGB(30, 0, 255, 98))
+                      : Colors.transparent,
+                      blurRadius: 700
+                    )
+                  ]
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(bottom: 38.0),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Image.asset(
-                    imageAsset,
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(0, 0, 0, 0),
-                      borderRadius: BorderRadius.circular(10)
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: 38.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      imageAsset,
                     ),
-                    child: FittedBox(
-                      fit: BoxFit.fitHeight,
-                      child: Text(
-                        hintText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
+                    Container(
+                      padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(0, 0, 0, 0),
+                        borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Text(
+                          hintText,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: DashboardTheme.font,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ]
-              ),
-            )
-          ]
+                    )
+                  ]
+                ),
+              )
+            ]
+          )
         );
       },
     );

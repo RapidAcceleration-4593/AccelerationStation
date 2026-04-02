@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
+import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:flutter/material.dart';
 
 class MatchTimer extends StatelessWidget {
@@ -26,43 +27,48 @@ class MatchTimer extends StatelessWidget {
           timeString = '$mins:${secs.toString().padLeft(2, '0')}';
         }
 
-        return Container(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: DashboardTheme.outlineColor)
-          ),
-          child: FittedBox(
-            fit: BoxFit.fitHeight,
-            child: Column(
-              children: [
-                Text(
-                  '- Match Timer -',
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    fontSize: 20,
-                    color: Colors.grey
-                  ),
-                ),
-                Text(
-                  timeString,
-                  style: const TextStyle(
-                    fontFamily: DashboardTheme.font,
-                    letterSpacing: -8,
-                    fontSize: 160,
-                    height: 1.0,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 20.0,
-                        color: Color.fromARGB(100, 0, 140, 200),
-                      )
-                    ]
-                  ),
-                )
-              ]
+        return AnimatedStartupWidget(
+          delay: Duration(milliseconds: 2500),
+          length: Duration(milliseconds: 500),
+          curve: Curves.easeOutBack,
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(color: DashboardTheme.outlineColor)
             ),
-          ),
+            child: FittedBox(
+              fit: BoxFit.fitHeight,
+              child: Column(
+                children: [
+                  Text(
+                    '- Match Timer -',
+                    style: const TextStyle(
+                      fontFamily: DashboardTheme.font,
+                      fontSize: 20,
+                      color: Colors.grey
+                    ),
+                  ),
+                  Text(
+                    timeString,
+                    style: const TextStyle(
+                      fontFamily: DashboardTheme.font,
+                      letterSpacing: -8,
+                      fontSize: 160,
+                      height: 1.0,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 20.0,
+                          color: Color.fromARGB(100, 0, 140, 200),
+                        )
+                      ]
+                    ),
+                  )
+                ]
+              ),
+            ),
+          )
         );
       },
     );

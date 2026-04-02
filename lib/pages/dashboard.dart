@@ -1,7 +1,7 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
-import 'package:accelerationstation/widgets/autonomous_selector.dart';
-import 'package:accelerationstation/widgets/side_window.dart';
+import 'package:accelerationstation/widgets/sidebar/autonomous_selector.dart';
+import 'package:accelerationstation/widgets/sidebar/side_window.dart';
 import 'package:accelerationstation/widgets/hub_widget.dart';
 import 'package:accelerationstation/widgets/match_timer.dart';
 import 'package:accelerationstation/widgets/footer_widgets.dart';

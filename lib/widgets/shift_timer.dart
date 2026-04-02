@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
+import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -82,93 +83,117 @@ class ShiftTimer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 110,
-                    margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
-                    decoration: BoxDecoration(
-                      color: leftColor,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: leftColor.a < 0.5 ? Colors.transparent : leftColor.withAlpha(150),
-                          blurRadius: 18,
-                        ),
-                      ],
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: 1800),
+                length: Duration(milliseconds: 300),
+                curve: Curves.easeOutBack,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 110,
+                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                      decoration: BoxDecoration(
+                        color: leftColor,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: leftColor.a < 0.5 ? Colors.transparent : leftColor.withAlpha(150),
+                            blurRadius: 18,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 12),
+                    const SizedBox(height: 12),
 
-                  _buildWiimoteUI(redAlliance: false)
-                ],
+                    AnimatedStartupWidget(
+                      delay: Duration(milliseconds: 2200),
+                      length: Duration(milliseconds: 300),
+                      curve: Curves.easeOutBack,
+                      child: _buildWiimoteUI(redAlliance: false)
+                    ),
+                  ],
+                ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: DashboardTheme.outlineColor)
-              ),
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Column(
-                  children: [
-                    Text(
-                      timeString,
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        letterSpacing: -8,
-                        fontSize: 130,
-                        height: 1.0,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 15.0,
-                            color: Color.fromARGB(100, 0, 140, 200),
-                            offset: Offset(0.0, 0.0)
-                          )
-                        ]
+            AnimatedStartupWidget(
+              delay: Duration(milliseconds: 1600),
+              length: Duration(milliseconds: 300),
+              curve: Curves.easeOutBack,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(color: DashboardTheme.outlineColor)
+                ),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: Column(
+                    children: [
+                      Text(
+                        timeString,
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          letterSpacing: -8,
+                          fontSize: 130,
+                          height: 1.0,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 15.0,
+                              color: Color.fromARGB(100, 0, 140, 200),
+                              offset: Offset(0.0, 0.0)
+                            )
+                          ]
+                        ),
                       ),
-                    ),
-                    Text(
-                      hintText,
-                      style: const TextStyle(
-                        fontFamily: DashboardTheme.font,
-                        fontSize: 15,
-                        color: Colors.grey
+                      Text(
+                        hintText,
+                        style: const TextStyle(
+                          fontFamily: DashboardTheme.font,
+                          fontSize: 15,
+                          color: Colors.grey
+                        ),
                       ),
-                    ),
-                  ]
+                    ]
+                  ),
                 ),
               ),
             ),
             Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 110,
-                    margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
-                    decoration: BoxDecoration(
-                      color: rightColor,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: rightColor.a < 0.5 ? Colors.transparent : rightColor.withAlpha(150),
-                          blurRadius: 18,
-                        ),
-                      ],
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: 2000),
+                length: Duration(milliseconds: 300),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: 110,
+                      margin: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                      decoration: BoxDecoration(
+                        color: rightColor,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: rightColor.a < 0.5 ? Colors.transparent : rightColor.withAlpha(150),
+                            blurRadius: 18,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 12),
-
-                  _buildWiimoteUI(redAlliance: true)
-                ],
-              ),
+                    const SizedBox(height: 12),
+                    
+                    AnimatedStartupWidget(
+                      delay: Duration(milliseconds: 2300),
+                      length: Duration(milliseconds: 300),
+                      curve: Curves.easeOutBack,
+                      child: _buildWiimoteUI(redAlliance: true)
+                    ),
+                  ],
+                ),
+              )
             )
           ],
         );
@@ -192,10 +217,38 @@ class ShiftTimer extends StatelessWidget {
         child: Row(
           spacing: 9,
           children: [
-            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 1),
-            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 2),
-            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 3),
-            _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 4)
+            Expanded(
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: !redAlliance ? 3000 : 3500),
+                length: Duration(milliseconds: 100),
+                curve: Curves.easeOutBack,
+                child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 1),
+              ),
+            ),
+            Expanded(
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: !redAlliance ? 3100 : 3600),
+                length: Duration(milliseconds: 100),
+                curve: Curves.easeOutBack,
+                child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 2),
+              ),
+            ),
+            Expanded(
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: !redAlliance ? 3200 : 3700),
+                length: Duration(milliseconds: 100),
+                curve: Curves.easeOutBack,
+                child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 3),
+              ),
+            ),
+            Expanded(
+              child: AnimatedStartupWidget(
+                delay: Duration(milliseconds: !redAlliance ? 3300 : 3800),
+                length: Duration(milliseconds: 100),
+                curve: Curves.easeOutBack,
+                child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 4),
+              ),
+            )
           ],
         ),
       ),
@@ -205,17 +258,15 @@ class ShiftTimer extends StatelessWidget {
   Widget _buildWiimoteLight({
     required bool enabled,
   }) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: enabled ? const Color.fromARGB(255, 175, 196, 255) : const Color.fromARGB(255, 26, 26, 26),
-          boxShadow: [
-            BoxShadow(
-              color: enabled ? const Color.fromARGB(120, 3, 168, 244) : Colors.transparent,
-              blurRadius: 3
-            )
-          ]
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: enabled ? const Color.fromARGB(255, 175, 196, 255) : const Color.fromARGB(255, 26, 26, 26),
+        boxShadow: [
+          BoxShadow(
+            color: enabled ? const Color.fromARGB(120, 3, 168, 244) : Colors.transparent,
+            blurRadius: 3
+          )
+        ]
       ),
     );
   }

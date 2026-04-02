@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/services/dashboard_state.dart';
+import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -45,42 +46,47 @@ class ShotCount extends StatelessWidget {
                   300, 
                   0,
                 ),
-                child: Container(
-                  height: 115,
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: DashboardTheme.outlineColor)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        '- Hub Shots -',
-                        style: const TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 12,
-                          color: Colors.grey
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 2900),
+                  length: Duration(milliseconds: 200),
+                  curve: Curves.easeOutBack,
+                  child: Container(
+                    height: 115,
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: DashboardTheme.outlineColor)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '- Hub Shots -',
+                          style: const TextStyle(
+                            fontFamily: DashboardTheme.font,
+                            fontSize: 12,
+                            color: Colors.grey
+                          ),
                         ),
-                      ),
-                      Text(
-                        hubCountString,
-                        style: const TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 80,
-                          height: 1.0,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 20.0,
-                              color: Color.fromARGB(100, 0, 140, 200),
-                            )
-                          ]
-                        ),
-                      )
-                    ]
+                        Text(
+                          hubCountString,
+                          style: const TextStyle(
+                            fontFamily: DashboardTheme.font,
+                            fontSize: 80,
+                            height: 1.0,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 20.0,
+                                color: Color.fromARGB(100, 0, 140, 200),
+                              )
+                            ]
+                          ),
+                        )
+                      ]
+                    ),
                   ),
-                ),
+                )
               ),
             ),
             Align(
@@ -90,42 +96,47 @@ class ShotCount extends StatelessWidget {
                   -300, 
                   0,
                 ),
-                child: Container(
-                  height: 115,
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: DashboardTheme.outlineColor)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        '- Feed Shots -',
-                        style: const TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 12,
-                          color: Colors.grey
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 2700),
+                  length: Duration(milliseconds: 200),
+                  curve: Curves.easeOutBack,
+                  child: Container(
+                    height: 115,
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: DashboardTheme.outlineColor)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          '- Feed Shots -',
+                          style: const TextStyle(
+                            fontFamily: DashboardTheme.font,
+                            fontSize: 12,
+                            color: Colors.grey
+                          ),
                         ),
-                      ),
-                      Text(
-                        feedingCountString,
-                        style: const TextStyle(
-                          fontFamily: DashboardTheme.font,
-                          fontSize: 80,
-                          height: 1.0,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 20.0,
-                              color: Color.fromARGB(100, 0, 140, 200),
-                            )
-                          ]
-                        ),
-                      )
-                    ]
+                        Text(
+                          feedingCountString,
+                          style: const TextStyle(
+                            fontFamily: DashboardTheme.font,
+                            fontSize: 80,
+                            height: 1.0,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 20.0,
+                                color: Color.fromARGB(100, 0, 140, 200),
+                              )
+                            ]
+                          ),
+                        )
+                      ]
+                    ),
                   ),
-                ),
+                )
               ),
             ),
           ],

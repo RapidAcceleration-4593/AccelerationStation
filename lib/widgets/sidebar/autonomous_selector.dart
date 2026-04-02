@@ -1,5 +1,6 @@
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
+import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:flutter/material.dart';
 
 class AutonomousSelector extends StatefulWidget {
@@ -78,77 +79,91 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
         crossAxisAlignment: CrossAxisAlignment.center,
         spacing: 20.0,
         children: [
-          Text(
-            "- Select Autonomous -",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: DashboardTheme.highlightColor,
-              fontSize: 28,
-              fontWeight: FontWeight.normal,
-              fontFamily: DashboardTheme.font,
+          Image.asset(
+            'images/logo.png',
+            height: 70,
+          ),
+          AnimatedStartupWidget(
+            delay: Duration(milliseconds: 200),
+            length: Duration(milliseconds: 100),
+            child: _buildDropdown(
+              label: 'Start Position: ',
+              options: startPositions,
+              selectedValue: selectedStartPosition,
+              onChanged: (value) {
+                selectedStartPosition = value;
+                final String auto = getAutoRoutine();
+                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+              },
+              enabled: selectedOtherAuto == ''
             ),
           ),
-          _buildDropdown(
-            label: 'Start Position: ',
-            options: startPositions,
-            selectedValue: selectedStartPosition,
-            onChanged: (value) {
-              selectedStartPosition = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Fuel Pickup: ',
-            options: fuelPickupOptions,
-            selectedValue: selectedFuelPickup,
-            onChanged: (value) {
-              selectedFuelPickup = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Traversal: ',
-            options: transversalOptions,
-            selectedValue: selectedTraversalOption,
-            onChanged: (value) {
-              selectedTraversalOption = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: selectedOtherAuto == ''
-          ),
-          _buildDropdown(
-            label: 'Other Autos: ',
-            options: otherAutos,
-            selectedValue: selectedOtherAuto,
-            onChanged: (value) {
-              selectedOtherAuto = value;
-              final String auto = getAutoRoutine();
-              if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-            },
-            enabled: true
-          ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(8),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: getAutoRoutine() != 'Invalid' ? DashboardTheme.backgroundColor : const Color.fromARGB(127, 244, 67, 54),
-              borderRadius: BorderRadius.circular(0.0),
-              border: Border.all(color: getAutoRoutine() != 'Invalid' ? DashboardTheme.outlineColor : Colors.red, width: 1.0)
+          AnimatedStartupWidget(
+            delay: Duration(milliseconds: 400),
+            length: Duration(milliseconds: 200),
+            child: _buildDropdown(
+              label: 'Fuel Pickup: ',
+              options: fuelPickupOptions,
+              selectedValue: selectedFuelPickup,
+              onChanged: (value) {
+                selectedFuelPickup = value;
+                final String auto = getAutoRoutine();
+                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+              },
+              enabled: selectedOtherAuto == ''
             ),
-            child: Text(
-              overflow: TextOverflow.clip,
-              softWrap: false,
-              getAutoRoutine() != 'Invalid' ? 'Selected Routine: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
-              style: TextStyle(
-                color: DashboardTheme.highlightColor,
-                fontFamily: DashboardTheme.font,
-                fontSize: 20
+          ),
+          AnimatedStartupWidget(
+            delay: Duration(milliseconds: 600),
+            length: Duration(milliseconds: 400),
+            child: _buildDropdown(
+              label: 'Traversal: ',
+              options: transversalOptions,
+              selectedValue: selectedTraversalOption,
+              onChanged: (value) {
+                selectedTraversalOption = value;
+                final String auto = getAutoRoutine();
+                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+              },
+              enabled: selectedOtherAuto == ''
+            ),
+          ),
+          AnimatedStartupWidget(
+            delay: Duration(milliseconds: 800),
+            length: Duration(milliseconds: 700),
+            child: _buildDropdown(
+              label: 'Other Autos: ',
+              options: otherAutos,
+              selectedValue: selectedOtherAuto,
+              onChanged: (value) {
+                selectedOtherAuto = value;
+                final String auto = getAutoRoutine();
+                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+              },
+              enabled: true
+            ),
+          ),
+          AnimatedStartupWidget(
+            delay: Duration(milliseconds: 1000),
+            length: Duration(milliseconds: 1100),
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(8),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: getAutoRoutine() != 'Invalid' ? DashboardTheme.backgroundColor : const Color.fromARGB(127, 244, 67, 54),
+                borderRadius: BorderRadius.circular(0.0),
+                border: Border.all(color: getAutoRoutine() != 'Invalid' ? DashboardTheme.outlineColor : Colors.red, width: 1.0)
+              ),
+              child: Text(
+                overflow: TextOverflow.clip,
+                softWrap: false,
+                getAutoRoutine() != 'Invalid' ? 'Selected Routine: ${getAutoRoutine()}' : '!Selected Autonomous: ${getAutoRoutine()}!',
+                style: TextStyle(
+                  color: DashboardTheme.highlightColor,
+                  fontFamily: DashboardTheme.font,
+                  fontSize: 20
+                ),
               ),
             ),
           ),
@@ -167,6 +182,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
       decoration: BoxDecoration(
+        // color: enabled ? DashboardTheme.backgroundColor : Colors.transparent,
         border: Border.all(color: enabled ? DashboardTheme.highlightColor : DashboardTheme.outlineColor, width: 1.0),
         borderRadius: BorderRadius.circular(0.0),
       ),
