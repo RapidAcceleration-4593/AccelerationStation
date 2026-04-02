@@ -19,7 +19,7 @@ Future<void> _initWindow() async {
     size: Size(1600, 900),
     minimumSize: Size(1280, 720),
     center: true,
-    title: 'Rapid Acceleration Station 2026',
+    title: 'Acceleration Station 2026',
   );
 
   windowManager.waitUntilReadyToShow(options, () async {

@@ -8,7 +8,7 @@ class FooterLeft extends StatelessWidget {
       left: 20,
       bottom: 8,
       child: Text(
-        'Created by Rapid Acceleration Team 4593',
+        'Created by Lincoln Tupper and Team 4593',
         style: DashboardTheme.footerText,
       ),
     );

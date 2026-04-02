@@ -219,7 +219,7 @@ class ShiftTimer extends StatelessWidget {
           children: [
             Expanded(
               child: AnimatedStartupWidget(
-                delay: Duration(milliseconds: !redAlliance ? 3000 : 3500),
+                delay: Duration(milliseconds: !redAlliance ? 3000 : 3200),
                 length: Duration(milliseconds: 100),
                 curve: Curves.easeOutBack,
                 child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 1),
@@ -227,7 +227,7 @@ class ShiftTimer extends StatelessWidget {
             ),
             Expanded(
               child: AnimatedStartupWidget(
-                delay: Duration(milliseconds: !redAlliance ? 3100 : 3600),
+                delay: Duration(milliseconds: !redAlliance ? 3050 : 3250),
                 length: Duration(milliseconds: 100),
                 curve: Curves.easeOutBack,
                 child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 2),
@@ -235,7 +235,7 @@ class ShiftTimer extends StatelessWidget {
             ),
             Expanded(
               child: AnimatedStartupWidget(
-                delay: Duration(milliseconds: !redAlliance ? 3200 : 3700),
+                delay: Duration(milliseconds: !redAlliance ? 3100 : 3300),
                 length: Duration(milliseconds: 100),
                 curve: Curves.easeOutBack,
                 child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 3),
@@ -243,7 +243,7 @@ class ShiftTimer extends StatelessWidget {
             ),
             Expanded(
               child: AnimatedStartupWidget(
-                delay: Duration(milliseconds: !redAlliance ? 3300 : 3800),
+                delay: Duration(milliseconds: !redAlliance ? 3150 : 3350),
                 length: Duration(milliseconds: 100),
                 curve: Curves.easeOutBack,
                 child: _buildWiimoteLight(enabled: dashboardState.getAllianceRemainingShifts(redAlliance: redAlliance) >= 4),

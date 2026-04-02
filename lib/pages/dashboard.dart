@@ -48,10 +48,10 @@ class Dashboard extends StatelessWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.fromLTRB(20, 488, 20, 40),
                           child: FractionallySizedBox(
                             widthFactor: 1.0,
-                            child: ConsoleWidget(
+                            child: SideWindow(
                               dashboardState: dashboardState,
                             )
                           ),

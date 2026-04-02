@@ -83,69 +83,194 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
             'images/logo.png',
             height: 70,
           ),
-          AnimatedStartupWidget(
-            delay: Duration(milliseconds: 200),
-            length: Duration(milliseconds: 100),
-            child: _buildDropdown(
-              label: 'Start Position: ',
-              options: startPositions,
-              selectedValue: selectedStartPosition,
-              onChanged: (value) {
-                selectedStartPosition = value;
-                final String auto = getAutoRoutine();
-                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-              },
-              enabled: selectedOtherAuto == ''
-            ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 300),
+                length: Duration(milliseconds: 200),
+                curve: Curves.easeInOutExpo,
+                type: 'size',
+                child: _buildDropdown(
+                  label: 'Start Position: ',
+                  options: startPositions,
+                  selectedValue: selectedStartPosition,
+                  onChanged: (value) {
+                    selectedStartPosition = value;
+                    final String auto = getAutoRoutine();
+                    if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                  },
+                  enabled: selectedOtherAuto == ''
+                ),
+              ),
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 200),
+                length: Duration(milliseconds: 300),
+                curve: Curves.easeInCubic,
+                type: 'fade',
+                begin: 1.0,
+                end: 0.0,
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 200),
+                  length: Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  type: 'size',
+                  begin: 1.0,
+                  end: 0.0,
+                  initial: 0.0,
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: DashboardTheme.highlightColor
+                    ),
+                  )
+                )
+              )
+            ],
           ),
-          AnimatedStartupWidget(
-            delay: Duration(milliseconds: 400),
-            length: Duration(milliseconds: 200),
-            child: _buildDropdown(
-              label: 'Fuel Pickup: ',
-              options: fuelPickupOptions,
-              selectedValue: selectedFuelPickup,
-              onChanged: (value) {
-                selectedFuelPickup = value;
-                final String auto = getAutoRoutine();
-                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-              },
-              enabled: selectedOtherAuto == ''
-            ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 500),
+                length: Duration(milliseconds: 200),
+                curve: Curves.easeInOutExpo,
+                type: 'size',
+                child: _buildDropdown(
+                  label: 'Fuel Pickup: ',
+                  options: fuelPickupOptions,
+                  selectedValue: selectedFuelPickup,
+                  onChanged: (value) {
+                    selectedFuelPickup = value;
+                    final String auto = getAutoRoutine();
+                    if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                  },
+                  enabled: selectedOtherAuto == ''
+                ),
+              ),
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 400),
+                length: Duration(milliseconds: 300),
+                curve: Curves.easeInCubic,
+                type: 'fade',
+                begin: 1.0,
+                end: 0.0,
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 400),
+                  length: Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  type: 'size',
+                  begin: 1.0,
+                  end: 0.0,
+                  initial: 0.0,
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: DashboardTheme.highlightColor
+                    ),
+                  )
+                )
+              )
+            ],
           ),
-          AnimatedStartupWidget(
-            delay: Duration(milliseconds: 600),
-            length: Duration(milliseconds: 400),
-            child: _buildDropdown(
-              label: 'Traversal: ',
-              options: transversalOptions,
-              selectedValue: selectedTraversalOption,
-              onChanged: (value) {
-                selectedTraversalOption = value;
-                final String auto = getAutoRoutine();
-                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-              },
-              enabled: selectedOtherAuto == ''
-            ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 700),
+                length: Duration(milliseconds: 200),
+                curve: Curves.easeInOutExpo,
+                type: 'size',
+                child: _buildDropdown(
+                  label: 'Traversal: ',
+                  options: transversalOptions,
+                  selectedValue: selectedTraversalOption,
+                  onChanged: (value) {
+                    selectedTraversalOption = value;
+                    final String auto = getAutoRoutine();
+                    if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                  },
+                  enabled: selectedOtherAuto == ''
+                ),
+              ),
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 600),
+                length: Duration(milliseconds: 300),
+                curve: Curves.easeInCubic,
+                type: 'fade',
+                begin: 1.0,
+                end: 0.0,
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 600),
+                  length: Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  type: 'size',
+                  begin: 1.0,
+                  end: 0.0,
+                  initial: 0.0,
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: DashboardTheme.highlightColor
+                    ),
+                  )
+                )
+              )
+            ],
           ),
-          AnimatedStartupWidget(
-            delay: Duration(milliseconds: 800),
-            length: Duration(milliseconds: 700),
-            child: _buildDropdown(
-              label: 'Other Autos: ',
-              options: otherAutos,
-              selectedValue: selectedOtherAuto,
-              onChanged: (value) {
-                selectedOtherAuto = value;
-                final String auto = getAutoRoutine();
-                if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
-              },
-              enabled: true
-            ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 900),
+                length: Duration(milliseconds: 200),
+                curve: Curves.easeInOutExpo,
+                type: 'size',
+                child: _buildDropdown(
+                  label: 'Other Autos: ',
+                  options: otherAutos,
+                  selectedValue: selectedOtherAuto,
+                  onChanged: (value) {
+                    selectedOtherAuto = value;
+                    final String auto = getAutoRoutine();
+                    if (auto != 'Invalid') widget.dashboardState.setSelectedAuto(auto);
+                  },
+                  enabled: true
+                ),
+              ),
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 800),
+                length: Duration(milliseconds: 300),
+                curve: Curves.easeInCubic,
+                type: 'fade',
+                begin: 1.0,
+                end: 0.0,
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 800),
+                  length: Duration(milliseconds: 300),
+                  curve: Curves.easeOutCubic,
+                  type: 'size',
+                  begin: 1.0,
+                  end: 0.0,
+                  initial: 0.0,
+                  child: Container(
+                    width: double.infinity,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: DashboardTheme.highlightColor
+                    ),
+                  )
+                )
+              )
+            ],
           ),
           AnimatedStartupWidget(
             delay: Duration(milliseconds: 1000),
-            length: Duration(milliseconds: 1100),
+            length: Duration(milliseconds: 200),
+            curve: Curves.easeInOutExpo,
             child: Container(
               width: double.infinity,
               padding: EdgeInsets.all(8),

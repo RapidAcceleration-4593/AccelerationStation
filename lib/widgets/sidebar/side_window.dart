@@ -5,19 +5,19 @@ import 'package:accelerationstation/widgets/sidebar/connection_tab.dart';
 import 'package:accelerationstation/widgets/sidebar/hover_tab.dart';
 import 'package:flutter/material.dart';
 
-class ConsoleWidget extends StatefulWidget {
+class SideWindow extends StatefulWidget {
   final DashboardState dashboardState;
 
-  ConsoleWidget({
+  SideWindow({
     super.key,
     required this.dashboardState
   });
 
   @override
-  State<ConsoleWidget> createState() => _ConsoleState();
+  State<SideWindow> createState() => _ConsoleState();
 }
 
-class _ConsoleState extends State<ConsoleWidget> with SingleTickerProviderStateMixin {
+class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixin {
   String console = '';
   String prevConsole = '';
 
@@ -54,7 +54,7 @@ class _ConsoleState extends State<ConsoleWidget> with SingleTickerProviderStateM
         }
 
         return AnimatedStartupWidget(
-          delay: Duration(milliseconds: 1600),
+          delay: Duration(milliseconds: 1200),
           length: Duration(milliseconds: 500),
           curve: Curves.fastEaseInToSlowEaseOut,
           child: Container(
@@ -62,7 +62,6 @@ class _ConsoleState extends State<ConsoleWidget> with SingleTickerProviderStateM
               color: const Color.fromARGB(255, 0, 0, 0),
               border: Border.all(color: DashboardTheme.outlineColor)
             ),
-            margin: EdgeInsets.fromLTRB(0, 468, 0, 20),
             padding: EdgeInsets.all(5),
             width: double.infinity,
             child: Column(

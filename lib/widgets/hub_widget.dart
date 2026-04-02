@@ -38,11 +38,40 @@ class HubWidget extends StatelessWidget {
         final String hintText = isHubEnabled ? '- ENABLED -' : '- DISABLED -';
 
         return AnimatedStartupWidget(
-          delay: Duration(milliseconds: 1200),
+          delay: Duration(milliseconds: 800),
           length: Duration(milliseconds: 1000),
           child: Stack(
             alignment: Alignment.center,
             children: [
+              AnimatedStartupWidget(
+                delay: Duration(milliseconds: 2800),
+                length: Duration(milliseconds: 1500),
+                begin: 0.8,
+                end: 1.5,
+                curve: Curves.linearToEaseOut,
+                child: AnimatedStartupWidget(
+                  delay: Duration(milliseconds: 2800),
+                  length: Duration(milliseconds: 1500),
+                  type: 'fade',
+                  begin: 1.0,
+                  end: 0.0,
+                  initial: 0.0,
+                  curve: Curves.easeOutExpo,
+                  child: Container(
+                    width: 800,
+                    height: 600,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(400),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(60, 0, 255, 98),
+                          blurRadius: 700
+                        )
+                      ]
+                    ),
+                  ),
+                ),
+              ),
               Container(
                 width: 800,
                 height: 800,
