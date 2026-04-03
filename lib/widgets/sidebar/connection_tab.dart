@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:accelerationstation/services/dashboard_state.dart';
 import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,21 @@ class _ConnectionTabState extends State<ConnectionTab>
   int connectionModeIndex = 0;
   final TextEditingController addressController = TextEditingController(text: '10.45.93.2');
   String sentAddress = '10.45.93.2';
+  String dotString = '';
+  int dotCount = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        dotString = '.' * dotCount;
+        dotCount = (dotCount + 1) % 4;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,13 +140,20 @@ class _ConnectionTabState extends State<ConnectionTab>
               )
             ],
           ),
-          Text(
-            'Current IP: $sentAddress',
-            style: TextStyle(
-              fontFamily: DashboardTheme.font,
-              fontSize: 14,
-              color: DashboardTheme.outlineColor
-            ),
+          StreamBuilder(
+            stream: widget.dashboardState.connected(),
+            builder: (context, snapshot) {
+              final bool connected = snapshot.data ?? false;
+
+              return Text(
+                'Current IP: $sentAddress${connected ? '' : ' - connecting$dotString'}',
+                style: TextStyle(
+                  fontFamily: DashboardTheme.font,
+                  fontSize: 14,
+                  color: DashboardTheme.outlineColor
+                ),
+              );
+            },
           ),
           SizedBox(height: 8.0),
           Divider(
@@ -153,7 +177,6 @@ class _ConnectionTabState extends State<ConnectionTab>
         ],
       )
     );
-    
   }
 
   Widget _statusText({

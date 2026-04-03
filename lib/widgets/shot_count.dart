@@ -43,7 +43,7 @@ class ShotCount extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Transform.translate(
                 offset: Offset(
-                  300, 
+                  -300, 
                   0,
                 ),
                 child: AnimatedStartupWidget(
@@ -93,7 +93,7 @@ class ShotCount extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Transform.translate(
                 offset: Offset(
-                  -300, 
+                  300, 
                   0,
                 ),
                 child: AnimatedStartupWidget(
