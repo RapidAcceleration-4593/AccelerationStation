@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:nt4/nt4.dart';
 import 'package:rxdart/rxdart.dart';
 
 class DashboardState {
-  static const String robotAddress = kDebugMode ? '127.0.0.1' : '10.45.93.2';
+  static const String robotAddress = '10.45.93.2';
   late final NT4Client client;
 
   bool _isRedAlliance = false;
@@ -16,7 +15,7 @@ class DashboardState {
   String selectedAuto = 'DoNothing';
 
   // Publishers
-  late NT4Topic _selectedAutoPub;
+  late final NT4Topic _selectedAutoPub;
 
   // Subscibers
   late final NT4Subscription _redAllianceSub;
@@ -30,6 +29,17 @@ class DashboardState {
   late final NT4Subscription _fuelShotFeedingSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
+    _initializeTopicsAndSubscriptions();
+    _initializeListeners();
+
+    connected().listen((connected) {
+      if (connected) {
+        setSelectedAuto(selectedAuto);
+      }
+    });
+  }
+
+  void _initializeTopicsAndSubscriptions() {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
   
     _redAllianceSub = client.subscribePeriodic('/FMSInfo/IsRedAlliance', 1.0);
@@ -43,7 +53,9 @@ class DashboardState {
     _fuelShotFeedingSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotFeeding', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
+  }
 
+  void _initializeListeners() {
     _redAllianceSub.stream().listen((value) {
       if (value is bool) _isRedAlliance = value;
     });
@@ -56,11 +68,10 @@ class DashboardState {
     _gsmSub.stream().listen((value) {
       if (value is String) _gsm = value;
     });
-    connected().listen((connected) {
-      if (connected) {
-        setSelectedAuto(selectedAuto);
-      }
-    });
+  }
+
+  void reconnect(String newAddress) {
+    client.setServerBaseAddress(newAddress);
   }
 
   Stream<T> _typedStream<T>(NT4Subscription sub) {
