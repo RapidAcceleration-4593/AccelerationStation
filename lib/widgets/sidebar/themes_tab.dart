@@ -17,7 +17,7 @@ class _ThemesTabState extends State<ThemesTab>
   @override
   bool get wantKeepAlive => true;
 
-  int selectedIndex = 0;
+  int selectedIndex = DashboardTheme.selectedTheme;
 
   @override
   Widget build(BuildContext context) {

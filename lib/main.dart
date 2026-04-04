@@ -8,6 +8,7 @@ import 'package:window_manager/window_manager.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _initWindow();
+  await DashboardTheme.init();
 
   runApp(const DashboardApp());
 }

@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardTheme {
+  static Future<void> init() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedTheme = prefs.getInt('theme') ?? 0;
+    themeNotifier.value = savedTheme;
+  }
+
+  static Future<void> _saveTheme(int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('theme', value);
+  }
+
   static const font = "JetBrainsMono";
 
   static final ValueNotifier<int> themeNotifier = ValueNotifier(0);
@@ -8,6 +20,7 @@ class DashboardTheme {
   static int get selectedTheme => themeNotifier.value;
   static set selectedTheme(int value) {
     themeNotifier.value = value;
+    _saveTheme(value);
   }
 
   static String get logoImage => themes[selectedTheme].logoImage;
