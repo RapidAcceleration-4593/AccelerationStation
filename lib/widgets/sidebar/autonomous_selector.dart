@@ -80,7 +80,7 @@ class _AutonomousSelectorState extends State<AutonomousSelector> {
         spacing: 20.0,
         children: [
           Image.asset(
-            'images/logo.png',
+            DashboardTheme.logoImage,
             height: 70,
           ),
           Stack(

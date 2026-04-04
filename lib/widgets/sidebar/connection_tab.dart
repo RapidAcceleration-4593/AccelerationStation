@@ -126,7 +126,7 @@ class _ConnectionTabState extends State<ConnectionTab>
                     borderRadius: BorderRadius.zero,
                     side: BorderSide(color: DashboardTheme.outlineColor)
                   ),
-                  backgroundColor: Colors.black,
+                  backgroundColor: DashboardTheme.middlegroundColor,
                 ),
                 child: Text(
                   'Connect',

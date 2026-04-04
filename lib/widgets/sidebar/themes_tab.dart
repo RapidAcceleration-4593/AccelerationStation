@@ -35,10 +35,16 @@ class _ThemesTabState extends State<ThemesTab>
         child: Column(
           children: List.generate(DashboardTheme.themes.length, (index) {
             return RadioListTile(
+              fillColor: WidgetStateColor.resolveWith((states) {
+                return DashboardTheme.highlightColor;
+              }),
+              activeColor: DashboardTheme.highlightColor,
+              dense: true,
               title: Text(
                 DashboardTheme.themes[index].name,
                 style: TextStyle(
                   fontFamily: DashboardTheme.font,
+                  color: selectedIndex == index ? DashboardTheme.highlightColor : DashboardTheme.outlineColor,
                   fontSize: 16
                 ),
               ),

@@ -31,17 +31,24 @@ Future<void> _initWindow() async {
 class DashboardApp extends StatelessWidget {
   const DashboardApp({super.key});
 
+  static final DashboardState _dashboardState = DashboardState();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-        colorSchemeSeed: Colors.indigo,
-        scaffoldBackgroundColor: DashboardTheme.backgroundColor,
-      ),
-      home: Dashboard(dashboardState: DashboardState())
+    return ValueListenableBuilder(
+      valueListenable: DashboardTheme.themeNotifier,
+      builder: (context, value, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            brightness: Brightness.dark,
+            colorSchemeSeed: Colors.indigo,
+            scaffoldBackgroundColor: DashboardTheme.backgroundColor,
+          ),
+          home: Dashboard(dashboardState: _dashboardState)
+        );
+      },
     );
   }
 }

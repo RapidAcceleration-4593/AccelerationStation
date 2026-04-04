@@ -28,7 +28,7 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
   void initState() {
     super.initState();
     _controller = TabController(
-      length: 2,
+      length: 3,
       vsync: this,
       animationDuration: Duration.zero,
     );
@@ -102,10 +102,10 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                       height: 26,
                       child: HoverTab(text: 'OUTPUT', selected: _controller.index == 1),
                     ),
-                    // Tab(
-                    //   height: 26,
-                    //   child: HoverTab(text: 'THEMES', selected: _controller.index == 2),
-                    // ),
+                    Tab(
+                      height: 26,
+                      child: HoverTab(text: 'THEME', selected: _controller.index == 2),
+                    ),
                   ],
                 ),
                 Expanded(
@@ -131,7 +131,7 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                           ),
                         ),
                       ),
-                      // ThemesTab(dashboardState: widget.dashboardState)
+                      ThemesTab(dashboardState: widget.dashboardState)
                     ],
                   )
                 ),

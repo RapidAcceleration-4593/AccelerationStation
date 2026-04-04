@@ -71,14 +71,15 @@ class ShotCount extends StatelessWidget {
                         ),
                         Text(
                           hubCountString,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: DashboardTheme.font,
+                            color: DashboardTheme.highlightColor,
                             fontSize: 80,
                             height: 1.0,
                             shadows: [
                               Shadow(
                                 blurRadius: 20.0,
-                                color: Color.fromARGB(100, 0, 140, 200),
+                                color: DashboardTheme.highlightColor.withAlpha(100),
                               )
                             ]
                           ),
@@ -121,14 +122,15 @@ class ShotCount extends StatelessWidget {
                         ),
                         Text(
                           feedingCountString,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: DashboardTheme.font,
+                            color: DashboardTheme.highlightColor,
                             fontSize: 80,
                             height: 1.0,
                             shadows: [
                               Shadow(
                                 blurRadius: 20.0,
-                                color: Color.fromARGB(100, 0, 140, 200),
+                                color: DashboardTheme.highlightColor.withAlpha(100),
                               )
                             ]
                           ),

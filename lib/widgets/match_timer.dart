@@ -52,15 +52,16 @@ class MatchTimer extends StatelessWidget {
                   ),
                   Text(
                     timeString,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: DashboardTheme.font,
+                      color: DashboardTheme.highlightColor,
                       letterSpacing: -8,
                       fontSize: 160,
                       height: 1.0,
                       shadows: [
                         Shadow(
                           blurRadius: 20.0,
-                          color: Color.fromARGB(100, 0, 140, 200),
+                          color: DashboardTheme.highlightColor.withAlpha(100),
                         )
                       ]
                     ),

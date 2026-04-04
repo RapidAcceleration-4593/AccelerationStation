@@ -32,8 +32,8 @@ class ShiftTimer extends StatelessWidget {
 
         String timeString = '0:00';
 
-        Color leftColor = const Color.fromARGB(50, 33, 149, 243);
-        Color rightColor = const Color.fromARGB(50, 244, 67, 54);
+        Color leftColor = const Color.fromARGB(100, 33, 149, 243);
+        Color rightColor = const Color.fromARGB(100, 244, 67, 54);
 
         if (snapshot.hasData) {
           final double shiftTime = dashboardState.getShiftTime();
@@ -96,6 +96,7 @@ class ShiftTimer extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: leftColor,
                         borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.outlineColor : Colors.transparent, width: 2.0),
                         boxShadow: [
                           BoxShadow(
                             color: leftColor.a < 0.5 ? Colors.transparent : leftColor.withAlpha(150),
@@ -134,15 +135,16 @@ class ShiftTimer extends StatelessWidget {
                     children: [
                       Text(
                         timeString,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: DashboardTheme.font,
+                          color: DashboardTheme.highlightColor,
                           letterSpacing: -8,
                           fontSize: 130,
                           height: 1.0,
                           shadows: [
                             Shadow(
                               blurRadius: 15.0,
-                              color: Color.fromARGB(100, 0, 140, 200),
+                              color: DashboardTheme.highlightColor.withAlpha(100),
                               offset: Offset(0.0, 0.0)
                             )
                           ]
@@ -174,6 +176,7 @@ class ShiftTimer extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: rightColor,
                         borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.outlineColor : Colors.transparent, width: 2.0),
                         boxShadow: [
                           BoxShadow(
                             color: rightColor.a < 0.5 ? Colors.transparent : rightColor.withAlpha(150),
@@ -208,7 +211,7 @@ class ShiftTimer extends StatelessWidget {
       height: 30,
       width: 100,
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: DashboardTheme.middlegroundColor,
         borderRadius: BorderRadius.circular(3),
         border: Border.all(color: DashboardTheme.outlineColor, strokeAlign: BorderSide.strokeAlignOutside)
       ),
@@ -260,10 +263,10 @@ class ShiftTimer extends StatelessWidget {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: enabled ? const Color.fromARGB(255, 175, 196, 255) : const Color.fromARGB(255, 26, 26, 26),
+        color: enabled ? DashboardTheme.highlightColor : DashboardTheme.backgroundColor,
         boxShadow: [
           BoxShadow(
-            color: enabled ? const Color.fromARGB(120, 3, 168, 244) : Colors.transparent,
+            color: enabled ? DashboardTheme.highlightColor.withAlpha(100) : Colors.transparent,
             blurRadius: 3
           )
         ]
