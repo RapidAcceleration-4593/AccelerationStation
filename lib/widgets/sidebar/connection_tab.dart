@@ -24,13 +24,12 @@ class _ConnectionTabState extends State<ConnectionTab>
   String sentAddress = '10.45.93.2';
   String dotString = '';
   int dotCount = 0;
-  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
 
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    Timer.periodic(const Duration(milliseconds: 500), (timer) {
       setState(() {
         dotString = '.' * dotCount;
         dotCount = (dotCount + 1) % 4;
