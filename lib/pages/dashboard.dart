@@ -29,7 +29,7 @@ class Dashboard extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     border: BoxBorder.fromLTRB(right: BorderSide(color: DashboardTheme.outlineColor, width: 1.0)),
-                    color: Colors.black,
+                    color: DashboardTheme.middlegroundColor,
                   ),
                   child: Stack(
                     children: [

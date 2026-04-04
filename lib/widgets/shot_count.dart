@@ -54,7 +54,7 @@ class ShotCount extends StatelessWidget {
                     height: 115,
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: DashboardTheme.middlegroundColor,
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(color: DashboardTheme.outlineColor)
                     ),
@@ -63,10 +63,10 @@ class ShotCount extends StatelessWidget {
                       children: [
                         Text(
                           '- Hub Shots -',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: DashboardTheme.font,
                             fontSize: 12,
-                            color: Colors.grey
+                            color: DashboardTheme.highlightColor.withAlpha(150)
                           ),
                         ),
                         Text(
@@ -104,7 +104,7 @@ class ShotCount extends StatelessWidget {
                     height: 115,
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: DashboardTheme.middlegroundColor,
                       borderRadius: BorderRadius.circular(10.0),
                       border: Border.all(color: DashboardTheme.outlineColor)
                     ),
@@ -113,10 +113,10 @@ class ShotCount extends StatelessWidget {
                       children: [
                         Text(
                           '- Feed Shots -',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: DashboardTheme.font,
                             fontSize: 12,
-                            color: Colors.grey
+                            color: DashboardTheme.highlightColor.withAlpha(150)
                           ),
                         ),
                         Text(

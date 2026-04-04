@@ -34,7 +34,7 @@ class MatchTimer extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
             decoration: BoxDecoration(
-              color: Colors.black,
+              color: DashboardTheme.middlegroundColor,
               borderRadius: BorderRadius.circular(20.0),
               border: Border.all(color: DashboardTheme.outlineColor)
             ),
@@ -44,10 +44,10 @@ class MatchTimer extends StatelessWidget {
                 children: [
                   Text(
                     '- Match Timer -',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: DashboardTheme.font,
                       fontSize: 20,
-                      color: Colors.grey
+                      color: DashboardTheme.highlightColor.withAlpha(150)
                     ),
                   ),
                   Text(

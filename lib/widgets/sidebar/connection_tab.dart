@@ -122,7 +122,7 @@ class _ConnectionTabState extends State<ConnectionTab>
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(0.0, 37.0),
-                  padding: EdgeInsets.fromLTRB(9.5, 0.0, 9.5, 0.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 9.5, 0.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                     side: BorderSide(color: DashboardTheme.outlineColor)

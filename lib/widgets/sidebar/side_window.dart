@@ -3,6 +3,7 @@ import 'package:accelerationstation/services/dashboard_theme.dart';
 import 'package:accelerationstation/widgets/animated_startup.dart';
 import 'package:accelerationstation/widgets/sidebar/connection_tab.dart';
 import 'package:accelerationstation/widgets/sidebar/hover_tab.dart';
+import 'package:accelerationstation/widgets/sidebar/themes_tab.dart';
 import 'package:flutter/material.dart';
 
 class SideWindow extends StatefulWidget {
@@ -59,7 +60,7 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
           curve: Curves.fastEaseInToSlowEaseOut,
           child: Container(
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 0, 0, 0),
+              color: DashboardTheme.middlegroundColor,
               border: Border.all(color: DashboardTheme.outlineColor)
             ),
             padding: EdgeInsets.all(5),
@@ -100,7 +101,11 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                     Tab(
                       height: 26,
                       child: HoverTab(text: 'OUTPUT', selected: _controller.index == 1),
-                    )
+                    ),
+                    // Tab(
+                    //   height: 26,
+                    //   child: HoverTab(text: 'THEMES', selected: _controller.index == 2),
+                    // ),
                   ],
                 ),
                 Expanded(
@@ -109,17 +114,24 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       ConnectionTab(dashboardState: widget.dashboardState),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Text(
-                          console,
-                          style: TextStyle(
-                            color: DashboardTheme.outlineColor,
-                            fontFamily: DashboardTheme.font,
-                            fontSize: 16,
+                      Container(
+                        padding: EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          color: DashboardTheme.middlegroundColor
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            console,
+                            style: TextStyle(
+                              color: DashboardTheme.outlineColor,
+                              fontFamily: DashboardTheme.font,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
+                      // ThemesTab(dashboardState: widget.dashboardState)
                     ],
                   )
                 ),
