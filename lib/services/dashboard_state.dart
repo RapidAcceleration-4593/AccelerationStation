@@ -13,9 +13,11 @@ class DashboardState {
 
   // Default selected autonomous routine
   String selectedAuto = 'DoNothing';
+  String selectedVisionSystem = 'Oculus';
 
   // Publishers
   late final NT4Topic _selectedAutoPub;
+  late final NT4Topic _selectedVisionSystemPub;
 
   // Subscibers
   late final NT4Subscription _redAllianceSub;
@@ -35,12 +37,14 @@ class DashboardState {
     connected().listen((connected) {
       if (connected) {
         setSelectedAuto(selectedAuto);
+        setSelectedVisionSystem(selectedVisionSystem);
       }
     });
   }
 
   void _initializeTopicsAndSubscriptions() {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
+    _selectedVisionSystemPub = client.publishNewTopic('/AccelerationStation/SelectedVisionSystem', NT4TypeStr.typeStr);
   
     _redAllianceSub = client.subscribePeriodic('/FMSInfo/IsRedAlliance', 1.0);
     _autoEnabledSub = client.subscribePeriodic('/AdvantageKit/DriverStation/Autonomous', 0.1);
@@ -53,6 +57,7 @@ class DashboardState {
     _fuelShotFeedingSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotFeeding', 0.1);
 
     client.setProperties(_selectedAutoPub, false, true);
+    client.setProperties(_selectedVisionSystemPub, false, true);
   }
 
   void _initializeListeners() {
@@ -72,6 +77,16 @@ class DashboardState {
 
   void reconnect(String newAddress) {
     client.setServerBaseAddress(newAddress);
+  }
+
+  void setSelectedAuto(String auto) {
+    selectedAuto = auto;
+    client.addSample(_selectedAutoPub, auto);
+  }
+
+  void setSelectedVisionSystem(String visionSystem) {
+    selectedVisionSystem = visionSystem;
+    client.addSample(_selectedVisionSystemPub, visionSystem);
   }
 
   Stream<T> _typedStream<T>(NT4Subscription sub) {
@@ -119,11 +134,6 @@ class DashboardState {
         return redOwnsShift == _isRedAlliance;
       },
     );
-  }
-
-  void setSelectedAuto(String auto) {
-    selectedAuto = auto;
-    client.addSample(_selectedAutoPub, auto);
   }
 
   // Null = -2, auto = -1, transition = 0, shift 1-4 = 1-4, endgame = 5.

@@ -96,7 +96,7 @@ class ShiftTimer extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: leftColor,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.outlineColor : Colors.transparent, width: 2.0),
+                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.highlightColor : Colors.transparent, width: 1.0),
                         boxShadow: [
                           BoxShadow(
                             color: leftColor.a < 0.5 ? Colors.transparent : leftColor.withAlpha(150),
@@ -176,7 +176,7 @@ class ShiftTimer extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: rightColor,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.outlineColor : Colors.transparent, width: 2.0),
+                        border: Border.all(color: DashboardTheme.outlineAlliances ? DashboardTheme.highlightColor : Colors.transparent, width: 1.0),
                         boxShadow: [
                           BoxShadow(
                             color: rightColor.a < 0.5 ? Colors.transparent : rightColor.withAlpha(150),

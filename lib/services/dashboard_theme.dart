@@ -69,9 +69,9 @@ class DashboardTheme {
       middlegroundColor: Color.fromARGB(255, 4, 12, 9),
     ),
     Theme(
-      name: 'Flashbang',
+      name: 'Light',
       logoImage: 'images/logo_dark.png',
-      outlineColor: Color.fromARGB(255, 114, 114, 114),
+      outlineColor: Color.fromARGB(255, 73, 73, 73),
       highlightColor: Color.fromARGB(255, 0, 0, 0),
       underlineColor: Color.fromARGB(255, 228, 140, 8),
       backgroundColor: Color.fromARGB(255, 136, 150, 146),
