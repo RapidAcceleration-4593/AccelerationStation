@@ -5,7 +5,6 @@ import 'package:accelerationstation/widgets/sidebar/connection_tab.dart';
 import 'package:accelerationstation/widgets/sidebar/console_tab.dart';
 import 'package:accelerationstation/widgets/sidebar/hover_tab.dart';
 import 'package:accelerationstation/widgets/sidebar/themes_tab.dart';
-import 'package:accelerationstation/widgets/sidebar/vision_tab.dart';
 import 'package:flutter/material.dart';
 
 class SideWindow extends StatefulWidget {
@@ -27,7 +26,7 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
   void initState() {
     super.initState();
     _controller = TabController(
-      length: 4,
+      length: 3,
       vsync: this,
       animationDuration: Duration.zero,
     );
@@ -90,10 +89,6 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                 ),
                 Tab(
                   height: 26,
-                  child: HoverTab(text: 'VISION', selected: _controller.index == 2),
-                ),
-                Tab(
-                  height: 26,
                   child: HoverTab(text: 'THEME', selected: _controller.index == 3),
                 ),
               ],
@@ -105,7 +100,6 @@ class _ConsoleState extends State<SideWindow> with SingleTickerProviderStateMixi
                 children: [
                   ConnectionTab(dashboardState: widget.dashboardState),
                   ConsoleTab(dashboardState: widget.dashboardState),
-                  VisionTab(dashboardState: widget.dashboardState),
                   ThemesTab(dashboardState: widget.dashboardState)
                 ],
               )

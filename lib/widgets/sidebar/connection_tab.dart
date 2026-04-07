@@ -20,6 +20,7 @@ class _ConnectionTabState extends State<ConnectionTab>
   bool get wantKeepAlive => true;
 
   int connectionModeIndex = 0;
+  int selectedVisionSystemIndex = 0;
   final TextEditingController addressController = TextEditingController(text: '10.45.93.2');
   String sentAddress = '10.45.93.2';
   String dotString = '';
@@ -45,6 +46,61 @@ class _ConnectionTabState extends State<ConnectionTab>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            'Selected Camera System',
+            style: TextStyle(
+              color: DashboardTheme.outlineColor,
+              fontFamily: DashboardTheme.font,
+              fontSize: 16,
+            ),
+          ),
+          ToggleButtons(
+            borderColor: DashboardTheme.outlineColor,
+            fillColor: DashboardTheme.backgroundColor,
+            selectedBorderColor: DashboardTheme.outlineColor,
+            constraints: BoxConstraints.tight(Size(150, 50)),
+            selectedColor: DashboardTheme.highlightColor,
+            disabledColor: DashboardTheme.outlineColor,
+            color: DashboardTheme.outlineColor,
+            splashColor: Colors.transparent,
+            isSelected: List.generate(2, (index) => index == selectedVisionSystemIndex),
+            onPressed: (index) {
+              setState(() {
+                selectedVisionSystemIndex = index;
+                widget.dashboardState.setSelectedVisionSystem(index == 0 ? 'Oculus' : 'OrangePi');
+              });
+            },
+            children: [
+              Text(
+                'Oculus',
+                style: TextStyle(
+                  fontFamily: DashboardTheme.font,
+                  fontSize: 20
+                ),
+              ),
+              Text(
+                'OrangePi',
+                style: TextStyle(
+                  fontFamily: DashboardTheme.font,
+                  fontSize: 20
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.0),
+          Divider(
+            color: DashboardTheme.outlineColor,
+            height: 0,
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            'NetworkTables Connection',
+            style: TextStyle(
+              color: DashboardTheme.outlineColor,
+              fontFamily: DashboardTheme.font,
+              fontSize: 16,
+            ),
+          ),
           ToggleButtons(
             borderColor: DashboardTheme.outlineColor,
             fillColor: DashboardTheme.backgroundColor,
@@ -160,7 +216,14 @@ class _ConnectionTabState extends State<ConnectionTab>
             height: 0,
           ),
           SizedBox(height: 8.0),
-
+          Text(
+            'Connection Status',
+            style: TextStyle(
+              color: DashboardTheme.outlineColor,
+              fontFamily: DashboardTheme.font,
+              fontSize: 16,
+            ),
+          ),
           _statusText(
             label: 'FMS',
             stream: widget.dashboardState.fmsConnected(),
@@ -173,6 +236,42 @@ class _ConnectionTabState extends State<ConnectionTab>
             label: 'NetworkTables',
             stream: widget.dashboardState.connected(),
           ),
+          SizedBox(height: 8.0),
+          Divider(
+            color: DashboardTheme.outlineColor,
+            height: 0,
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            'Oculus Status',
+            style: TextStyle(
+              color: DashboardTheme.outlineColor,
+              fontFamily: DashboardTheme.font,
+              fontSize: 16,
+            ),
+          ),
+          StreamBuilder(
+            stream: widget.dashboardState.oculusBattery(),
+            builder: (context, snapshot) {
+              final int voltage = snapshot.data ?? 0;
+              return Text(
+                'Battery Percent: $voltage%',
+                style: TextStyle(
+                  color: DashboardTheme.highlightColor,
+                  fontFamily: DashboardTheme.font,
+                  fontSize: 16,
+                ),
+              );
+            },
+          ),
+          _statusText(
+            label: 'Oculus',
+            stream: widget.dashboardState.oculusConnection()
+          ),
+          _statusText(
+            label: 'Tracking',
+            stream: widget.dashboardState.oculusTracking()
+          )
         ],
       )
     );

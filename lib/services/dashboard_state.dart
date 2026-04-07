@@ -29,6 +29,9 @@ class DashboardState {
   late final NT4Subscription _consoleSub;
   late final NT4Subscription _fuelShotHubSub;
   late final NT4Subscription _fuelShotFeedingSub;
+  late final NT4Subscription _oculusBatterySub;
+  late final NT4Subscription _oculusConnectionSub;
+  late final NT4Subscription _oculusTrackingSub;
 
   DashboardState(): client = NT4Client(serverBaseAddress: robotAddress) {
     _initializeTopicsAndSubscriptions();
@@ -55,6 +58,9 @@ class DashboardState {
     _consoleSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/Console', 0.5);
     _fuelShotHubSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotHub', 0.1);
     _fuelShotFeedingSub = client.subscribePeriodic('/AdvantageKit/RealOutputs/IndexerSubsystem/FuelShotFeeding', 0.1);
+    _oculusBatterySub = client.subscribePeriodic('/AdvantageKit/QuestNav/BatteryPercent', 1.0);
+    _oculusConnectionSub = client.subscribePeriodic('/AdvantageKit/QuestNav/Connected', 1.0);
+    _oculusTrackingSub = client.subscribePeriodic('/AdvantageKit/QuestNav/Tracking', 1.0);
 
     client.setProperties(_selectedAutoPub, false, true);
     client.setProperties(_selectedVisionSystemPub, false, true);
@@ -103,6 +109,9 @@ class DashboardState {
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
   Stream<bool> isAutoEnabled() => _typedStream<bool>(_autoEnabledSub);
   Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
+  Stream<int> oculusBattery() => _typedStream<int>(_oculusBatterySub);
+  Stream<bool> oculusConnection() => _typedStream<bool>(_oculusConnectionSub);
+  Stream<bool> oculusTracking() => _typedStream<bool>(_oculusTrackingSub);
 
   Stream<bool> fmsConnected() => _typedStream<bool>(_fmsSub);
   Stream<bool> driverStationConnected() => _typedStream<bool>(_dsSub);
