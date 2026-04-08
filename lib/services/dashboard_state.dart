@@ -109,7 +109,7 @@ class DashboardState {
   Stream<bool> isRedAlliance() => _typedStream<bool>(_redAllianceSub);
   Stream<bool> isAutoEnabled() => _typedStream<bool>(_autoEnabledSub);
   Stream<String> consoleLog() => _typedStream<String>(_consoleSub);
-  Stream<int> oculusBattery() => _typedStream<int>(_oculusBatterySub);
+  Stream<double> oculusBattery() => _typedStream<double>(_oculusBatterySub);
   Stream<bool> oculusConnection() => _typedStream<bool>(_oculusConnectionSub);
   Stream<bool> oculusTracking() => _typedStream<bool>(_oculusTrackingSub);
 

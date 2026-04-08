@@ -104,11 +104,11 @@ class _VisionTabState extends State<VisionTab>
           StreamBuilder(
             stream: widget.dashboardState.oculusBattery(),
             builder: (context, snapshot) {
-              final int voltage = snapshot.data ?? 0;
+              final double percentage = snapshot.data ?? 0.0;
               return Text(
-                'Battery Percent: $voltage%',
+                'Battery Percent: $percentage%',
                 style: TextStyle(
-                  color: DashboardTheme.highlightColor,
+                  color: percentage <= 10 ? Colors.red : (percentage <= 50 ? Colors.yellow : Colors.green),
                   fontFamily: DashboardTheme.font,
                   fontSize: 16,
                 ),
