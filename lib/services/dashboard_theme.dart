@@ -35,7 +35,7 @@ class DashboardTheme {
     Theme(
       name: 'Void (default)',
       logoImage: 'images/logo.png',
-      outlineColor: Color.fromARGB(255, 65, 75, 87),
+      outlineColor: Color.fromARGB(255, 81, 93, 110),
       highlightColor: Color.fromARGB(255, 166, 235, 252),
       underlineColor: Color.fromARGB(255, 228, 140, 8),
       backgroundColor: Color.fromARGB(255, 13, 17, 23),
@@ -44,16 +44,16 @@ class DashboardTheme {
     Theme(
       name: 'Acceleration',
       logoImage: 'images/logo.png',
-      outlineColor: Color.fromARGB(255, 87, 80, 65),
+      outlineColor: Color.fromARGB(255, 124, 97, 65),
       highlightColor: Color.fromARGB(255, 255, 224, 123),
-      underlineColor: Color.fromARGB(255, 228, 19, 176),
+      underlineColor: Color.fromARGB(255, 228, 103, 19),
       backgroundColor: Color.fromARGB(255, 27, 11, 18),
       middlegroundColor: Color.fromARGB(255, 8, 3, 5),
     ),
     Theme(
       name: 'Azalea',
       logoImage: 'images/logo.png',
-      outlineColor: Color.fromARGB(255, 102, 53, 86),
+      outlineColor: Color.fromARGB(255, 136, 71, 114),
       highlightColor: Color.fromARGB(255, 255, 168, 219),
       underlineColor: Color.fromARGB(255, 228, 8, 118),
       backgroundColor: Color.fromARGB(255, 20, 11, 27),
@@ -62,7 +62,7 @@ class DashboardTheme {
     Theme(
       name: 'Emerald',
       logoImage: 'images/logo.png',
-      outlineColor: Color.fromARGB(255, 57, 102, 53),
+      outlineColor: Color.fromARGB(255, 73, 128, 68),
       highlightColor: Color.fromARGB(255, 150, 255, 181),
       underlineColor: Color.fromARGB(255, 8, 228, 144),
       backgroundColor: Color.fromARGB(255, 7, 25, 29),
@@ -86,6 +86,15 @@ class DashboardTheme {
       underlineColor: Color.fromARGB(255, 0, 0, 255),
       backgroundColor: Color.fromARGB(255, 255, 255, 0),
       middlegroundColor: Color.fromARGB(255, 255, 0, 255),
+    ),
+    Theme(
+      name: 'PINK',
+      logoImage: 'images/logo.png',
+      outlineColor: Color.fromARGB(255, 255, 0, 149),
+      highlightColor: Color.fromARGB(255, 240, 6, 143),
+      underlineColor: Color.fromARGB(255, 255, 0, 149),
+      backgroundColor: Color.fromARGB(255, 250, 0, 149),
+      middlegroundColor: Color.fromARGB(255, 230, 0, 149),
     ),
   ];
 }
