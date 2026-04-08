@@ -37,7 +37,7 @@ class _HoverTabState extends State<HoverTab> {
         widget.text,
         style: TextStyle(
           color: color,
-          fontSize: 18,
+          fontSize: 22,
         ),
       ),
     );
