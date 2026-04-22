@@ -13,11 +13,11 @@ class DashboardState {
 
   // Default selected autonomous routine
   String selectedAuto = 'DoNothing';
-  String selectedVisionSystem = 'Oculus';
+  bool questEnabled = true;
 
   // Publishers
   late final NT4Topic _selectedAutoPub;
-  late final NT4Topic _selectedVisionSystemPub;
+  late final NT4Topic _questEnabledPub;
 
   // Subscibers
   late final NT4Subscription _redAllianceSub;
@@ -40,14 +40,14 @@ class DashboardState {
     connected().listen((connected) {
       if (connected) {
         setSelectedAuto(selectedAuto);
-        setSelectedVisionSystem(selectedVisionSystem);
+        setQuestEnabled(questEnabled);
       }
     });
   }
 
   void _initializeTopicsAndSubscriptions() {
     _selectedAutoPub = client.publishNewTopic('/AccelerationStation/SelectedAuto', NT4TypeStr.typeStr);
-    _selectedVisionSystemPub = client.publishNewTopic('/AccelerationStation/SelectedVisionSystem', NT4TypeStr.typeStr);
+    _questEnabledPub = client.publishNewTopic('/AccelerationStation/QuestEnabled', NT4TypeStr.typeBool);
   
     _redAllianceSub = client.subscribePeriodic('/FMSInfo/IsRedAlliance', 1.0);
     _autoEnabledSub = client.subscribePeriodic('/AdvantageKit/DriverStation/Autonomous', 0.1);
@@ -63,7 +63,7 @@ class DashboardState {
     _oculusTrackingSub = client.subscribePeriodic('/AdvantageKit/QuestNav/Tracking', 1.0);
 
     client.setProperties(_selectedAutoPub, false, true);
-    client.setProperties(_selectedVisionSystemPub, false, true);
+    client.setProperties(_questEnabledPub, false, true);
   }
 
   void _initializeListeners() {
@@ -90,9 +90,9 @@ class DashboardState {
     client.addSample(_selectedAutoPub, auto);
   }
 
-  void setSelectedVisionSystem(String visionSystem) {
-    selectedVisionSystem = visionSystem;
-    client.addSample(_selectedVisionSystemPub, visionSystem);
+  void setQuestEnabled(bool enabled) {
+    questEnabled = enabled;
+    client.addSample(_questEnabledPub, enabled);
   }
 
   Stream<T> _typedStream<T>(NT4Subscription sub) {

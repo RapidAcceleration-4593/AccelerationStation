@@ -87,15 +87,6 @@ class DashboardTheme {
       backgroundColor: Color.fromARGB(255, 255, 255, 0),
       middlegroundColor: Color.fromARGB(255, 255, 0, 255),
     ),
-    Theme(
-      name: 'PINK',
-      logoImage: 'images/logo.png',
-      outlineColor: Color.fromARGB(255, 255, 0, 149),
-      highlightColor: Color.fromARGB(255, 240, 6, 143),
-      underlineColor: Color.fromARGB(255, 255, 0, 149),
-      backgroundColor: Color.fromARGB(255, 250, 0, 149),
-      middlegroundColor: Color.fromARGB(255, 230, 0, 149),
-    ),
   ];
 }
 

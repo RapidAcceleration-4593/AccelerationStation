@@ -17,9 +17,7 @@ class _VisionTabState extends State<VisionTab>
   @override
   bool get wantKeepAlive => true;
 
-  String console = '';
-  String prevConsole = '';
-  int selectedVisionSystemIndex = 0;
+  bool questEnabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,7 @@ class _VisionTabState extends State<VisionTab>
 
         children: [
           Text(
-            'Selected Camera System',
+            'Quest Enabled?',
             style: TextStyle(
               color: DashboardTheme.outlineColor,
               fontFamily: DashboardTheme.font,
@@ -53,7 +51,7 @@ class _VisionTabState extends State<VisionTab>
                   label: Padding(
                     padding: EdgeInsetsGeometry.all(10.0),
                     child: Text(
-                      'Oculus',
+                      'Enabled',
                       style: TextStyle(
                         fontFamily: DashboardTheme.font,
                         fontSize: 24
@@ -66,7 +64,7 @@ class _VisionTabState extends State<VisionTab>
                   label: Padding(
                     padding: EdgeInsetsGeometry.all(10.0),
                     child: Text(
-                      'OrangePi',
+                      'Disabled',
                       style: TextStyle(
                         fontFamily: DashboardTheme.font,
                         fontSize: 24
@@ -75,14 +73,12 @@ class _VisionTabState extends State<VisionTab>
                   )
                 )
               ],
-              selected: {selectedVisionSystemIndex},
+              selected: {questEnabled ? 0 : 1},
               onSelectionChanged: (newSelection) {
                 final index = newSelection.first;
                 setState(() {
-                  selectedVisionSystemIndex = index;
-                  widget.dashboardState.setSelectedVisionSystem(
-                    index == 0 ? 'Oculus' : 'OrangePi',
-                  );
+                  questEnabled = index == 0;
+                  widget.dashboardState.setQuestEnabled(index == 0);
                 });
               },
             ),
@@ -94,7 +90,7 @@ class _VisionTabState extends State<VisionTab>
           ),
           SizedBox(height: 8.0),
           Text(
-            'Oculus Status',
+            'Quest Status',
             style: TextStyle(
               color: DashboardTheme.outlineColor,
               fontFamily: DashboardTheme.font,
@@ -116,7 +112,7 @@ class _VisionTabState extends State<VisionTab>
             },
           ),
           _statusText(
-            label: 'Oculus',
+            label: 'Quest',
             stream: widget.dashboardState.oculusConnection()
           ),
           _statusText(
